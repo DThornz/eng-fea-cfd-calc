@@ -50,6 +50,7 @@
   <div class="nav-section-label">Biomedical CFD</div>
   <button class="nav-item" onclick="scrollToSection('non-newt')"><span class="nav-icon">🩸</span> Non-Newtonian Fluids <span class="nav-count">3</span></button>
   <button class="nav-item" onclick="scrollToSection('pulsatile')"><span class="nav-icon">💓</span> Pulsatile & WSS <span class="nav-count">3</span></button>
+  <button class="nav-item" onclick="scrollToSection('porous')"><span class="nav-icon">🔬</span> Porous Media Flow <span class="nav-count">2</span></button>
 
   <div class="nav-section-label">Structural FEA</div>
   <button class="nav-item" onclick="scrollToSection('elastic')"><span class="nav-icon">🔩</span> Elastic Constants <span class="nav-count">1</span></button>
@@ -91,7 +92,7 @@
 <div class="hero-banner">
   <div>
     <div class="hero-title"><span>Eng / FEA / CFD</span> Calculator Hub</div>
-    <div class="hero-sub">A comprehensive single-page engineering calculator hub covering 12 disciplines: Fluid Mechanics (Y+, Reynolds/Dean/Womersley numbers, turbulence BCs, boundary layer, pipe flow), Biomedical CFD (blood rheology, WSS/OSI/TAWSS), Structural FEA (elastic constants, Von Mises/Tresca, beam deflection, pressure vessels), Thermodynamics (heat transfer, fin analysis), Advanced Mechanics (fracture, fatigue, torsion, buckling), Electrical Eng. (RC/RL/RLC circuits, Op-Amp), Biomedical Eng. (Nernst, Goldman, Poiseuille), Dynamics &amp; Control (mass-spring-damper), Civil Eng. (Manning, Darcy-Weisbach), Geometry, Calculus &amp; vector ∇ tools, and live Unit Converters. All calculations run client-side — no server, no data sent anywhere.</div>
+    <div class="hero-sub">A comprehensive single-page engineering calculator hub covering 12 disciplines: Fluid Mechanics (Y+, Reynolds/Dean/Womersley numbers, turbulence BCs, boundary layer, pipe flow), Biomedical CFD (blood rheology, WSS/OSI/TAWSS, porous media Darcy/Kozeny–Carman/Forchheimer), Structural FEA (elastic constants, Von Mises/Tresca, beam deflection, pressure vessels), Thermodynamics (heat transfer, fin analysis), Advanced Mechanics (fracture, fatigue, torsion, buckling), Electrical Eng. (RC/RL/RLC circuits, Op-Amp), Biomedical Eng. (Nernst, Goldman, Poiseuille), Dynamics &amp; Control (mass-spring-damper), Civil Eng. (Manning, Darcy-Weisbach), Geometry, Calculus &amp; vector ∇ tools, and live Unit Converters. All calculations run client-side — no server, no data sent anywhere.</div>
     <div class="hero-tags">
       <span class="hero-tag">Y+ Estimation</span>
       <span class="hero-tag">Non-Newtonian / WSS</span>
@@ -101,12 +102,13 @@
       <span class="hero-tag">RC / RL / RLC / Op-Amp</span>
       <span class="hero-tag">Nernst / Goldman / Poiseuille</span>
       <span class="hero-tag">Manning / Darcy / MSD</span>
+      <span class="hero-tag">Kozeny–Carman / Forchheimer</span>
       <span class="hero-tag">Geometry &amp; Triangle Solver</span>
       <span class="hero-tag">Calculus / Vector ∇</span>
     </div>
   </div>
   <div style="display:flex;gap:20px;flex-shrink:0">
-    <div class="hero-stat"><div class="hero-stat-num">80+</div><div class="hero-stat-label">Calculators</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">82+</div><div class="hero-stat-label">Calculators</div></div>
     <div class="hero-stat"><div class="hero-stat-num">7</div><div class="hero-stat-label">Unit Sets</div></div>
   </div>
 </div>
@@ -625,7 +627,84 @@
 </div>
 
 <!-- ════════════════════════════════════════════════════════
-     §8  ELASTIC CONSTANTS
+     §8  POROUS MEDIA FLOW
+════════════════════════════════════════════════════════ -->
+<div class="section" id="porous">
+  <div class="section-header">
+    <div class="section-tag">Biomedical CFD</div>
+    <div class="section-title"><span class="ico">🔬</span> Porous Media Flow</div>
+    <div class="section-desc">Darcy's Law for pressure-driven filtration through porous membranes, Kozeny–Carman permeability from porosity and particle size, and the Forchheimer correction for inertial effects. Applicable to saliva/blood filtration devices, microfluidic membranes, and geomechanics.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <!-- Darcy + Kozeny-Carman -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">u</div>
+        <div><div class="card-title">Darcy Flow + Kozeny–Carman</div>
+        <div class="card-subtitle">Superficial velocity through a porous filter; k estimated from porosity & particle size</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$k=\frac{\varepsilon^3 d_p^2}{180(1-\varepsilon)^2},\qquad u=\frac{k}{\mu}\frac{\Delta P}{L}$$</div>
+        <div class="tabs" id="pm-tabs">
+          <button class="tab active" onclick="setTab('pm','kc')">Kozeny–Carman k</button>
+          <button class="tab" onclick="setTab('pm','direct')">Direct k Input</button>
+        </div>
+        <div class="tab-panel active" id="pm-kc">
+          <p style="font-size:.77em;color:var(--muted);margin-bottom:10px">k computed from porosity ε (void fraction) and characteristic pore/particle diameter d_p.</p>
+          <div class="input-row"><div class="input-label">Porosity ε (void fraction)</div><div class="input-wrap"><input class="field" id="pm-eps" type="number" value="0.5" min="0.01" max="0.99" step="0.01"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Particle/pore diameter d_p</div><div class="input-wrap"><input class="field" id="pm-dp" type="number" value="20"><select class="unit-sel" id="pm-dp-u"><option value="1e-6">μm</option><option value="1e-3">mm</option><option value="1">m</option></select></div></div>
+        </div>
+        <div class="tab-panel" id="pm-direct">
+          <p style="font-size:.77em;color:var(--muted);margin-bottom:10px">Enter measured or known permeability k directly (e.g. from a data sheet).</p>
+          <div class="input-row"><div class="input-label">Permeability k</div><div class="input-wrap"><input class="field" id="pm-k-direct" type="number" value="1e-13" step="1e-14"><select class="unit-sel" id="pm-k-direct-u"><option value="1">m²</option><option value="9.869e-13">darcy</option><option value="9.869e-16">mD</option></select></div></div>
+        </div>
+        <div class="input-row"><div class="input-label">Pressure drop ΔP</div><div class="input-wrap"><input class="field" id="pm-dP" type="number" value="1000"><select class="unit-sel" id="pm-dP-u"><option value="1">Pa</option><option value="133.322">mmHg</option><option value="1000">kPa</option><option value="101325">atm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Filter thickness L</div><div class="input-wrap"><input class="field" id="pm-L" type="number" value="2"><select class="unit-sel" id="pm-L-u"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+        <div class="input-row"><div class="input-label">Dyn. viscosity μ</div><div class="input-wrap"><input class="field" id="pm-mu" type="number" value="1.5" step="0.1"><select class="unit-sel" id="pm-mu-u"><option value="0.001">mPa·s (cP)</option><option value="1">Pa·s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Density ρ (for Re_p)</div><div class="input-wrap"><input class="field" id="pm-rho" type="number" value="1000"><select class="unit-sel" id="pm-rho-u"><option value="1">kg/m³</option></select></div></div>
+        <button class="btn-calc" onclick="pmCalc()">Calculate Flow</button>
+        <div class="output" id="pm-out"><div class="output-header">Results</div><div class="output-body" id="pm-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Forchheimer -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">β</div>
+        <div><div class="card-title">Forchheimer Inertial Correction</div>
+        <div class="card-subtitle">Extended Darcy: ΔP/L = (μ/k)u + βρu² — inertia at higher velocities</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\frac{\Delta P}{L}=\frac{\mu}{k}u+\beta\rho u^2,\quad \beta_\mathrm{Ergun}=\frac{1.75(1-\varepsilon)}{\varepsilon^3 d_p}$$</div>
+        <div class="tabs" id="fch-tabs">
+          <button class="tab active" onclick="setTab('fch','kc')">Kozeny–Carman + Ergun β</button>
+          <button class="tab" onclick="setTab('fch','direct')">Direct k & β</button>
+        </div>
+        <div class="tab-panel active" id="fch-kc">
+          <p style="font-size:.77em;color:var(--muted);margin-bottom:10px">k from Kozeny–Carman (180 constant); β from Ergun inertial term.</p>
+          <div class="input-row"><div class="input-label">Porosity ε</div><div class="input-wrap"><input class="field" id="fch-eps" type="number" value="0.5" min="0.01" max="0.99" step="0.01"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Particle/pore diameter d_p</div><div class="input-wrap"><input class="field" id="fch-dp" type="number" value="20"><select class="unit-sel" id="fch-dp-u"><option value="1e-6">μm</option><option value="1e-3">mm</option><option value="1">m</option></select></div></div>
+        </div>
+        <div class="tab-panel" id="fch-direct">
+          <p style="font-size:.77em;color:var(--muted);margin-bottom:10px">Enter k (m²) and Forchheimer β (m⁻¹) directly from literature or measurement.</p>
+          <div class="input-row"><div class="input-label">Permeability k</div><div class="input-wrap"><input class="field" id="fch-k" type="number" value="1e-13"><select class="unit-sel" id="fch-k-u"><option value="1">m²</option><option value="9.869e-13">darcy</option></select></div></div>
+          <div class="input-row"><div class="input-label">Forchheimer β</div><div class="input-wrap"><input class="field" id="fch-beta" type="number" value="1e6"><select class="unit-sel"><option value="1">m⁻¹</option></select></div></div>
+        </div>
+        <div class="input-row"><div class="input-label">Superficial velocity u</div><div class="input-wrap"><input class="field" id="fch-u" type="number" value="0.001"><select class="unit-sel" id="fch-u-u"><option value="1">m/s</option><option value="0.001">mm/s</option><option value="1e-6">μm/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Dyn. viscosity μ</div><div class="input-wrap"><input class="field" id="fch-mu" type="number" value="1.5" step="0.1"><select class="unit-sel" id="fch-mu-u"><option value="0.001">mPa·s (cP)</option><option value="1">Pa·s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Density ρ</div><div class="input-wrap"><input class="field" id="fch-rho" type="number" value="1000"><select class="unit-sel" id="fch-rho-u"><option value="1">kg/m³</option></select></div></div>
+        <button class="btn-calc" onclick="fchCalc()">Calculate Pressure Gradient</button>
+        <div class="output" id="fch-out"><div class="output-header">Results</div><div class="output-body" id="fch-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     §9  ELASTIC CONSTANTS
 ════════════════════════════════════════════════════════ -->
 <div class="section" id="elastic">
   <div class="section-header">

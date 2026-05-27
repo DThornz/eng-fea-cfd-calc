@@ -53,7 +53,7 @@ function scrollToSection(id){
   event.target.closest('.nav-item').classList.add('active');
 }
 window.addEventListener('scroll',()=>{
-  const sections=['yplus','reynolds','turbulence','boundary-layer','pipe-flow','non-newt','pulsatile','elastic','stress','beam','units'];
+  const sections=['yplus','reynolds','turbulence','boundary-layer','pipe-flow','non-newt','pulsatile','porous','elastic','stress','beam','units'];
   let current=sections[0];
   sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<200)current=id;});
   document.querySelectorAll('.nav-item').forEach(n=>{
@@ -446,7 +446,88 @@ function osiCalc(){
 }
 
 /* ════════════════════════════════════════════════════════
-   §8  ELASTIC CONSTANTS
+   §8  POROUS MEDIA FLOW
+════════════════════════════════════════════════════════ */
+function pmCalc(){
+  const tab = document.querySelector('#pm-tabs .tab.active')?.textContent || '';
+  const useKC = tab.includes('Kozeny');
+  const dP  = v('pm-dP') * su('pm-dP-u');
+  const L   = v('pm-L')  * su('pm-L-u');
+  const mu  = v('pm-mu') * su('pm-mu-u');
+  const rho = v('pm-rho')* su('pm-rho-u');
+  if([dP,L,mu,rho].some(x=>!x||x<=0)) return errOut('pm-out','ΔP, L, μ and ρ must be positive.');
+  let k, dp;
+  if(useKC){
+    const eps = v('pm-eps');
+    dp = v('pm-dp') * su('pm-dp-u');
+    if(!eps||eps<=0||eps>=1) return errOut('pm-out','Porosity ε must be between 0 and 1.');
+    if(!dp||dp<=0) return errOut('pm-out','Particle diameter d_p must be positive.');
+    k = Math.pow(eps,3) * dp*dp / (180 * Math.pow(1-eps,2));
+    const u   = k/mu * dP/L;
+    const Rep = rho*u*dp/mu;
+    showOut('pm-out',[
+      {label:'Permeability k (K-C)',      val:fmtSci(k),           unit:'m²',    cls:'good'},
+      {label:'k',                         val:fmtSci(k/9.869e-13), unit:'darcy'},
+      {label:'Superficial velocity u',    val:fmtSci(u),           unit:'m/s',   cls:'good'},
+      {label:'u',                         val:fmtSci(u*1e3),       unit:'mm/s'},
+      {label:'u',                         val:fmtSci(u*1e6),       unit:'μm/s'},
+      {label:'Pore Reynolds number Re_p', val:fmtSci(Rep,3),       unit:'',      cls:Rep<1?'good':Rep<10?'warn':'bad'},
+      {label:'Darcy law valid?',          val:Rep<1?'✓ Yes (Re_p < 1)':Rep<10?'⚠ Marginal — check Forchheimer':'✗ No — use Forchheimer',unit:'',cls:Rep<1?'good':Rep<10?'warn':'bad'},
+      {label:'Interstitial velocity u/ε', val:fmtSci(u/eps),        unit:'m/s'},
+    ],'Kozeny–Carman: k = ε³d_p²/[180(1−ε)²]. Darcy valid when Re_p = ρud_p/μ ≪ 1. Saliva: μ ≈ 1.5 mPa·s, ρ ≈ 1000 kg/m³.');
+  } else {
+    k = v('pm-k-direct') * su('pm-k-direct-u');
+    if(!k||k<=0) return errOut('pm-out','Enter a valid permeability k > 0.');
+    const u = k/mu * dP/L;
+    showOut('pm-out',[
+      {label:'Permeability k (input)',    val:fmtSci(k),           unit:'m²',    cls:'good'},
+      {label:'k',                         val:fmtSci(k/9.869e-13), unit:'darcy'},
+      {label:'Superficial velocity u',    val:fmtSci(u),           unit:'m/s',   cls:'good'},
+      {label:'u',                         val:fmtSci(u*1e3),       unit:'mm/s'},
+      {label:'u',                         val:fmtSci(u*1e6),       unit:'μm/s'},
+      {label:'Volume flux (= u)',         val:fmtSci(u),           unit:'m³/(m²·s)'},
+    ],'Superficial (Darcy) velocity = volume flux per unit cross-section. Actual interstitial velocity ≈ u/ε.');
+  }
+}
+
+function fchCalc(){
+  const tab = document.querySelector('#fch-tabs .tab.active')?.textContent || '';
+  const useKC = tab.includes('Kozeny');
+  const u   = v('fch-u')  * su('fch-u-u');
+  const mu  = v('fch-mu') * su('fch-mu-u');
+  const rho = v('fch-rho')* su('fch-rho-u');
+  if([u,mu,rho].some(x=>!x||x<=0)) return errOut('fch-out','Velocity, viscosity, and density must be positive.');
+  let k, beta;
+  if(useKC){
+    const eps = v('fch-eps');
+    const dp  = v('fch-dp') * su('fch-dp-u');
+    if(!eps||eps<=0||eps>=1) return errOut('fch-out','Porosity ε must be between 0 and 1.');
+    if(!dp||dp<=0) return errOut('fch-out','Particle diameter d_p must be positive.');
+    k    = Math.pow(eps,3)*dp*dp / (180*Math.pow(1-eps,2));
+    beta = 1.75*(1-eps) / (Math.pow(eps,3)*dp);
+  } else {
+    k    = v('fch-k') * su('fch-k-u');
+    beta = parseFloat(document.getElementById('fch-beta').value);
+    if(!k||k<=0) return errOut('fch-out','Enter valid permeability k > 0.');
+    if(isNaN(beta)||beta<0) return errOut('fch-out','Enter valid Forchheimer β ≥ 0.');
+  }
+  const viscTerm  = mu/k * u;
+  const inertTerm = beta * rho * u*u;
+  const total     = viscTerm + inertTerm;
+  const inertPct  = inertTerm/total*100;
+  showOut('fch-out',[
+    {label:'Permeability k',              val:fmtSci(k),           unit:'m²'},
+    {label:'Forchheimer β',               val:fmtSci(beta),        unit:'m⁻¹'},
+    {label:'Viscous term μ/k · u',        val:fmtSci(viscTerm),    unit:'Pa/m', cls:'good'},
+    {label:'Inertial term β·ρ·u²',       val:fmtSci(inertTerm),   unit:'Pa/m', cls:inertPct>15?'warn':'good'},
+    {label:'Total ΔP/L',                 val:fmtSci(total),        unit:'Pa/m', cls:'good'},
+    {label:'Inertial contribution',       val:fmtSci(inertPct,3),  unit:'%',    cls:inertPct<5?'good':inertPct<20?'warn':'bad'},
+    {label:'Plain Darcy sufficient?',     val:inertPct<5?'✓ Yes — inertial < 5%':inertPct<20?'⚠ Borderline — consider Forchheimer':'✗ No — Forchheimer required',unit:'',cls:inertPct<5?'good':inertPct<20?'warn':'bad'},
+  ],'Ergun: β = 1.75(1−ε)/(ε³d_p). For slow biomedical filtration (μm/s–mm/s range) the inertial term is typically < 1% — plain Darcy is sufficient.');
+}
+
+/* ════════════════════════════════════════════════════════
+   §9  ELASTIC CONSTANTS
 ════════════════════════════════════════════════════════ */
 function elCalc(){
   const Ev=v('el-E'), nuv=v('el-nu'), Gv=v('el-G'), Kv=v('el-K'), lamv=v('el-lam');
