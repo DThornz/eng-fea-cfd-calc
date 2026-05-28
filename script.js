@@ -912,12 +912,15 @@ function initResizeReflow(){
   const ro = new ResizeObserver(entries => {
     for(const entry of entries){
       const card = entry.target;
-      // Only react when user has explicitly resized (browser sets inline width/height)
+      // Only react when user has explicitly resized (browser sets inline width via resize handle)
       if(card.style.width !== '' || card.style.height !== ''){
-        const w = entry.borderBoxSize?.[0]?.inlineSize ?? card.offsetWidth;
-        card.style.flexBasis = w + 'px';
-        card.style.flexGrow = '0';
-        card.style.flexShrink = '0';
+        // Read style.width (the user-dragged value), NOT borderBoxSize which is inflated by flex-grow
+        const w = parseFloat(card.style.width);
+        if(isFinite(w)){
+          card.style.flexBasis = w + 'px';
+          card.style.flexGrow = '0';
+          card.style.flexShrink = '0';
+        }
       }
     }
   });

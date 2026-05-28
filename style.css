@@ -101,13 +101,13 @@ button{cursor:pointer;font-family:var(--serif)}
    CALCULATOR GRID & CARDS
 ═══════════════════════════════════════════════════════════ */
 .calc-grid{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
-.calc-grid > .card{flex:1 1 380px}
-.calc-grid.wide > .card{flex:1 1 100%}
-.calc-grid.two > .card{flex:1 1 500px}
-.calc-grid.three > .card{flex:1 1 320px}
+.calc-grid > .card{flex:1 0 auto;width:380px}
+.calc-grid.wide > .card{flex:1 0 auto;width:100%}
+.calc-grid.two > .card{flex:1 0 auto;width:500px}
+.calc-grid.three > .card{flex:1 0 auto;width:320px}
 .calc-grid-turb{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
-.calc-grid-turb > .card:first-child{flex:2 1 440px}
-.calc-grid-turb > .card:not(:first-child){flex:1 1 220px}
+.calc-grid-turb > .card:first-child{flex:2 0 auto;width:440px}
+.calc-grid-turb > .card:not(:first-child){flex:1 0 auto;width:220px}
 
 .card{
   background:var(--bg2);border:1px solid var(--border);
@@ -262,7 +262,7 @@ button{cursor:pointer;font-family:var(--serif)}
 @media(max-width:768px){
   .sidebar{display:none}
   .content{padding:16px 14px 60px}
-  .calc-grid > .card,.calc-grid.two > .card,.calc-grid-turb > .card{flex:1 1 100% !important}
+  .calc-grid > .card,.calc-grid.two > .card,.calc-grid-turb > .card{flex:1 0 auto !important;width:100% !important}
   .hero-banner{flex-direction:column}
 }
 
