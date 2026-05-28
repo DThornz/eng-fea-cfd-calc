@@ -409,7 +409,7 @@ function wssCalc(){
     gd=4*Q/(Math.PI*Math.pow(R,3));
     Q2=Q;
   } else {
-    const dP=v('wss-dP')*su('wss-dP-u'), L=v('wss-L')*su('wss-L-u');
+    const dP=v('wss-dPval')*su('wss-dPval-u'), L=v('wss-L')*su('wss-L-u');
     tau=R*dP/(2*L);
     gd=tau/mu;
     Q2=Math.PI*Math.pow(R,4)*dP/(8*mu*L);
