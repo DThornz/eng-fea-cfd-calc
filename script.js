@@ -738,6 +738,99 @@ function convertTemp(src){
 }
 
 /* ════════════════════════════════════════════════════════
+   UNIT SYSTEM SWITCHER
+════════════════════════════════════════════════════════ */
+const UNIT_SYSTEM_PREFS = {
+  SI:   { length:['m','cm','mm','μm','nm','in','ft'],          velocity:['m/s','cm/s','mm/s','km/h','ft/s','mph','in/s'],    flowrate:['m³/s','mL/s','mL/min'],   force:['N','kN','MN','lbf','kgf','dyne'], pressure:['Pa','kPa','MPa','bar','atm','psi','mmHg','cmH₂O','inHg'], stress:['MPa','kPa','psi'],         modulus:['GPa','MPa','kPa','psi'],          viscosity:['Pa·s','mPa·s (cP)','μPa·s (μP)','kPa·s','lbf·s/ft²','poise'], 'kin-visc':['m²/s','mm²/s (cSt)','cm²/s (St)','ft²/s','in²/s'], density:['kg/m³','g/cm³','g/mL','kg/L','lb/ft³','lb/gal'] },
+  MMKS: { length:['mm','m','cm','μm','nm','in','ft'],          velocity:['mm/s','m/s','cm/s','km/h','ft/s','mph','in/s'],    flowrate:['mL/s','mL/min','m³/s'],   force:['N','kN','MN','lbf','kgf','dyne'], pressure:['MPa','kPa','Pa','bar','atm','psi','mmHg','cmH₂O','inHg'], stress:['MPa','kPa','psi'],         modulus:['GPa','MPa','kPa','psi'],          viscosity:['mPa·s (cP)','Pa·s','μPa·s (μP)','kPa·s','lbf·s/ft²','poise'],'kin-visc':['mm²/s (cSt)','m²/s','cm²/s (St)','ft²/s','in²/s'], density:['kg/m³','g/cm³','g/mL','kg/L','lb/ft³','lb/gal'] },
+  CGS:  { length:['cm','m','mm','μm','nm','in','ft'],          velocity:['cm/s','m/s','mm/s','km/h','ft/s','mph','in/s'],    flowrate:['m³/s','mL/s','mL/min'],   force:['dyne','N','kN','lbf','kgf'],      pressure:['Pa','kPa','MPa','bar','atm','psi','mmHg'],              stress:['MPa','kPa','psi'],         modulus:['GPa','MPa','kPa'],                viscosity:['mPa·s (cP)','Pa·s','poise','μPa·s (μP)','lbf·s/ft²'],           'kin-visc':['cm²/s (St)','m²/s','mm²/s (cSt)','ft²/s','in²/s'], density:['g/cm³','g/mL','kg/m³','kg/L','lb/ft³'] },
+  IPS:  { length:['in','ft','m','cm','mm','μm'],               velocity:['in/s','ft/s','mph','m/s','cm/s','mm/s'],           flowrate:['m³/s','mL/s'],            force:['lbf','N','kN','kgf','dyne'],      pressure:['psi','inHg','kPa','Pa','MPa','mmHg','bar','atm'],       stress:['psi','MPa','kPa'],         modulus:['ksi','psi','GPa','MPa'],          viscosity:['lbf·s/ft²','Pa·s','mPa·s (cP)','poise'],                        'kin-visc':['in²/s','ft²/s','m²/s','mm²/s (cSt)'],               density:['lb/ft³','lb/gal','kg/m³','g/cm³'] },
+  BIN:  { length:['in','ft','m','cm','mm','μm'],               velocity:['in/s','ft/s','mph','m/s','mm/s'],                  flowrate:['m³/s','mL/s'],            force:['lbf','N','kN','kgf','dyne'],      pressure:['psi','inHg','kPa','Pa','MPa','mmHg','bar'],             stress:['psi','MPa','kPa'],         modulus:['ksi','psi','GPa','MPa'],          viscosity:['lbf·s/ft²','Pa·s','mPa·s (cP)'],                                'kin-visc':['in²/s','ft²/s','m²/s'],                              density:['lb/ft³','lb/gal','kg/m³','g/cm³'] },
+  BFT:  { length:['ft','in','m','cm','mm'],                    velocity:['ft/s','mph','in/s','m/s','mm/s'],                  flowrate:['m³/s','mL/s'],            force:['lbf','N','kN','kgf','dyne'],      pressure:['psi','inHg','kPa','Pa','MPa','mmHg','bar'],             stress:['psi','MPa','kPa'],         modulus:['ksi','psi','GPa','MPa'],          viscosity:['lbf·s/ft²','Pa·s','mPa·s (cP)'],                                'kin-visc':['ft²/s','in²/s','m²/s'],                              density:['lb/ft³','lb/gal','kg/m³','g/cm³'] },
+};
+const UNIT_HINTS = {
+  SI:'m · kg · N · Pa', MMKS:'mm · kg · N · MPa', CGS:'cm · g · dyne',
+  IPS:'in · slug · lbf · psi', BIN:'in · lbm · lbf · psi', BFT:'ft · lbm · lbf · psi',
+};
+
+function detectUnitCategory(sel){
+  const t = new Set(Array.from(sel.options).map(o => o.text.trim()));
+  if(t.has('Pa·s')||t.has('mPa·s (cP)')||t.has('lbf·s/ft²')||t.has('poise')) return 'viscosity';
+  if(t.has('m²/s')||t.has('mm²/s (cSt)')||t.has('cm²/s (St)')||t.has('ft²/s')||t.has('in²/s')) return 'kin-visc';
+  if(t.has('m/s')||t.has('ft/s')||t.has('in/s')||t.has('mph')) return 'velocity';
+  if(t.has('m³/s')||t.has('mL/s')||t.has('mL/min')) return 'flowrate';
+  if(t.has('kg/m³')||t.has('g/cm³')||t.has('lb/ft³')) return 'density';
+  if(t.has('N')||t.has('kN')||t.has('lbf')||t.has('dyne')) return 'force';
+  if(t.has('GPa')||t.has('ksi')) return 'modulus';
+  // Stress: MPa/kPa/psi without fluid-specific units (Pa, mmHg, bar, atm)
+  if(!t.has('Pa')&&!t.has('mmHg')&&!t.has('bar')&&!t.has('atm')&&(t.has('MPa')||t.has('kPa')||t.has('psi'))) return 'stress';
+  if(t.has('Pa')||t.has('kPa')||t.has('MPa')||t.has('psi')||t.has('mmHg')||t.has('bar')) return 'pressure';
+  if(t.has('m')||t.has('mm')||t.has('cm')||t.has('in')||t.has('ft')||t.has('μm')) return 'length';
+  return null;
+}
+
+function applyUnitSystem(sys){
+  const prefs = UNIT_SYSTEM_PREFS[sys];
+  if(!prefs) return;
+  document.querySelectorAll('.usb-btn').forEach(b => b.classList.toggle('active', b.dataset.system === sys));
+  const hint = document.getElementById('usb-hint');
+  if(hint) hint.textContent = UNIT_HINTS[sys] || '';
+  document.querySelectorAll('select.unit-sel').forEach(sel => {
+    const cat = detectUnitCategory(sel);
+    if(!cat || !prefs[cat]) return;
+    for(const pref of prefs[cat]){
+      const opt = Array.from(sel.options).find(o => o.text.trim() === pref);
+      if(opt && opt.value !== sel.value){ sel.value = opt.value; sel.dispatchEvent(new Event('change')); break; }
+    }
+  });
+}
+
+/* ════════════════════════════════════════════════════════
+   CARD SEARCH
+════════════════════════════════════════════════════════ */
+let _searchIdx = [];
+function buildSearchIndex(){
+  _searchIdx = [];
+  document.querySelectorAll('.section').forEach(sec => {
+    const sText = (sec.querySelector('.section-title')?.textContent || '') + ' ' +
+                  (sec.querySelector('.section-tag')?.textContent   || '') + ' ' +
+                  (sec.querySelector('.section-desc')?.textContent  || '');
+    sec.querySelectorAll('.card').forEach(card => {
+      const text = [
+        sText,
+        card.querySelector('.card-title')?.textContent    || '',
+        card.querySelector('.card-subtitle')?.textContent || '',
+        ...Array.from(card.querySelectorAll('.input-label')).map(l => l.textContent),
+      ].join(' ').toLowerCase();
+      _searchIdx.push({card, sec, text});
+    });
+  });
+}
+
+function searchCards(q){
+  q = (q || '').trim().toLowerCase();
+  const countEl = document.getElementById('search-count');
+  if(!q){
+    _searchIdx.forEach(({card, sec}) => { card.style.display = ''; sec.style.display = ''; });
+    if(countEl) countEl.textContent = '';
+    setTimeout(fitFormulas, 0);
+    return;
+  }
+  const terms = q.split(/\s+/).filter(Boolean);
+  let hits = 0;
+  const secVis = new Map();
+  _searchIdx.forEach(({card, sec, text}) => {
+    const match = terms.every(t => text.includes(t));
+    card.style.display = match ? '' : 'none';
+    if(match){ hits++; secVis.set(sec, true); }
+    else if(!secVis.has(sec)) secVis.set(sec, false);
+  });
+  secVis.forEach((vis, sec) => { sec.style.display = vis ? '' : 'none'; });
+  if(countEl) countEl.textContent = hits ? `${hits} result${hits > 1 ? 's' : ''}` : 'no results';
+  setTimeout(fitFormulas, 0);
+}
+
+/* ════════════════════════════════════════════════════════
    INIT
 ════════════════════════════════════════════════════════ */
 buildConverters();
@@ -789,7 +882,7 @@ let _fitTimer;
 window.addEventListener('resize', () => { clearTimeout(_fitTimer); _fitTimer = setTimeout(fitFormulas, 150); });
 
 // Pre-compute defaults on load for better UX
-window.addEventListener('load',()=>{ initUnitAutoConvert(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
+window.addEventListener('load',()=>{ initUnitAutoConvert(); buildSearchIndex(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
 
 
 /* ── Compatibility shims for new sections ── */

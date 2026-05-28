@@ -375,6 +375,50 @@ body.dark-mode .nav-link:hover,body.dark-mode .nav-link.active{color:#2dd4bf!imp
 body.dark-mode .nav-logo{color:#2dd4bf!important}
 body.dark-mode .nav{background:rgba(6,14,28,.96)!important;border-color:#1c3050!important}
 
+/* ══════════════════════════════════════════════════════════
+   TOOLBAR  (unit system switcher + card search)
+══════════════════════════════════════════════════════════ */
+.toolbar{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:9px 14px;margin-bottom:20px;
+}
+.toolbar-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0}
+.toolbar-label{font-size:.68em;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.usb-btns{display:flex;gap:3px}
+.usb-btn{
+  padding:4px 9px;font-size:.75em;font-family:var(--mono);font-weight:500;
+  background:var(--bg3);border:1px solid var(--border);border-radius:5px;
+  color:var(--muted);cursor:pointer;transition:all .15s;line-height:1.4;
+}
+.usb-btn:hover{border-color:var(--teal-dim);color:var(--teal)}
+.usb-btn.active{background:rgba(45,212,191,.12);border-color:rgba(45,212,191,.35);color:var(--teal);font-weight:600}
+.usb-hint{font-size:.68em;color:var(--dim);font-family:var(--mono);white-space:nowrap;padding-left:4px;border-left:1px solid var(--border)}
+.toolbar-search{
+  display:flex;align-items:center;gap:6px;flex:1;min-width:200px;
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:5px 10px;transition:border-color .15s;
+}
+.toolbar-search:focus-within{border-color:rgba(45,212,191,.4)}
+.search-ico{width:14px;height:14px;color:var(--muted);flex-shrink:0;stroke:currentColor}
+#card-search{
+  flex:1;background:none;border:none;outline:none;
+  color:var(--text);font-size:.82em;font-family:inherit;min-width:0;
+}
+#card-search::placeholder{color:var(--dim)}
+#card-search::-webkit-search-cancel-button{cursor:pointer}
+.search-count{font-size:.7em;color:var(--teal);white-space:nowrap;font-family:var(--mono)}
+
+/* ── Dark mode — Toolbar ── */
+body.dark-mode .toolbar{background:#0a1628!important;border-color:#1c3050!important}
+body.dark-mode .usb-btn{background:#0f1f38!important;border-color:#1c3050!important;color:#7a90ae!important}
+body.dark-mode .usb-btn:hover{border-color:#1a8a7d!important;color:#2dd4bf!important}
+body.dark-mode .usb-btn.active{background:rgba(45,212,191,.1)!important;border-color:#1a8a7d!important;color:#2dd4bf!important}
+body.dark-mode .usb-hint{color:#3d5470!important;border-color:#1c3050!important}
+body.dark-mode .toolbar-search{background:#0f1f38!important;border-color:#1c3050!important}
+body.dark-mode #card-search{color:#e2e8f0!important}
+body.dark-mode .search-count{color:#2dd4bf!important}
+
 /* ── Page / layout backgrounds ── */
 body.dark-mode main,
 body.dark-mode .page-wrap,

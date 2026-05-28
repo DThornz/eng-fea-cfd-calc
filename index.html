@@ -113,6 +113,27 @@
   </div>
 </div>
 
+<!-- TOOLBAR: unit system + search -->
+<div class="toolbar">
+  <div class="toolbar-group">
+    <span class="toolbar-label">Unit System</span>
+    <div class="usb-btns">
+      <button class="usb-btn active" data-system="SI"   onclick="applyUnitSystem('SI')">SI</button>
+      <button class="usb-btn"        data-system="MMKS" onclick="applyUnitSystem('MMKS')">MMKS</button>
+      <button class="usb-btn"        data-system="CGS"  onclick="applyUnitSystem('CGS')">CGS</button>
+      <button class="usb-btn"        data-system="IPS"  onclick="applyUnitSystem('IPS')">IPS</button>
+      <button class="usb-btn"        data-system="BIN"  onclick="applyUnitSystem('BIN')">BIN</button>
+      <button class="usb-btn"        data-system="BFT"  onclick="applyUnitSystem('BFT')">BFT</button>
+    </div>
+    <span class="usb-hint" id="usb-hint">m · kg · N · Pa</span>
+  </div>
+  <div class="toolbar-search">
+    <svg class="search-ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
+    <input type="search" id="card-search" placeholder="Search calculators…" oninput="searchCards(this.value)" autocomplete="off">
+    <span class="search-count" id="search-count"></span>
+  </div>
+</div>
+
 <!-- ════════════════════════════════════════════════════════
      §1  Y+ ESTIMATION
 ════════════════════════════════════════════════════════ -->
