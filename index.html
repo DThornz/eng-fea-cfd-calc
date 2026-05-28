@@ -67,7 +67,7 @@
   <button class="nav-item" onclick="scrollToSection('electrical')"><span class="nav-icon">⚡</span> EE Circuits & Signals <span class="nav-count">4</span></button>
 
   <div class="nav-section-label">Biomedical Eng.</div>
-  <button class="nav-item" onclick="scrollToSection('biomedical')"><span class="nav-icon">🫀</span> BME Calculators <span class="nav-count">4</span></button>
+  <button class="nav-item" onclick="scrollToSection('biomedical')"><span class="nav-icon">🫀</span> BME Calculators <span class="nav-count">10</span></button>
 
   <div class="nav-section-label">Dynamics & Control</div>
   <button class="nav-item" onclick="scrollToSection('dynamics')"><span class="nav-icon">🎛️</span> Dynamics & Control <span class="nav-count">2</span></button>
@@ -83,6 +83,45 @@
 
   <div class="nav-section-label">Unit Converters</div>
   <button class="nav-item" onclick="scrollToSection('units')"><span class="nav-icon">🔄</span> All Converters <span class="nav-count">7</span></button>
+
+  <div class="nav-section-label">Mathematics</div>
+  <button class="nav-item" onclick="scrollToSection('math-tools')"><span class="nav-icon">∑</span> Math & Numerical <span class="nav-count">5</span></button>
+
+  <div class="nav-section-label">Statistics</div>
+  <button class="nav-item" onclick="scrollToSection('statistics')"><span class="nav-icon">📈</span> Statistics & Data <span class="nav-count">8</span></button>
+
+  <div class="nav-section-label">Signal Processing</div>
+  <button class="nav-item" onclick="scrollToSection('signal-proc')"><span class="nav-icon">〜</span> Signal Processing <span class="nav-count">5</span></button>
+
+  <div class="nav-section-label">Control Systems</div>
+  <button class="nav-item" onclick="scrollToSection('control-sys')"><span class="nav-icon">🎛</span> Control Systems <span class="nav-count">4</span></button>
+
+  <div class="nav-section-label">Mechanical Design</div>
+  <button class="nav-item" onclick="scrollToSection('mech-design')"><span class="nav-icon">⚙</span> Mechanical Design <span class="nav-count">6</span></button>
+
+  <div class="nav-section-label">Materials</div>
+  <button class="nav-item" onclick="scrollToSection('materials-eng')"><span class="nav-icon">🧱</span> Materials Engineering <span class="nav-count">5</span></button>
+
+  <div class="nav-section-label">Compressible / CFD</div>
+  <button class="nav-item" onclick="scrollToSection('compressible-flow')"><span class="nav-icon">💨</span> Compressible Flow <span class="nav-count">11</span></button>
+
+  <div class="nav-section-label">Mass Transfer</div>
+  <button class="nav-item" onclick="scrollToSection('mass-transfer')"><span class="nav-icon">⬡</span> Mass Transfer <span class="nav-count">4</span></button>
+
+  <div class="nav-section-label">Chemical Eng.</div>
+  <button class="nav-item" onclick="scrollToSection('chem-eng')"><span class="nav-icon">⚗</span> Chemical Engineering <span class="nav-count">6</span></button>
+
+  <div class="nav-section-label">FEA / Meshing</div>
+  <button class="nav-item" onclick="scrollToSection('fea-tools')"><span class="nav-icon">🔲</span> FEA Mesh & Analysis <span class="nav-count">4</span></button>
+
+  <div class="nav-section-label">Aerospace</div>
+  <button class="nav-item" onclick="scrollToSection('aerospace')"><span class="nav-icon">🚀</span> Aerospace <span class="nav-count">5</span></button>
+
+  <div class="nav-section-label">Acoustics / Optics</div>
+  <button class="nav-item" onclick="scrollToSection('acoustics-optics')"><span class="nav-icon">🔊</span> Acoustics & Optics <span class="nav-count">4</span></button>
+
+  <div class="nav-section-label">Lab / Research</div>
+  <button class="nav-item" onclick="scrollToSection('lab-tools')"><span class="nav-icon">🧪</span> Lab & Research <span class="nav-count">7</span></button>
 </nav>
 
 <!-- ─── MAIN CONTENT ─────────────────────────────────────────── -->
@@ -1302,6 +1341,117 @@
       </div>
     </div>
 
+    <!-- Biot Number -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">Bi</div>
+        <div><div class="card-title">Biot Number</div>
+        <div class="card-subtitle">Lumped capacitance validity check</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{Bi}=\frac{h\,L_c}{k},\quad L_c=V/A_s$$</div>
+        <div class="input-row"><div class="input-label">Conv. coeff h</div><div class="input-wrap"><input class="field" id="bi-h" type="number" value="50" min="0" oninput="biCalc()"><select class="unit-sel"><option value="1">W/(m²·K)</option></select></div></div>
+        <div class="input-row"><div class="input-label">Conductivity k</div><div class="input-wrap"><input class="field" id="bi-k" type="number" value="200" min="0" oninput="biCalc()"><select class="unit-sel"><option value="1">W/(m·K)</option></select></div></div>
+        <div class="input-row"><div class="input-label">Char. length L_c</div><div class="input-wrap"><input class="field" id="bi-Lc" type="number" value="0.01" min="0" oninput="biCalc()"><select class="unit-sel" id="bi-Lc-u" onchange="biCalc()"><option value="1">m</option><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <button class="btn-calc" onclick="biCalc()">Calculate</button>
+        <div class="output" id="bi-out"><div class="output-header">Results</div><div class="output-body" id="bi-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Fourier Number -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">Fo</div>
+        <div><div class="card-title">Fourier Number</div>
+        <div class="card-subtitle">Dimensionless time for transient conduction</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{Fo}=\frac{\alpha\,t}{L_c^2},\quad \alpha=\frac{k}{\rho c_p}$$</div>
+        <div class="input-row"><div class="input-label">Conductivity k</div><div class="input-wrap"><input class="field" id="fo-k" type="number" value="200" min="0" oninput="foCalc()"><select class="unit-sel"><option value="1">W/(m·K)</option></select></div></div>
+        <div class="input-row"><div class="input-label">Density ρ</div><div class="input-wrap"><input class="field" id="fo-rho" type="number" value="2700" min="0" oninput="foCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Specific heat c_p</div><div class="input-wrap"><input class="field" id="fo-cp" type="number" value="900" min="0" oninput="foCalc()"><select class="unit-sel"><option value="1">J/(kg·K)</option></select></div></div>
+        <div class="input-row"><div class="input-label">Time t</div><div class="input-wrap"><input class="field" id="fo-t" type="number" value="60" min="0" oninput="foCalc()"><select class="unit-sel" id="fo-t-u" onchange="foCalc()"><option value="1">s</option><option value="60">min</option></select></div></div>
+        <div class="input-row"><div class="input-label">Char. length L_c</div><div class="input-wrap"><input class="field" id="fo-Lc" type="number" value="0.01" min="0" oninput="foCalc()"><select class="unit-sel" id="fo-Lc-u" onchange="foCalc()"><option value="1">m</option><option value="0.001">mm</option></select></div></div>
+        <button class="btn-calc" onclick="foCalc()">Calculate</button>
+        <div class="output" id="fo-out"><div class="output-header">Results</div><div class="output-body" id="fo-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Lumped Capacitance Transient -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">T(t)</div>
+        <div><div class="card-title">Lumped Capacitance Transient</div>
+        <div class="card-subtitle">Temperature decay with time constant τ</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$T(t)=T_\infty+(T_i-T_\infty)e^{-t/\tau},\quad \tau=\frac{\rho V c_p}{h A_s}$$</div>
+        <div class="input-row"><div class="input-label">Initial temp T_i</div><div class="input-wrap"><input class="field" id="lc-Ti" type="number" value="200" oninput="lcCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <div class="input-row"><div class="input-label">Ambient temp T_∞</div><div class="input-wrap"><input class="field" id="lc-Tinf" type="number" value="25" oninput="lcCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <div class="input-row"><div class="input-label">Conv. coeff h</div><div class="input-wrap"><input class="field" id="lc-h" type="number" value="20" min="0" oninput="lcCalc()"><select class="unit-sel"><option value="1">W/(m²·K)</option></select></div></div>
+        <div class="input-row"><div class="input-label">Density ρ</div><div class="input-wrap"><input class="field" id="lc-rho" type="number" value="8000" min="0" oninput="lcCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Specific heat c_p</div><div class="input-wrap"><input class="field" id="lc-cp" type="number" value="500" min="0" oninput="lcCalc()"><select class="unit-sel"><option value="1">J/(kg·K)</option></select></div></div>
+        <div class="input-row"><div class="input-label">V/A ratio (m)</div><div class="input-wrap"><input class="field" id="lc-VA" type="number" value="0.005" min="0" oninput="lcCalc()"><select class="unit-sel"><option value="1">m</option></select></div></div>
+        <div class="input-row"><div class="input-label">Time t</div><div class="input-wrap"><input class="field" id="lc-t" type="number" value="300" min="0" oninput="lcCalc()"><select class="unit-sel" id="lc-t-u" onchange="lcCalc()"><option value="1">s</option><option value="60">min</option></select></div></div>
+        <button class="btn-calc" onclick="lcCalc()">Calculate</button>
+        <div class="output" id="lc-out"><div class="output-header">Results</div><div class="output-body" id="lc-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- LMTD Heat Exchanger -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">LMTD</div>
+        <div><div class="card-title">LMTD Heat Exchanger</div>
+        <div class="card-subtitle">Log Mean Temperature Difference method</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{LMTD}=\frac{\Delta T_1-\Delta T_2}{\ln(\Delta T_1/\Delta T_2)},\quad Q=UA\cdot\mathrm{LMTD}$$</div>
+        <div class="tabs" id="lmtd-tabs">
+          <button class="tab active" onclick="setTab('lmtd','counter')">Counter-flow</button>
+          <button class="tab" onclick="setTab('lmtd','parallel')">Parallel-flow</button>
+        </div>
+        <div class="tab-panel active" id="lmtd-counter">
+          <p style="font-size:.75em;color:var(--muted);margin-bottom:8px">Counter-flow: ΔT1 = T_h,in − T_c,out; ΔT2 = T_h,out − T_c,in</p>
+          <div class="input-row"><div class="input-label">T_h,in (hot inlet)</div><div class="input-wrap"><input class="field" id="lmtd-Thin" type="number" value="90" oninput="lmtdCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <div class="input-row"><div class="input-label">T_h,out (hot outlet)</div><div class="input-wrap"><input class="field" id="lmtd-Thout" type="number" value="50" oninput="lmtdCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <div class="input-row"><div class="input-label">T_c,in (cold inlet)</div><div class="input-wrap"><input class="field" id="lmtd-Tcin" type="number" value="20" oninput="lmtdCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <div class="input-row"><div class="input-label">T_c,out (cold outlet)</div><div class="input-wrap"><input class="field" id="lmtd-Tcout" type="number" value="45" oninput="lmtdCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <button class="btn-calc" onclick="lmtdCalc()">Calculate</button>
+          <div class="output" id="lmtd-out"><div class="output-header">Results</div><div class="output-body" id="lmtd-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="lmtd-parallel">
+          <p style="font-size:.75em;color:var(--muted);margin-bottom:8px">Parallel-flow: ΔT1 = T_h,in − T_c,in; ΔT2 = T_h,out − T_c,out</p>
+          <div class="input-row"><div class="input-label">T_h,in</div><div class="input-wrap"><input class="field" id="lmtdp-Thin" type="number" value="90" oninput="lmtdParCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <div class="input-row"><div class="input-label">T_h,out</div><div class="input-wrap"><input class="field" id="lmtdp-Thout" type="number" value="50" oninput="lmtdParCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <div class="input-row"><div class="input-label">T_c,in</div><div class="input-wrap"><input class="field" id="lmtdp-Tcin" type="number" value="20" oninput="lmtdParCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <div class="input-row"><div class="input-label">T_c,out</div><div class="input-wrap"><input class="field" id="lmtdp-Tcout" type="number" value="38" oninput="lmtdParCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+          <button class="btn-calc" onclick="lmtdParCalc()">Calculate</button>
+          <div class="output" id="lmtdp-out"><div class="output-header">Results</div><div class="output-body" id="lmtdp-out-body"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- epsilon-NTU -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">ε-NTU</div>
+        <div><div class="card-title">ε-NTU Heat Exchanger</div>
+        <div class="card-subtitle">Effectiveness — Number of Transfer Units method</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\varepsilon=f(\mathrm{NTU},C_r),\quad C_r=C_\mathrm{min}/C_\mathrm{max},\quad Q=\varepsilon\,C_\mathrm{min}(T_{h,in}-T_{c,in})$$</div>
+        <div class="input-row"><div class="input-label">C_hot (W/K)</div><div class="input-wrap"><input class="field" id="entu-Ch" type="number" value="2000" min="0" oninput="entuCalc()"><select class="unit-sel"><option value="1">W/K</option></select></div></div>
+        <div class="input-row"><div class="input-label">C_cold (W/K)</div><div class="input-wrap"><input class="field" id="entu-Cc" type="number" value="1500" min="0" oninput="entuCalc()"><select class="unit-sel"><option value="1">W/K</option></select></div></div>
+        <div class="input-row"><div class="input-label">NTU</div><div class="input-wrap"><input class="field" id="entu-NTU" type="number" value="2" min="0" oninput="entuCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">T_h,in</div><div class="input-wrap"><input class="field" id="entu-Thin" type="number" value="90" oninput="entuCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <div class="input-row"><div class="input-label">T_c,in</div><div class="input-wrap"><input class="field" id="entu-Tcin" type="number" value="20" oninput="entuCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <div class="input-row"><div class="input-label">HX type</div><div class="input-wrap"><select class="field" id="entu-type" onchange="entuCalc()" style="padding:6px 8px;font-size:.82em"><option value="counter">Counter-flow</option><option value="parallel">Parallel-flow</option><option value="shell1">Shell-and-tube (1 shell pass)</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="entuCalc()">Calculate</button>
+        <div class="output" id="entu-out"><div class="output-header">Results</div><div class="output-body" id="entu-out-body"></div></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1638,6 +1788,167 @@
       </div>
     </div>
 
+    <!-- Windkessel Model -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">WK</div>
+        <div><div class="card-title">Windkessel Model (2-element)</div>
+        <div class="card-subtitle">Arterial compliance, peripheral resistance, pressure waveform</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$P_\mathrm{mean}=Q\cdot R,\quad P(t)=P_0 e^{-t/(RC)},\quad \tau=RC$$</div>
+        <div class="input-row"><div class="input-label">Peripheral resistance R</div><div class="input-wrap"><input class="field" id="wk-R" type="number" value="1.0" min="0" oninput="wkCalc()"><select class="unit-sel" id="wk-R-u" onchange="wkCalc()"><option value="1e8">mmHg·s/mL</option><option value="1">Pa·s/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Compliance C</div><div class="input-wrap"><input class="field" id="wk-C" type="number" value="1.0" min="0" oninput="wkCalc()"><select class="unit-sel" id="wk-C-u" onchange="wkCalc()"><option value="1e-8">mL/mmHg</option><option value="1">m³/Pa</option></select></div></div>
+        <div class="input-row"><div class="input-label">Cardiac output Q</div><div class="input-wrap"><input class="field" id="wk-Q" type="number" value="5" min="0" oninput="wkCalc()"><select class="unit-sel" id="wk-Q-u" onchange="wkCalc()"><option value="1.667e-5">L/min</option><option value="1e-6">mL/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Heart rate HR</div><div class="input-wrap"><input class="field" id="wk-HR" type="number" value="72" min="0" oninput="wkCalc()"><select class="unit-sel"><option value="1">bpm</option></select></div></div>
+        <button class="btn-calc" onclick="wkCalc()">Calculate</button>
+        <div class="output" id="wk-out"><div class="output-header">Results</div><div class="output-body" id="wk-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Pulse Wave Velocity -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">PWV</div>
+        <div><div class="card-title">Pulse Wave Velocity</div>
+        <div class="card-subtitle">Moens-Korteweg — arterial stiffness index</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{PWV}=\sqrt{\frac{E\,h}{2\,\rho\,r}}$$</div>
+        <div class="input-row"><div class="input-label">Wall modulus E</div><div class="input-wrap"><input class="field" id="pwv-E" type="number" value="500" min="0" oninput="pwvCalc()"><select class="unit-sel" id="pwv-E-u" onchange="pwvCalc()"><option value="1000">kPa</option><option value="1e6">MPa</option></select></div></div>
+        <div class="input-row"><div class="input-label">Wall thickness h</div><div class="input-wrap"><input class="field" id="pwv-h" type="number" value="1.5" min="0" oninput="pwvCalc()"><select class="unit-sel" id="pwv-h-u" onchange="pwvCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Inner radius r</div><div class="input-wrap"><input class="field" id="pwv-r" type="number" value="12" min="0" oninput="pwvCalc()"><select class="unit-sel" id="pwv-r-u" onchange="pwvCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Blood density ρ</div><div class="input-wrap"><input class="field" id="pwv-rho" type="number" value="1060" min="0" oninput="pwvCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <button class="btn-calc" onclick="pwvCalc()">Calculate</button>
+        <div class="output" id="pwv-out"><div class="output-header">Results</div><div class="output-body" id="pwv-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Michaelis-Menten -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">v</div>
+        <div><div class="card-title">Michaelis-Menten Kinetics</div>
+        <div class="card-subtitle">Enzyme reaction velocity, Lineweaver-Burk</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$v=\frac{V_\mathrm{max}[S]}{K_m+[S]},\quad \frac{1}{v}=\frac{K_m}{V_\mathrm{max}}\cdot\frac{1}{[S]}+\frac{1}{V_\mathrm{max}}$$</div>
+        <div class="input-row"><div class="input-label">V_max</div><div class="input-wrap"><input class="field" id="mm-Vmax" type="number" value="100" min="0" oninput="mmCalc()"><select class="unit-sel"><option value="1">μmol/min</option></select></div></div>
+        <div class="input-row"><div class="input-label">K_m</div><div class="input-wrap"><input class="field" id="mm-Km" type="number" value="0.5" min="0" oninput="mmCalc()"><select class="unit-sel"><option value="1">mM</option></select></div></div>
+        <div class="input-row"><div class="input-label">[S] substrate conc.</div><div class="input-wrap"><input class="field" id="mm-S" type="number" value="1.0" min="0" oninput="mmCalc()"><select class="unit-sel"><option value="1">mM</option></select></div></div>
+        <button class="btn-calc" onclick="mmCalc()">Calculate</button>
+        <div class="output" id="mm-out"><div class="output-header">Results</div><div class="output-body" id="mm-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Hill Equation -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">Y</div>
+        <div><div class="card-title">Hill Equation</div>
+        <div class="card-subtitle">Cooperative binding, fractional occupancy</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$Y=\frac{[S]^n}{K^n+[S]^n}$$</div>
+        <div class="input-row"><div class="input-label">EC50 / K</div><div class="input-wrap"><input class="field" id="hill-K" type="number" value="1.0" min="0" oninput="hillCalc()"><select class="unit-sel"><option value="1">mM</option></select></div></div>
+        <div class="input-row"><div class="input-label">Hill coefficient n</div><div class="input-wrap"><input class="field" id="hill-n" type="number" value="2" min="0" step="0.1" oninput="hillCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">[S] concentration</div><div class="input-wrap"><input class="field" id="hill-S" type="number" value="1.0" min="0" oninput="hillCalc()"><select class="unit-sel"><option value="1">mM</option></select></div></div>
+        <button class="btn-calc" onclick="hillCalc()">Calculate</button>
+        <div class="output" id="hill-out"><div class="output-header">Results</div><div class="output-body" id="hill-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Cell Doubling Time -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">t_d</div>
+        <div><div class="card-title">Cell Doubling Time</div>
+        <div class="card-subtitle">Exponential growth — doubling time or cell count</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$t_d=\frac{t\ln 2}{\ln(N/N_0)},\quad N(t)=N_0\cdot 2^{t/t_d}$$</div>
+        <div class="tabs" id="cdt-tabs">
+          <button class="tab active" onclick="setTab('cdt','doubtime')">Find t_d</button>
+          <button class="tab" onclick="setTab('cdt','predict')">Predict N</button>
+        </div>
+        <div class="tab-panel active" id="cdt-doubtime">
+          <div class="input-row"><div class="input-label">Initial count N₀</div><div class="input-wrap"><input class="field" id="cdt-N0" type="number" value="1000" min="0" oninput="cdtCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Final count N</div><div class="input-wrap"><input class="field" id="cdt-N" type="number" value="8000" min="0" oninput="cdtCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Elapsed time t</div><div class="input-wrap"><input class="field" id="cdt-t" type="number" value="9" min="0" oninput="cdtCalc()"><select class="unit-sel" id="cdt-t-u" onchange="cdtCalc()"><option value="1">h</option><option value="24">days</option></select></div></div>
+          <button class="btn-calc" onclick="cdtCalc()">Calculate</button>
+          <div class="output" id="cdt-out"><div class="output-header">Results</div><div class="output-body" id="cdt-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="cdt-predict">
+          <div class="input-row"><div class="input-label">Initial count N₀</div><div class="input-wrap"><input class="field" id="cdtp-N0" type="number" value="1000" min="0" oninput="cdtPredCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Doubling time t_d</div><div class="input-wrap"><input class="field" id="cdtp-td" type="number" value="3" min="0" oninput="cdtPredCalc()"><select class="unit-sel" id="cdtp-td-u" onchange="cdtPredCalc()"><option value="1">h</option><option value="24">days</option></select></div></div>
+          <div class="input-row"><div class="input-label">Time t</div><div class="input-wrap"><input class="field" id="cdtp-t" type="number" value="12" min="0" oninput="cdtPredCalc()"><select class="unit-sel" id="cdtp-t-u" onchange="cdtPredCalc()"><option value="1">h</option><option value="24">days</option></select></div></div>
+          <button class="btn-calc" onclick="cdtPredCalc()">Calculate</button>
+          <div class="output" id="cdtp-out"><div class="output-header">Results</div><div class="output-body" id="cdtp-out-body"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- One-Compartment PK Model -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">PK</div>
+        <div><div class="card-title">One-Compartment PK Model</div>
+        <div class="card-subtitle">IV bolus: concentration-time, AUC, half-life</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$C(t)=C_0\,e^{-k_e t},\quad k_e=\mathrm{CL}/V_d,\quad t_{1/2}=0.693/k_e$$</div>
+        <div class="input-row"><div class="input-label">Initial conc C₀</div><div class="input-wrap"><input class="field" id="pk-C0" type="number" value="100" min="0" oninput="pkCalc()"><select class="unit-sel"><option value="1">ng/mL</option></select></div></div>
+        <div class="input-row"><div class="input-label">Elim. rate k_e (h⁻¹)</div><div class="input-wrap"><input class="field" id="pk-ke" type="number" value="0.1" min="0" step="0.01" oninput="pkCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Time t</div><div class="input-wrap"><input class="field" id="pk-t" type="number" value="6" min="0" oninput="pkCalc()"><select class="unit-sel" id="pk-t-u" onchange="pkCalc()"><option value="1">h</option><option value="0.01667">min</option></select></div></div>
+        <div class="input-row"><div class="input-label">Threshold conc C_min</div><div class="input-wrap"><input class="field" id="pk-Cmin" type="number" value="10" min="0" oninput="pkCalc()"><select class="unit-sel"><option value="1">ng/mL</option></select></div></div>
+        <button class="btn-calc" onclick="pkCalc()">Calculate</button>
+        <div class="output" id="pk-out"><div class="output-header">Results</div><div class="output-body" id="pk-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Loading & Maintenance Dose -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">LD/MD</div>
+        <div><div class="card-title">Loading & Maintenance Dose</div>
+        <div class="card-subtitle">Target-concentration dosing regimen</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{LD}=\frac{C_t\cdot V_d}{F},\quad \mathrm{MD}=\frac{\mathrm{CL}\cdot C_t\cdot\tau}{F}$$</div>
+        <div class="input-row"><div class="input-label">Target conc C_t</div><div class="input-wrap"><input class="field" id="dose-Ct" type="number" value="10" min="0" oninput="doseCalc()"><select class="unit-sel"><option value="1">ng/mL</option></select></div></div>
+        <div class="input-row"><div class="input-label">Volume of dist. V_d</div><div class="input-wrap"><input class="field" id="dose-Vd" type="number" value="50" min="0" oninput="doseCalc()"><select class="unit-sel" id="dose-Vd-u" onchange="doseCalc()"><option value="1">L</option><option value="0.001">mL</option></select></div></div>
+        <div class="input-row"><div class="input-label">Clearance CL</div><div class="input-wrap"><input class="field" id="dose-CL" type="number" value="5" min="0" oninput="doseCalc()"><select class="unit-sel"><option value="1">L/h</option></select></div></div>
+        <div class="input-row"><div class="input-label">Bioavailability F</div><div class="input-wrap"><input class="field" id="dose-F" type="number" value="1" min="0" max="1" step="0.05" oninput="doseCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Dosing interval τ</div><div class="input-wrap"><input class="field" id="dose-tau" type="number" value="8" min="0" oninput="doseCalc()"><select class="unit-sel" id="dose-tau-u" onchange="doseCalc()"><option value="1">h</option><option value="24">days</option></select></div></div>
+        <button class="btn-calc" onclick="doseCalc()">Calculate</button>
+        <div class="output" id="dose-out"><div class="output-header">Results</div><div class="output-body" id="dose-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Coronary Flow Reserve & FFR -->
+    <div class="card">
+      <div class="card-header"><div class="card-icon">FFR</div><div><div class="card-title">Coronary Flow Reserve &amp; FFR</div><div class="card-subtitle">Myocardial ischaemia severity indices</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$CFR=\frac{Q_{hyp}}{Q_{bas}},\quad FFR=\frac{P_d}{P_a}$$</div>
+        <div class="tabs" id="cfr-tabs">
+          <button class="tab active" onclick="setTab('cfr','cfr')" data-tab="cfr">CFR</button>
+          <button class="tab" onclick="setTab('cfr','ffr')" data-tab="ffr">FFR</button>
+        </div>
+        <div class="tab-panel active" id="cfr-cfr">
+          <div class="input-row"><div class="input-label">Hyperaemic flow Q_hyp</div><div class="input-wrap"><input class="field" id="cfr-Qh" type="number" value="3.5" min="0" oninput="cfrCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Basal flow Q_bas</div><div class="input-wrap"><input class="field" id="cfr-Qb" type="number" value="1.2" min="0" oninput="cfrCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <button class="btn-calc" onclick="cfrCalc()">Calculate</button>
+          <div class="output" id="cfr-out"><div class="output-header">Results</div><div class="output-body" id="cfr-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="cfr-ffr">
+          <p style="font-size:.75em;color:var(--muted);margin-bottom:8px">Measured during adenosine hyperaemia. FFR ≤ 0.80 indicates ischaemia.</p>
+          <div class="input-row"><div class="input-label">Distal pressure P_d</div><div class="input-wrap"><input class="field" id="cfr-Pd" type="number" value="72" min="0" oninput="cfrCalc()"><select class="unit-sel"><option value="1">mmHg</option></select></div></div>
+          <div class="input-row"><div class="input-label">Aortic pressure P_a</div><div class="input-wrap"><input class="field" id="cfr-Pa" type="number" value="95" min="0" oninput="cfrCalc()"><select class="unit-sel"><option value="1">mmHg</option></select></div></div>
+          <button class="btn-calc" onclick="cfrCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1756,11 +2067,1193 @@
   </div>
 </div>
 
+<!-- ── MATHEMATICS ── -->
+<div class="section" id="math-tools">
+  <div class="section-header">
+    <div class="section-tag">Mathematics</div>
+    <div class="section-title"><span class="ico">∑</span> Math & Numerical</div>
+    <div class="section-desc">Quadratic equations, linear systems, matrix analysis, error propagation, and Monte Carlo uncertainty.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">ax²</div><div><div class="card-title">Quadratic Formula</div><div class="card-subtitle">Roots, discriminant, vertex of ax²+bx+c=0</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$</div>
+        <div class="input-row"><div class="input-label">a</div><div class="input-wrap"><input class="field" id="qd-a" type="number" value="1" oninput="qdCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">b</div><div class="input-wrap"><input class="field" id="qd-b" type="number" value="-3" oninput="qdCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">c</div><div class="input-wrap"><input class="field" id="qd-c" type="number" value="2" oninput="qdCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="qdCalc()">Calculate</button>
+        <div class="output" id="qd-out"><div class="output-header">Results</div><div class="output-body" id="qd-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Ax=b</div><div><div class="card-title">System of Linear Equations</div><div class="card-subtitle">Cramer's rule — 2×2 or 3×3</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$A\mathbf{x}=\mathbf{b},\quad x_i=\det(A_i)/\det(A)$$</div>
+        <div class="tabs" id="sle-tabs">
+          <button class="tab active" onclick="setTab('sle','2x2')" data-tab="2x2">2×2</button>
+          <button class="tab" onclick="setTab('sle','3x3')" data-tab="3x3">3×3</button>
+        </div>
+        <div class="tab-panel active" id="sle-2x2">
+          <p style="font-size:.75em;color:var(--muted);margin-bottom:6px">a₁₁x + a₁₂y = b₁ &nbsp;/&nbsp; a₂₁x + a₂₂y = b₂</p>
+          <div class="input-row"><div class="input-label">a₁₁, a₁₂, b₁</div><div class="input-wrap"><input class="field" id="sle-a11" type="number" value="2" oninput="sleCalc()" style="width:60px"><input class="field" id="sle-a12" type="number" value="1" oninput="sleCalc()" style="width:60px;margin-left:4px"><input class="field" id="sle-b1" type="number" value="5" oninput="sleCalc()" style="width:60px;margin-left:4px"></div></div>
+          <div class="input-row"><div class="input-label">a₂₁, a₂₂, b₂</div><div class="input-wrap"><input class="field" id="sle-a21" type="number" value="1" oninput="sleCalc()" style="width:60px"><input class="field" id="sle-a22" type="number" value="3" oninput="sleCalc()" style="width:60px;margin-left:4px"><input class="field" id="sle-b2" type="number" value="7" oninput="sleCalc()" style="width:60px;margin-left:4px"></div></div>
+          <button class="btn-calc" onclick="sleCalc()">Calculate</button>
+          <div class="output" id="sle-out"><div class="output-header">Results</div><div class="output-body" id="sle-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="sle-3x3">
+          <p style="font-size:.75em;color:var(--muted);margin-bottom:6px">Row format: [a₁ a₂ a₃ | b]</p>
+          <div class="input-row"><div class="input-label">Row 1</div><div class="input-wrap"><input class="field" id="sle-a11b" type="number" value="1" oninput="sleCalc()" style="width:52px"><input class="field" id="sle-a12b" type="number" value="2" oninput="sleCalc()" style="width:52px;margin-left:3px"><input class="field" id="sle-a13b" type="number" value="1" oninput="sleCalc()" style="width:52px;margin-left:3px"><input class="field" id="sle-b1b" type="number" value="9" oninput="sleCalc()" style="width:52px;margin-left:3px"></div></div>
+          <div class="input-row"><div class="input-label">Row 2</div><div class="input-wrap"><input class="field" id="sle-a21b" type="number" value="2" oninput="sleCalc()" style="width:52px"><input class="field" id="sle-a22b" type="number" value="1" oninput="sleCalc()" style="width:52px;margin-left:3px"><input class="field" id="sle-a23b" type="number" value="-1" oninput="sleCalc()" style="width:52px;margin-left:3px"><input class="field" id="sle-b2b" type="number" value="1" oninput="sleCalc()" style="width:52px;margin-left:3px"></div></div>
+          <div class="input-row"><div class="input-label">Row 3</div><div class="input-wrap"><input class="field" id="sle-a31b" type="number" value="1" oninput="sleCalc()" style="width:52px"><input class="field" id="sle-a32b" type="number" value="-1" oninput="sleCalc()" style="width:52px;margin-left:3px"><input class="field" id="sle-a33b" type="number" value="2" oninput="sleCalc()" style="width:52px;margin-left:3px"><input class="field" id="sle-b3b" type="number" value="4" oninput="sleCalc()" style="width:52px;margin-left:3px"></div></div>
+          <button class="btn-calc" onclick="sleCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">[A]</div><div><div class="card-title">Matrix Properties</div><div class="card-subtitle">Determinant, inverse, eigenvalues — 2×2 or 3×3</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\det A,\quad A^{-1},\quad \lambda: \det(A-\lambda I)=0$$</div>
+        <div class="tabs" id="mat-tabs">
+          <button class="tab active" onclick="setTab('mat','2x2')" data-tab="2x2">2×2</button>
+          <button class="tab" onclick="setTab('mat','3x3')" data-tab="3x3">3×3</button>
+        </div>
+        <div class="tab-panel active" id="mat-2x2">
+          <div class="input-row"><div class="input-label">Row 1</div><div class="input-wrap"><input class="field" id="mat-a" type="number" value="3" oninput="matCalc()" style="width:80px"><input class="field" id="mat-b" type="number" value="1" oninput="matCalc()" style="width:80px;margin-left:4px"></div></div>
+          <div class="input-row"><div class="input-label">Row 2</div><div class="input-wrap"><input class="field" id="mat-c" type="number" value="2" oninput="matCalc()" style="width:80px"><input class="field" id="mat-d" type="number" value="4" oninput="matCalc()" style="width:80px;margin-left:4px"></div></div>
+          <button class="btn-calc" onclick="matCalc()">Calculate</button>
+          <div class="output" id="mat-out"><div class="output-header">Results</div><div class="output-body" id="mat-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="mat-3x3">
+          <div class="input-row"><div class="input-label">Row 1</div><div class="input-wrap"><input class="field" id="mat3-a11" type="number" value="1" oninput="matCalc()" style="width:52px"><input class="field" id="mat3-a12" type="number" value="2" oninput="matCalc()" style="width:52px;margin-left:3px"><input class="field" id="mat3-a13" type="number" value="3" oninput="matCalc()" style="width:52px;margin-left:3px"></div></div>
+          <div class="input-row"><div class="input-label">Row 2</div><div class="input-wrap"><input class="field" id="mat3-a21" type="number" value="0" oninput="matCalc()" style="width:52px"><input class="field" id="mat3-a22" type="number" value="4" oninput="matCalc()" style="width:52px;margin-left:3px"><input class="field" id="mat3-a23" type="number" value="5" oninput="matCalc()" style="width:52px;margin-left:3px"></div></div>
+          <div class="input-row"><div class="input-label">Row 3</div><div class="input-wrap"><input class="field" id="mat3-a31" type="number" value="1" oninput="matCalc()" style="width:52px"><input class="field" id="mat3-a32" type="number" value="0" oninput="matCalc()" style="width:52px;margin-left:3px"><input class="field" id="mat3-a33" type="number" value="6" oninput="matCalc()" style="width:52px;margin-left:3px"></div></div>
+          <button class="btn-calc" onclick="matCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">σ_f</div><div><div class="card-title">Error Propagation</div><div class="card-subtitle">Analytical uncertainty for basic operations</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\sigma_f=\sqrt{\left(\tfrac{\partial f}{\partial x}\right)^2\sigma_x^2+\left(\tfrac{\partial f}{\partial y}\right)^2\sigma_y^2}$$</div>
+        <div class="input-row"><div class="input-label">Operation f(x,y)</div><div class="input-wrap"><select class="field" id="errp-mode" onchange="errpCalc()" style="padding:6px 8px;font-size:.82em"><option value="add">x + y</option><option value="sub">x − y</option><option value="mul">x × y</option><option value="div">x / y</option><option value="pow">xⁿ</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">x</div><div class="input-wrap"><input class="field" id="errp-x" type="number" value="10" oninput="errpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">σ_x</div><div class="input-wrap"><input class="field" id="errp-sx" type="number" value="0.5" min="0" oninput="errpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">y</div><div class="input-wrap"><input class="field" id="errp-y" type="number" value="3" oninput="errpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">σ_y</div><div class="input-wrap"><input class="field" id="errp-sy" type="number" value="0.2" min="0" oninput="errpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">n (for xⁿ)</div><div class="input-wrap"><input class="field" id="errp-n" type="number" value="2" oninput="errpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="errpCalc()">Calculate</button>
+        <div class="output" id="errp-out"><div class="output-header">Results</div><div class="output-body" id="errp-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">MC</div><div><div class="card-title">Monte Carlo Uncertainty</div><div class="card-subtitle">Propagation via random sampling</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$f(x,y)\text{ sampled }N\text{ times},\quad x\sim\mathcal{N}(\mu_x,\sigma_x^2)$$</div>
+        <div class="input-row"><div class="input-label">Operation</div><div class="input-wrap"><select class="field" id="mcu-mode" onchange="mcuCalc()" style="padding:6px 8px;font-size:.82em"><option value="add">x + y</option><option value="mul">x × y</option><option value="div">x / y</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">μ_x, σ_x</div><div class="input-wrap"><input class="field" id="mcu-mx" type="number" value="10" oninput="mcuCalc()" style="width:80px"><input class="field" id="mcu-sx" type="number" value="0.5" min="0" oninput="mcuCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">μ_y, σ_y</div><div class="input-wrap"><input class="field" id="mcu-my" type="number" value="3" oninput="mcuCalc()" style="width:80px"><input class="field" id="mcu-sy" type="number" value="0.2" min="0" oninput="mcuCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">N samples</div><div class="input-wrap"><input class="field" id="mcu-N" type="number" value="10000" min="100" max="50000" oninput="mcuCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="mcuCalc()">Calculate</button>
+        <div class="output" id="mcu-out"><div class="output-header">Results</div><div class="output-body" id="mcu-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── STATISTICS ── -->
+<div class="section" id="statistics">
+  <div class="section-header">
+    <div class="section-tag">Statistics</div>
+    <div class="section-title"><span class="ico">📈</span> Statistics & Data</div>
+    <div class="section-desc">Confidence intervals, sample size planning, effect size, chi-square test, RMSE, and logistic regression.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">CI</div><div><div class="card-title">Confidence Interval</div><div class="card-subtitle">Mean estimate with margin of error</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\bar{x}\pm z_{\alpha/2}\frac{s}{\sqrt{n}}$$</div>
+        <div class="input-row"><div class="input-label">Sample mean x̄</div><div class="input-wrap"><input class="field" id="ci-xbar" type="number" value="50" oninput="ciCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Std dev s</div><div class="input-wrap"><input class="field" id="ci-s" type="number" value="10" min="0" oninput="ciCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Sample size n</div><div class="input-wrap"><input class="field" id="ci-n" type="number" value="30" min="1" oninput="ciCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Confidence level</div><div class="input-wrap"><select class="field" id="ci-conf" onchange="ciCalc()" style="padding:6px 8px;font-size:.82em"><option value="95">95%</option><option value="90">90%</option><option value="99">99%</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="ciCalc()">Calculate</button>
+        <div class="output" id="ci-out"><div class="output-header">Results</div><div class="output-body" id="ci-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">n</div><div><div class="card-title">Sample Size Calculator</div><div class="card-subtitle">Required n for means or proportions</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$n=\left(\frac{z\,\sigma}{E}\right)^2\quad\text{or}\quad n=\frac{z^2 p(1-p)}{E^2}$$</div>
+        <div class="input-row"><div class="input-label">Confidence level</div><div class="input-wrap"><select class="field" id="ss-conf" onchange="ssCalc()" style="padding:6px 8px;font-size:.82em"><option value="95">95%</option><option value="90">90%</option><option value="99">99%</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="tabs" id="ss-tabs">
+          <button class="tab active" onclick="setTab('ss','means')" data-tab="means">Means</button>
+          <button class="tab" onclick="setTab('ss','props')" data-tab="props">Proportions</button>
+        </div>
+        <div class="tab-panel active" id="ss-means">
+          <div class="input-row"><div class="input-label">Std dev σ</div><div class="input-wrap"><input class="field" id="ss-s" type="number" value="15" min="0" oninput="ssCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Margin of error E</div><div class="input-wrap"><input class="field" id="ss-E" type="number" value="5" min="0" oninput="ssCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <button class="btn-calc" onclick="ssCalc()">Calculate</button>
+          <div class="output" id="ss-out"><div class="output-header">Results</div><div class="output-body" id="ss-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="ss-props">
+          <div class="input-row"><div class="input-label">Proportion p (0–1)</div><div class="input-wrap"><input class="field" id="ss-p" type="number" value="0.5" min="0" max="1" step="0.05" oninput="ssCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Margin of error E</div><div class="input-wrap"><input class="field" id="ss-Ep" type="number" value="0.05" min="0" oninput="ssCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <button class="btn-calc" onclick="ssCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">d</div><div><div class="card-title">Cohen's d Effect Size</div><div class="card-subtitle">Standardised mean difference</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$d=\frac{|\mu_1-\mu_2|}{s_p},\quad s_p=\sqrt{(s_1^2+s_2^2)/2}$$</div>
+        <div class="input-row"><div class="input-label">Mean 1</div><div class="input-wrap"><input class="field" id="coh-m1" type="number" value="50" oninput="cohCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Std dev 1</div><div class="input-wrap"><input class="field" id="coh-s1" type="number" value="10" min="0" oninput="cohCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Mean 2</div><div class="input-wrap"><input class="field" id="coh-m2" type="number" value="55" oninput="cohCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Std dev 2</div><div class="input-wrap"><input class="field" id="coh-s2" type="number" value="12" min="0" oninput="cohCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="cohCalc()">Calculate</button>
+        <div class="output" id="coh-out"><div class="output-header">Results</div><div class="output-body" id="coh-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">χ²</div><div><div class="card-title">Chi-Square Goodness of Fit</div><div class="card-subtitle">Observed vs. expected frequency test</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\chi^2=\sum\frac{(O_i-E_i)^2}{E_i}$$</div>
+        <div class="input-row"><div class="input-label">Observed (comma-sep)</div><div class="input-wrap"><textarea class="field" id="chi-obs" rows="2" style="resize:vertical;font-size:.82em" oninput="chiCalc()">10, 20, 30, 40</textarea></div></div>
+        <div class="input-row"><div class="input-label">Expected (comma-sep)</div><div class="input-wrap"><textarea class="field" id="chi-exp" rows="2" style="resize:vertical;font-size:.82em" oninput="chiCalc()">12, 18, 28, 42</textarea></div></div>
+        <button class="btn-calc" onclick="chiCalc()">Calculate</button>
+        <div class="output" id="chi-out"><div class="output-header">Results</div><div class="output-body" id="chi-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">RMSE</div><div><div class="card-title">RMSE / MAE / R²</div><div class="card-subtitle">Model accuracy metrics from actual vs. predicted</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{RMSE}=\sqrt{\tfrac{1}{n}\sum(y_i-\hat y_i)^2},\quad R^2=1-\frac{SS_{res}}{SS_{tot}}$$</div>
+        <div class="input-row"><div class="input-label">Actual (comma-sep)</div><div class="input-wrap"><textarea class="field" id="rmse-act" rows="2" style="resize:vertical;font-size:.82em" oninput="rmseCalc()">1, 2, 3, 4, 5</textarea></div></div>
+        <div class="input-row"><div class="input-label">Predicted (comma-sep)</div><div class="input-wrap"><textarea class="field" id="rmse-pred" rows="2" style="resize:vertical;font-size:.82em" oninput="rmseCalc()">1.1, 1.9, 3.2, 3.8, 5.2</textarea></div></div>
+        <button class="btn-calc" onclick="rmseCalc()">Calculate</button>
+        <div class="output" id="rmse-out"><div class="output-header">Results</div><div class="output-body" id="rmse-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">p(x)</div><div><div class="card-title">Logistic Function</div><div class="card-subtitle">Binary prediction probability from log-odds</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$p=\frac{1}{1+e^{-(\beta_0+\beta_1 x)}}$$</div>
+        <div class="input-row"><div class="input-label">Intercept β₀</div><div class="input-wrap"><input class="field" id="logf-b0" type="number" value="-2" oninput="logfCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Coefficient β₁</div><div class="input-wrap"><input class="field" id="logf-b1" type="number" value="0.5" oninput="logfCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Predictor x</div><div class="input-wrap"><input class="field" id="logf-x" type="number" value="4" oninput="logfCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="logfCalc()">Calculate</button>
+        <div class="output" id="logf-out"><div class="output-header">Results</div><div class="output-body" id="logf-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">1−β</div><div><div class="card-title">Statistical Power</div><div class="card-subtitle">Probability of detecting a true effect (z-test)</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\text{Power}=\Phi\!\left(d\sqrt{n}-z_{\alpha/2}\right)+\Phi\!\left(-d\sqrt{n}-z_{\alpha/2}\right)$$</div>
+        <div class="input-row"><div class="input-label">Test type</div><div class="input-wrap"><select class="field" id="pow-test" onchange="powerCalc()" style="padding:6px 8px;font-size:.82em"><option value="one">One-sample z</option><option value="two">Two-sample z (per group)</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Effect size d (Cohen's d)</div><div class="input-wrap"><input class="field" id="pow-d" type="number" value="0.5" min="0" step="0.05" oninput="powerCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Sample size n</div><div class="input-wrap"><input class="field" id="pow-n" type="number" value="30" min="2" oninput="powerCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">α (Type I error)</div><div class="input-wrap"><select class="field" id="pow-alpha" onchange="powerCalc()" style="padding:6px 8px;font-size:.82em"><option value="0.05">0.05</option><option value="0.01">0.01</option><option value="0.1">0.10</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="powerCalc()">Calculate</button>
+        <div class="output" id="pow-out"><div class="output-header">Results</div><div class="output-body" id="pow-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">F</div><div><div class="card-title">One-Way ANOVA</div><div class="card-subtitle">Compare means across 2–4 independent groups</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$F=\frac{MS_B}{MS_W}=\frac{SS_B/(k-1)}{SS_W/(N-k)}$$</div>
+        <div class="input-row"><div class="input-label">Group 1 (comma-sep)</div><div class="input-wrap"><textarea class="field" id="anova-g1" rows="2" style="resize:vertical;font-size:.82em" oninput="anovaCalc()">2.1, 2.5, 2.3, 2.8, 2.0</textarea></div></div>
+        <div class="input-row"><div class="input-label">Group 2</div><div class="input-wrap"><textarea class="field" id="anova-g2" rows="2" style="resize:vertical;font-size:.82em" oninput="anovaCalc()">3.1, 3.5, 3.2, 3.8, 2.9</textarea></div></div>
+        <div class="input-row"><div class="input-label">Group 3 (optional)</div><div class="input-wrap"><textarea class="field" id="anova-g3" rows="2" style="resize:vertical;font-size:.82em" oninput="anovaCalc()">1.5, 1.8, 1.6</textarea></div></div>
+        <div class="input-row"><div class="input-label">Group 4 (optional)</div><div class="input-wrap"><textarea class="field" id="anova-g4" rows="2" style="resize:vertical;font-size:.82em" oninput="anovaCalc()"></textarea></div></div>
+        <button class="btn-calc" onclick="anovaCalc()">Calculate</button>
+        <div class="output" id="anova-out"><div class="output-header">Results</div><div class="output-body" id="anova-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SIGNAL PROCESSING ── -->
+<div class="section" id="signal-proc">
+  <div class="section-header">
+    <div class="section-tag">Signal Processing</div>
+    <div class="section-title"><span class="ico">〜</span> Signal Processing</div>
+    <div class="section-desc">RMS, Nyquist criterion, moving average, HRV time-domain metrics, and DFT spectral analysis.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">RMS</div><div><div class="card-title">RMS & Crest Factor</div><div class="card-subtitle">From data or waveform type</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$X_\mathrm{rms}=\sqrt{\tfrac{1}{n}\sum x_i^2},\quad CF=X_{peak}/X_{rms}$$</div>
+        <div class="input-row"><div class="input-label">Input mode</div><div class="input-wrap"><select class="field" id="rms-mode" onchange="rmsCalc()" style="padding:6px 8px;font-size:.82em"><option value="data">Comma-separated data</option><option value="sine">Sine wave (amplitude A)</option><option value="square">Square wave (amplitude A)</option><option value="triangle">Triangle wave (amplitude A)</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Data or Amplitude A</div><div class="input-wrap"><textarea class="field" id="rms-data" rows="2" style="resize:vertical;font-size:.82em" oninput="rmsCalc()">1, -2, 3, -1, 4, 0, -3, 2</textarea></div></div>
+        <div class="input-row"><div class="input-label">A (waveform mode)</div><div class="input-wrap"><input class="field" id="rms-A" type="number" value="1" min="0" oninput="rmsCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="rmsCalc()">Calculate</button>
+        <div class="output" id="rms-out"><div class="output-header">Results</div><div class="output-body" id="rms-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">f_N</div><div><div class="card-title">Nyquist & Aliasing</div><div class="card-subtitle">Sampling rate adequacy, alias frequency</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$f_N=f_s/2,\quad \Delta f=f_s/N$$</div>
+        <div class="input-row"><div class="input-label">Sampling rate f_s</div><div class="input-wrap"><input class="field" id="nyq-fs" type="number" value="1000" min="0" oninput="nyqCalc()"><select class="unit-sel"><option value="1">Hz</option></select></div></div>
+        <div class="input-row"><div class="input-label">Signal frequency f</div><div class="input-wrap"><input class="field" id="nyq-f" type="number" value="400" min="0" oninput="nyqCalc()"><select class="unit-sel"><option value="1">Hz</option></select></div></div>
+        <div class="input-row"><div class="input-label">FFT size N</div><div class="input-wrap"><input class="field" id="nyq-N" type="number" value="1024" min="4" oninput="nyqCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="nyqCalc()">Calculate</button>
+        <div class="output" id="nyq-out"><div class="output-header">Results</div><div class="output-body" id="nyq-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">MA</div><div><div class="card-title">Moving Average Smoothing</div><div class="card-subtitle">Causal sliding-window filter</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$y_i=\frac{1}{W}\sum_{k=0}^{W-1}x_{i-k}$$</div>
+        <div class="input-row"><div class="input-label">Data (comma-sep)</div><div class="input-wrap"><textarea class="field" id="mav-data" rows="2" style="resize:vertical;font-size:.82em" oninput="mavCalc()">2, 4, 3, 6, 8, 5, 7, 9, 4, 6</textarea></div></div>
+        <div class="input-row"><div class="input-label">Window size W</div><div class="input-wrap"><input class="field" id="mav-W" type="number" value="3" min="2" oninput="mavCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="mavCalc()">Calculate</button>
+        <div class="output" id="mav-out"><div class="output-header">Results</div><div class="output-body" id="mav-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">HRV</div><div><div class="card-title">HRV Time-Domain Metrics</div><div class="card-subtitle">SDNN, RMSSD, pNN50 from RR intervals</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{SDNN}=\sqrt{\tfrac{1}{N}\sum(RR_i-\overline{RR})^2},\quad \mathrm{RMSSD}=\sqrt{\tfrac{1}{N-1}\sum\Delta RR_i^2}$$</div>
+        <div class="input-row"><div class="input-label">RR intervals (ms)</div><div class="input-wrap"><textarea class="field" id="hrv-rr" rows="3" style="resize:vertical;font-size:.82em" oninput="hrvCalc()">850, 820, 860, 840, 870, 800, 880, 830, 850, 810</textarea></div></div>
+        <button class="btn-calc" onclick="hrvCalc()">Calculate</button>
+        <div class="output" id="hrv-out"><div class="output-header">Results</div><div class="output-body" id="hrv-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">DFT</div><div><div class="card-title">Spectral Analysis (DFT)</div><div class="card-subtitle">Dominant frequencies from time-series data</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$X_k=\sum_{n=0}^{N-1}x_n e^{-j2\pi kn/N}$$</div>
+        <div class="input-row"><div class="input-label">Data (comma-sep, ≤256 pts)</div><div class="input-wrap"><textarea class="field" id="fft-data" rows="2" style="resize:vertical;font-size:.82em" oninput="fftCalc()">0,1,2,1,0,-1,-2,-1,0,1,2,1,0,-1,-2,-1</textarea></div></div>
+        <div class="input-row"><div class="input-label">Sampling rate f_s</div><div class="input-wrap"><input class="field" id="fft-fs" type="number" value="16" min="0" oninput="fftCalc()"><select class="unit-sel"><option value="1">Hz</option></select></div></div>
+        <button class="btn-calc" onclick="fftCalc()">Calculate</button>
+        <div class="output" id="fft-out"><div class="output-header">Results</div><div class="output-body" id="fft-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MECHANICAL DESIGN ── -->
+<div class="section" id="mech-design">
+  <div class="section-header">
+    <div class="section-tag">Mechanical Design</div>
+    <div class="section-title"><span class="ico">⚙</span> Mechanical Design</div>
+    <div class="section-desc">Gear ratios, bearing life (L10), bolt preload, spring rate, Hertz contact stress, and thread engagement.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">GR</div><div><div class="card-title">Gear Ratio</div><div class="card-subtitle">Speed, torque, and power through a gear pair</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$GR=N_2/N_1,\quad \omega_2=\omega_1/GR,\quad T_2=T_1\cdot GR\cdot\eta$$</div>
+        <div class="input-row"><div class="input-label">Driver teeth N₁</div><div class="input-wrap"><input class="field" id="gr-N1" type="number" value="20" min="1" oninput="grCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Driven teeth N₂</div><div class="input-wrap"><input class="field" id="gr-N2" type="number" value="60" min="1" oninput="grCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Input speed</div><div class="input-wrap"><input class="field" id="gr-rpm1" type="number" value="1500" oninput="grCalc()"><select class="unit-sel"><option value="1">RPM</option></select></div></div>
+        <div class="input-row"><div class="input-label">Input torque T₁</div><div class="input-wrap"><input class="field" id="gr-T1" type="number" value="50" oninput="grCalc()"><select class="unit-sel"><option value="1">N·m</option></select></div></div>
+        <div class="input-row"><div class="input-label">Efficiency η (0–1)</div><div class="input-wrap"><input class="field" id="gr-eta" type="number" value="0.97" min="0" max="1" step="0.01" oninput="grCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="grCalc()">Calculate</button>
+        <div class="output" id="gr-out"><div class="output-header">Results</div><div class="output-body" id="gr-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">L10</div><div><div class="card-title">Bearing Life (L10)</div><div class="card-subtitle">ISO 281 basic rating life</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$L_{10}=\left(\frac{C}{P}\right)^p\times10^6\,\text{rev}$$</div>
+        <div class="input-row"><div class="input-label">Bearing type</div><div class="input-wrap"><select class="field" id="brg-type" onchange="brgCalc()" style="padding:6px 8px;font-size:.82em"><option value="ball">Ball (p=3)</option><option value="roller">Roller (p=10/3)</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Basic load rating C</div><div class="input-wrap"><input class="field" id="brg-C" type="number" value="25000" min="0" oninput="brgCalc()"><select class="unit-sel" id="brg-C-u" onchange="brgCalc()"><option value="1">N</option><option value="1000">kN</option></select></div></div>
+        <div class="input-row"><div class="input-label">Equivalent load P</div><div class="input-wrap"><input class="field" id="brg-P" type="number" value="8000" min="0" oninput="brgCalc()"><select class="unit-sel" id="brg-P-u" onchange="brgCalc()"><option value="1">N</option><option value="1000">kN</option></select></div></div>
+        <div class="input-row"><div class="input-label">Speed n</div><div class="input-wrap"><input class="field" id="brg-n" type="number" value="1450" min="0" oninput="brgCalc()"><select class="unit-sel"><option value="1">RPM</option></select></div></div>
+        <button class="btn-calc" onclick="brgCalc()">Calculate</button>
+        <div class="output" id="brg-out"><div class="output-header">Results</div><div class="output-body" id="brg-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">F_i</div><div><div class="card-title">Bolt Preload</div><div class="card-subtitle">Torque ↔ clamp force (nut factor K method)</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$T=K\,d\,F_i$$</div>
+        <div class="input-row"><div class="input-label">Mode</div><div class="input-wrap"><select class="field" id="bolt-mode" onchange="boltCalc()" style="padding:6px 8px;font-size:.82em"><option value="T2F">Torque → Force</option><option value="F2T">Force → Torque</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Nominal diameter d</div><div class="input-wrap"><input class="field" id="bolt-d" type="number" value="12" min="0" oninput="boltCalc()"><select class="unit-sel" id="bolt-d-u" onchange="boltCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Nut factor K</div><div class="input-wrap"><input class="field" id="bolt-K" type="number" value="0.2" min="0" step="0.01" oninput="boltCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Applied torque T</div><div class="input-wrap"><input class="field" id="bolt-T" type="number" value="80" oninput="boltCalc()"><select class="unit-sel" id="bolt-T-u" onchange="boltCalc()"><option value="1">N·m</option><option value="0.113">lbf·in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Thread pitch p</div><div class="input-wrap"><input class="field" id="bolt-pitch" type="number" value="1.75" min="0" oninput="boltCalc()"><select class="unit-sel" id="bolt-pitch-u" onchange="boltCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Preload F (F→T mode)</div><div class="input-wrap"><input class="field" id="bolt-F" type="number" value="30000" oninput="boltCalc()"><select class="unit-sel" id="bolt-F-u" onchange="boltCalc()"><option value="1">N</option><option value="4.448">lbf</option></select></div></div>
+        <button class="btn-calc" onclick="boltCalc()">Calculate</button>
+        <div class="output" id="bolt-out"><div class="output-header">Results</div><div class="output-body" id="bolt-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">k</div><div><div class="card-title">Spring Rate</div><div class="card-subtitle">Helical coil spring stiffness</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$k=\frac{G\,d_w^4}{8\,D^3\,N_c}$$</div>
+        <div class="input-row"><div class="input-label">Mode</div><div class="input-wrap"><select class="field" id="spr-mode" onchange="sprCalc()" style="padding:6px 8px;font-size:.82em"><option value="coil">Helical coil</option><option value="fd">Force/deflection</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Wire diameter d_w</div><div class="input-wrap"><input class="field" id="spr-dw" type="number" value="3" min="0" oninput="sprCalc()"><select class="unit-sel" id="spr-dw-u" onchange="sprCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Mean coil dia D</div><div class="input-wrap"><input class="field" id="spr-D" type="number" value="30" min="0" oninput="sprCalc()"><select class="unit-sel" id="spr-D-u" onchange="sprCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Active coils N_c</div><div class="input-wrap"><input class="field" id="spr-nc" type="number" value="8" min="1" oninput="sprCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Shear modulus G</div><div class="input-wrap"><input class="field" id="spr-G" type="number" value="80" min="0" oninput="sprCalc()"><select class="unit-sel" id="spr-G-u" onchange="sprCalc()"><option value="1e9">GPa</option><option value="6.895e9">Mpsi</option></select></div></div>
+        <div class="input-row"><div class="input-label">Deflection δ</div><div class="input-wrap"><input class="field" id="spr-delta" type="number" value="20" oninput="sprCalc()"><select class="unit-sel" id="spr-delta-u" onchange="sprCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Force F (fd mode)</div><div class="input-wrap"><input class="field" id="spr-F2" type="number" value="100" oninput="sprCalc()"><select class="unit-sel" id="spr-F2-u" onchange="sprCalc()"><option value="1">N</option><option value="4.448">lbf</option></select></div></div>
+        <div class="input-row"><div class="input-label">Deflection δ (fd mode)</div><div class="input-wrap"><input class="field" id="spr-delta2" type="number" value="50" oninput="sprCalc()"><select class="unit-sel" id="spr-delta2-u" onchange="sprCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <button class="btn-calc" onclick="sprCalc()">Calculate</button>
+        <div class="output" id="spr-out"><div class="output-header">Results</div><div class="output-body" id="spr-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">p₀</div><div><div class="card-title">Hertz Contact Stress</div><div class="card-subtitle">Sphere-on-sphere or sphere-on-flat contact</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$a=\sqrt[3]{\frac{3FR^*}{4E^*}},\quad p_0=\frac{3F}{2\pi a^2}$$</div>
+        <div class="input-row"><div class="input-label">Force F</div><div class="input-wrap"><input class="field" id="htz-F" type="number" value="1000" min="0" oninput="htzCalc()"><select class="unit-sel" id="htz-F-u" onchange="htzCalc()"><option value="1">N</option><option value="4.448">lbf</option></select></div></div>
+        <div class="input-row"><div class="input-label">Radius R₁</div><div class="input-wrap"><input class="field" id="htz-R1" type="number" value="20" min="0" oninput="htzCalc()"><select class="unit-sel" id="htz-R1-u" onchange="htzCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Radius R₂ (0=flat)</div><div class="input-wrap"><input class="field" id="htz-R2" type="number" value="0" min="0" oninput="htzCalc()"><select class="unit-sel" id="htz-R2-u" onchange="htzCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">E₁ (GPa), ν₁</div><div class="input-wrap"><input class="field" id="htz-E1" type="number" value="200" min="0" oninput="htzCalc()" style="width:80px"><input class="field" id="htz-nu1" type="number" value="0.3" min="0" max="0.5" step="0.01" oninput="htzCalc()" style="width:60px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">E₂ (GPa), ν₂</div><div class="input-wrap"><input class="field" id="htz-E2" type="number" value="200" min="0" oninput="htzCalc()" style="width:80px"><input class="field" id="htz-nu2" type="number" value="0.3" min="0" max="0.5" step="0.01" oninput="htzCalc()" style="width:60px;margin-left:4px"></div></div>
+        <button class="btn-calc" onclick="htzCalc()">Calculate</button>
+        <div class="output" id="htz-out"><div class="output-header">Results</div><div class="output-body" id="htz-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">L_e</div><div><div class="card-title">Thread Engagement Length</div><div class="card-subtitle">Tensile stress area and minimum thread engagement</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$A_t=\frac{\pi}{4}\!\left(d-\frac{0.9743}{p}\right)^2,\quad L_e=d\text{ (same mat.)}$$</div>
+        <div class="input-row"><div class="input-label">Nominal diameter d</div><div class="input-wrap"><input class="field" id="thr-d" type="number" value="12" min="0" oninput="thrCalc()"><select class="unit-sel" id="thr-d-u" onchange="thrCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Thread pitch p</div><div class="input-wrap"><input class="field" id="thr-p" type="number" value="1.75" min="0" oninput="thrCalc()"><select class="unit-sel" id="thr-p-u" onchange="thrCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Tensile strength Sut</div><div class="input-wrap"><input class="field" id="thr-Sut" type="number" value="800" oninput="thrCalc()"><select class="unit-sel" id="thr-Sut-u" onchange="thrCalc()"><option value="1e6">MPa</option><option value="6.895e6">ksi</option></select></div></div>
+        <button class="btn-calc" onclick="thrCalc()">Calculate</button>
+        <div class="output" id="thr-out"><div class="output-header">Results</div><div class="output-body" id="thr-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MATERIALS ENGINEERING ── -->
+<div class="section" id="materials-eng">
+  <div class="section-header">
+    <div class="section-tag">Materials</div>
+    <div class="section-title"><span class="ico">🧱</span> Materials Engineering</div>
+    <div class="section-desc">Rule of mixtures, thermal mismatch stress, Norton creep, Larson-Miller, and Tsai-Wu composite failure.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">ROM</div><div><div class="card-title">Rule of Mixtures</div><div class="card-subtitle">Composite longitudinal &amp; transverse modulus</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$E_L=V_f E_f+V_m E_m,\quad E_T=\frac{1}{V_f/E_f+V_m/E_m}$$</div>
+        <div class="input-row"><div class="input-label">Fiber modulus E_f</div><div class="input-wrap"><input class="field" id="rom-Ef" type="number" value="230" min="0" oninput="romCalc()"><select class="unit-sel" id="rom-Ef-u" onchange="romCalc()"><option value="1e9">GPa</option><option value="6.895e9">Mpsi</option></select></div></div>
+        <div class="input-row"><div class="input-label">Matrix modulus E_m</div><div class="input-wrap"><input class="field" id="rom-Em" type="number" value="3.5" min="0" oninput="romCalc()"><select class="unit-sel" id="rom-Em-u" onchange="romCalc()"><option value="1e9">GPa</option><option value="6.895e9">Mpsi</option></select></div></div>
+        <div class="input-row"><div class="input-label">Fiber volume fraction V_f</div><div class="input-wrap"><input class="field" id="rom-Vf" type="number" value="60" min="0" max="100" oninput="romCalc()"><select class="unit-sel"><option value="1">%</option></select></div></div>
+        <button class="btn-calc" onclick="romCalc()">Calculate</button>
+        <div class="output" id="rom-out"><div class="output-header">Results</div><div class="output-body" id="rom-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Δα</div><div><div class="card-title">Thermal Mismatch Stress</div><div class="card-subtitle">Stress from CTE difference (constrained bimaterial)</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\sigma=\frac{E\,\Delta\alpha\,\Delta T}{1-\nu}$$</div>
+        <div class="input-row"><div class="input-label">Modulus E</div><div class="input-wrap"><input class="field" id="tem-E" type="number" value="200" min="0" oninput="temCalc()"><select class="unit-sel" id="tem-E-u" onchange="temCalc()"><option value="1e9">GPa</option><option value="6.895e9">Mpsi</option></select></div></div>
+        <div class="input-row"><div class="input-label">Poisson ν</div><div class="input-wrap"><input class="field" id="tem-nu" type="number" value="0.3" min="0" max="0.5" step="0.01" oninput="temCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">α₁ (μm/m·K)</div><div class="input-wrap"><input class="field" id="tem-a1" type="number" value="12" oninput="temCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">α₂ (μm/m·K)</div><div class="input-wrap"><input class="field" id="tem-a2" type="number" value="23" oninput="temCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">ΔT</div><div class="input-wrap"><input class="field" id="tem-dT" type="number" value="100" oninput="temCalc()"><select class="unit-sel"><option value="1">K</option></select></div></div>
+        <button class="btn-calc" onclick="temCalc()">Calculate</button>
+        <div class="output" id="tem-out"><div class="output-header">Results</div><div class="output-body" id="tem-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">ε̇</div><div><div class="card-title">Norton Creep Law</div><div class="card-subtitle">Steady-state creep rate and time to 1% strain</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\dot\varepsilon=A\,\sigma^n\,e^{-Q/RT}$$</div>
+        <div class="input-row"><div class="input-label">Pre-exp A</div><div class="input-wrap"><input class="field" id="crp-A" type="number" value="1e-10" step="1e-11" min="0" oninput="crpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Stress exponent n</div><div class="input-wrap"><input class="field" id="crp-n" type="number" value="5" min="0" oninput="crpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Activation energy Q</div><div class="input-wrap"><input class="field" id="crp-Q" type="number" value="150" min="0" oninput="crpCalc()"><select class="unit-sel"><option value="1">kJ/mol</option></select></div></div>
+        <div class="input-row"><div class="input-label">Stress σ</div><div class="input-wrap"><input class="field" id="crp-sig" type="number" value="100" oninput="crpCalc()"><select class="unit-sel" id="crp-sig-u" onchange="crpCalc()"><option value="1e6">MPa</option><option value="6.895e6">ksi</option></select></div></div>
+        <div class="input-row"><div class="input-label">Temperature T</div><div class="input-wrap"><input class="field" id="crp-T" type="number" value="600" oninput="crpCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <button class="btn-calc" onclick="crpCalc()">Calculate</button>
+        <div class="output" id="crp-out"><div class="output-header">Results</div><div class="output-body" id="crp-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">LMP</div><div><div class="card-title">Larson-Miller Parameter</div><div class="card-subtitle">High-temperature rupture life prediction</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$P=T\bigl(C+\log_{10}t_r\bigr)$$</div>
+        <div class="input-row"><div class="input-label">Temperature T</div><div class="input-wrap"><input class="field" id="lmp-T" type="number" value="650" oninput="lmpCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <div class="input-row"><div class="input-label">Rupture time t_r</div><div class="input-wrap"><input class="field" id="lmp-t" type="number" value="1000" min="0" oninput="lmpCalc()"><select class="unit-sel"><option value="1">h</option></select></div></div>
+        <div class="input-row"><div class="input-label">Material constant C</div><div class="input-wrap"><input class="field" id="lmp-C" type="number" value="20" oninput="lmpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="lmpCalc()">Calculate</button>
+        <div class="output" id="lmp-out"><div class="output-header">Results</div><div class="output-body" id="lmp-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">FI</div><div><div class="card-title">Tsai-Wu Failure Criterion</div><div class="card-subtitle">Composite lamina failure index</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$FI=F_1\sigma_1+F_2\sigma_2+F_{11}\sigma_1^2+F_{22}\sigma_2^2+F_{66}\tau_{12}^2$$</div>
+        <p style="font-size:.75em;color:var(--muted);margin-bottom:6px">Strengths in MPa</p>
+        <div class="input-row"><div class="input-label">X_t, X_c (tension/comp. L)</div><div class="input-wrap"><input class="field" id="tsai-Xt" type="number" value="1500" min="0" oninput="tsaiCalc()" style="width:80px"><input class="field" id="tsai-Xc" type="number" value="1200" min="0" oninput="tsaiCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">Y_t, Y_c (transverse)</div><div class="input-wrap"><input class="field" id="tsai-Yt" type="number" value="50" min="0" oninput="tsaiCalc()" style="width:80px"><input class="field" id="tsai-Yc" type="number" value="200" min="0" oninput="tsaiCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">Shear strength S</div><div class="input-wrap"><input class="field" id="tsai-S" type="number" value="70" min="0" oninput="tsaiCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">σ₁, σ₂ (applied)</div><div class="input-wrap"><input class="field" id="tsai-s1" type="number" value="600" oninput="tsaiCalc()" style="width:80px"><input class="field" id="tsai-s2" type="number" value="20" oninput="tsaiCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">τ₁₂ (shear)</div><div class="input-wrap"><input class="field" id="tsai-t12" type="number" value="30" oninput="tsaiCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="tsaiCalc()">Calculate</button>
+        <div class="output" id="tsai-out"><div class="output-header">Results</div><div class="output-body" id="tsai-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── COMPRESSIBLE FLOW ── -->
+<div class="section" id="compressible-flow">
+  <div class="section-header">
+    <div class="section-tag">Compressible / CFD</div>
+    <div class="section-title"><span class="ico">💨</span> Compressible Flow</div>
+    <div class="section-desc">CFL stability, isentropic relations, normal/oblique shock, Prandtl-Meyer, pump laws, cavitation, Stokes settling, surface tension numbers, Fanno flow, and Rayleigh flow.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">CFL</div><div><div class="card-title">CFL Number</div><div class="card-subtitle">Courant-Friedrichs-Lewy stability criterion</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{CFL}=\frac{u\,\Delta t}{\Delta x}\leq1$$</div>
+        <div class="input-row"><div class="input-label">Flow velocity u</div><div class="input-wrap"><input class="field" id="cfl-u" type="number" value="10" oninput="cflCalc()"><select class="unit-sel" id="cfl-u-u" onchange="cflCalc()"><option value="1">m/s</option><option value="0.3048">ft/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Time step Δt</div><div class="input-wrap"><input class="field" id="cfl-dt" type="number" value="0.001" min="0" oninput="cflCalc()"><select class="unit-sel"><option value="1">s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Cell size Δx</div><div class="input-wrap"><input class="field" id="cfl-dx" type="number" value="0.05" min="0" oninput="cflCalc()"><select class="unit-sel" id="cfl-dx-u" onchange="cflCalc()"><option value="1">m</option><option value="0.001">mm</option></select></div></div>
+        <button class="btn-calc" onclick="cflCalc()">Calculate</button>
+        <div class="output" id="cfl-out"><div class="output-header">Results</div><div class="output-body" id="cfl-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">M</div><div><div class="card-title">Isentropic Relations</div><div class="card-subtitle">Total-to-static ratios from Mach number</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\frac{P_0}{P}=\!\left(1+\tfrac{\gamma-1}{2}M^2\right)^{\!\gamma/(\gamma-1)}$$</div>
+        <div class="input-row"><div class="input-label">Mach number M</div><div class="input-wrap"><input class="field" id="iso-M" type="number" value="0.8" min="0" oninput="isoCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Ratio of specifics γ</div><div class="input-wrap"><input class="field" id="iso-gam" type="number" value="1.4" min="1" step="0.01" oninput="isoCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="isoCalc()">Calculate</button>
+        <div class="output" id="iso-out"><div class="output-header">Results</div><div class="output-body" id="iso-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">NS</div><div><div class="card-title">Normal Shock Relations</div><div class="card-subtitle">Properties across a normal shock wave</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$M_2^2=\frac{(\gamma-1)M_1^2+2}{2\gamma M_1^2-(\gamma-1)}$$</div>
+        <div class="input-row"><div class="input-label">Upstream Mach M₁ (≥1)</div><div class="input-wrap"><input class="field" id="nsh-M1" type="number" value="2" min="1" step="0.1" oninput="nshCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">γ</div><div class="input-wrap"><input class="field" id="nsh-gam" type="number" value="1.4" min="1" step="0.01" oninput="nshCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="nshCalc()">Calculate</button>
+        <div class="output" id="nsh-out"><div class="output-header">Results</div><div class="output-body" id="nsh-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">OS</div><div><div class="card-title">Oblique Shock</div><div class="card-subtitle">θ-β-M relation — shock angle from deflection</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\tan\theta=\frac{2\cot\beta(M_1^2\sin^2\beta-1)}{M_1^2(\gamma+\cos2\beta)+2}$$</div>
+        <div class="input-row"><div class="input-label">M₁ (≥1)</div><div class="input-wrap"><input class="field" id="osh-M1" type="number" value="3" min="1" step="0.1" oninput="oshCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Deflection angle θ</div><div class="input-wrap"><input class="field" id="osh-theta" type="number" value="20" min="0" oninput="oshCalc()"><select class="unit-sel"><option value="1">°</option></select></div></div>
+        <div class="input-row"><div class="input-label">γ</div><div class="input-wrap"><input class="field" id="osh-gam" type="number" value="1.4" min="1" step="0.01" oninput="oshCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="oshCalc()">Calculate</button>
+        <div class="output" id="osh-out"><div class="output-header">Results</div><div class="output-body" id="osh-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">PM</div><div><div class="card-title">Prandtl-Meyer Expansion</div><div class="card-subtitle">Supersonic expansion fan — M₂ from turning angle</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\nu(M)=\sqrt{\tfrac{\gamma+1}{\gamma-1}}\arctan\!\sqrt{\tfrac{\gamma-1}{\gamma+1}(M^2-1)}-\arctan\!\sqrt{M^2-1}$$</div>
+        <div class="input-row"><div class="input-label">M₁ (>1)</div><div class="input-wrap"><input class="field" id="pme-M1" type="number" value="2" min="1.01" step="0.1" oninput="pmeCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Turning angle Δθ</div><div class="input-wrap"><input class="field" id="pme-dtheta" type="number" value="10" min="0" oninput="pmeCalc()"><select class="unit-sel"><option value="1">°</option></select></div></div>
+        <div class="input-row"><div class="input-label">γ</div><div class="input-wrap"><input class="field" id="pme-gam" type="number" value="1.4" min="1" step="0.01" oninput="pmeCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="pmeCalc()">Calculate</button>
+        <div class="output" id="pme-out"><div class="output-header">Results</div><div class="output-body" id="pme-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Q∝N</div><div><div class="card-title">Pump Affinity Laws</div><div class="card-subtitle">Scale Q, H, P with speed ratio</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\frac{Q_2}{Q_1}=\frac{N_2}{N_1},\quad\frac{H_2}{H_1}=\left(\frac{N_2}{N_1}\right)^2,\quad\frac{P_2}{P_1}=\left(\frac{N_2}{N_1}\right)^3$$</div>
+        <div class="input-row"><div class="input-label">Speed N₁</div><div class="input-wrap"><input class="field" id="pmp-N1" type="number" value="1450" min="0" oninput="pmpCalc()"><select class="unit-sel"><option value="1">RPM</option></select></div></div>
+        <div class="input-row"><div class="input-label">Speed N₂</div><div class="input-wrap"><input class="field" id="pmp-N2" type="number" value="1750" min="0" oninput="pmpCalc()"><select class="unit-sel"><option value="1">RPM</option></select></div></div>
+        <div class="input-row"><div class="input-label">Flow Q₁</div><div class="input-wrap"><input class="field" id="pmp-Q1" type="number" value="100" oninput="pmpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Head H₁</div><div class="input-wrap"><input class="field" id="pmp-H1" type="number" value="20" oninput="pmpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Power P₁</div><div class="input-wrap"><input class="field" id="pmp-P1" type="number" value="5" oninput="pmpCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="pmpCalc()">Calculate</button>
+        <div class="output" id="pmp-out"><div class="output-header">Results</div><div class="output-body" id="pmp-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">NPSH</div><div><div class="card-title">NPSH &amp; Cavitation Risk</div><div class="card-subtitle">Net positive suction head — pump inlet</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{NPSH}_a=\frac{P_{inlet}-P_v}{\rho g}+\frac{v^2}{2g}$$</div>
+        <div class="input-row"><div class="input-label">Inlet pressure P</div><div class="input-wrap"><input class="field" id="cav-Pi" type="number" value="101325" min="0" oninput="cavCalc()"><select class="unit-sel" id="cav-Pi-u" onchange="cavCalc()"><option value="1">Pa</option><option value="1000">kPa</option></select></div></div>
+        <div class="input-row"><div class="input-label">Vapor pressure P_v</div><div class="input-wrap"><input class="field" id="cav-Pv" type="number" value="3540" min="0" oninput="cavCalc()"><select class="unit-sel" id="cav-Pv-u" onchange="cavCalc()"><option value="1">Pa</option><option value="1000">kPa</option></select></div></div>
+        <div class="input-row"><div class="input-label">Fluid density ρ</div><div class="input-wrap"><input class="field" id="cav-rho" type="number" value="998" min="0" oninput="cavCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Inlet velocity v</div><div class="input-wrap"><input class="field" id="cav-v" type="number" value="2" oninput="cavCalc()"><select class="unit-sel"><option value="1">m/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">NPSH required</div><div class="input-wrap"><input class="field" id="cav-NPSHr" type="number" value="3" min="0" oninput="cavCalc()"><select class="unit-sel"><option value="1">m</option></select></div></div>
+        <button class="btn-calc" onclick="cavCalc()">Calculate</button>
+        <div class="output" id="cav-out"><div class="output-header">Results</div><div class="output-body" id="cav-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">V_t</div><div><div class="card-title">Stokes Settling Velocity</div><div class="card-subtitle">Terminal velocity of a sphere in viscous fluid</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$V_t=\frac{(\rho_p-\rho_f)g\,d^2}{18\mu}$$</div>
+        <div class="input-row"><div class="input-label">Particle diameter d</div><div class="input-wrap"><input class="field" id="stk-d" type="number" value="100" min="0" oninput="stkCalc()"><select class="unit-sel" id="stk-d-u" onchange="stkCalc()"><option value="1e-6">μm</option><option value="0.001">mm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Particle density ρ_p</div><div class="input-wrap"><input class="field" id="stk-rhop" type="number" value="2500" min="0" oninput="stkCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Fluid density ρ_f</div><div class="input-wrap"><input class="field" id="stk-rhof" type="number" value="1000" min="0" oninput="stkCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Dynamic viscosity μ</div><div class="input-wrap"><input class="field" id="stk-mu" type="number" value="1" min="0" oninput="stkCalc()"><select class="unit-sel" id="stk-mu-u" onchange="stkCalc()"><option value="0.001">mPa·s</option><option value="1">Pa·s</option></select></div></div>
+        <button class="btn-calc" onclick="stkCalc()">Calculate</button>
+        <div class="output" id="stk-out"><div class="output-header">Results</div><div class="output-body" id="stk-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">We</div><div><div class="card-title">Droplet &amp; Surface Tension Numbers</div><div class="card-subtitle">Weber, Capillary, Bond numbers</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$We=\frac{\rho V^2 L}{\sigma},\quad Ca=\frac{\mu V}{\sigma},\quad Bo=\frac{\Delta\rho\,g L^2}{\sigma}$$</div>
+        <div class="input-row"><div class="input-label">Density ρ</div><div class="input-wrap"><input class="field" id="d3-rho" type="number" value="1000" min="0" oninput="dim3Calc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Velocity V</div><div class="input-wrap"><input class="field" id="d3-V" type="number" value="1" oninput="dim3Calc()"><select class="unit-sel" id="d3-V-u" onchange="dim3Calc()"><option value="1">m/s</option><option value="0.001">mm/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Length scale L</div><div class="input-wrap"><input class="field" id="d3-L" type="number" value="1" min="0" oninput="dim3Calc()"><select class="unit-sel" id="d3-L-u" onchange="dim3Calc()"><option value="0.001">mm</option><option value="1">m</option></select></div></div>
+        <div class="input-row"><div class="input-label">Viscosity μ</div><div class="input-wrap"><input class="field" id="d3-mu" type="number" value="1" min="0" oninput="dim3Calc()"><select class="unit-sel" id="d3-mu-u" onchange="dim3Calc()"><option value="0.001">mPa·s</option><option value="1">Pa·s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Surface tension σ</div><div class="input-wrap"><input class="field" id="d3-sig" type="number" value="0.072" min="0" oninput="dim3Calc()"><select class="unit-sel"><option value="1">N/m</option></select></div></div>
+        <div class="input-row"><div class="input-label">Density diff Δρ</div><div class="input-wrap"><input class="field" id="d3-drho" type="number" value="1000" oninput="dim3Calc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <button class="btn-calc" onclick="dim3Calc()">Calculate</button>
+        <div class="output" id="d3-out"><div class="output-header">Results</div><div class="output-body" id="d3-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Fa</div><div><div class="card-title">Fanno Flow</div><div class="card-subtitle">Friction-driven compressible duct flow</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\frac{4fL^*}{D}=\frac{1-M^2}{\gamma M^2}+\frac{\gamma+1}{2\gamma}\ln\frac{(\gamma+1)M^2}{2+(\gamma-1)M^2}$$</div>
+        <div class="input-row"><div class="input-label">M₁</div><div class="input-wrap"><input class="field" id="fan-M1" type="number" value="0.5" min="0.01" step="0.05" oninput="fanCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">4fL/D</div><div class="input-wrap"><input class="field" id="fan-fLD" type="number" value="0.5" min="0" oninput="fanCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">γ</div><div class="input-wrap"><input class="field" id="fan-gam" type="number" value="1.4" min="1" step="0.01" oninput="fanCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="fanCalc()">Calculate</button>
+        <div class="output" id="fan-out"><div class="output-header">Results</div><div class="output-body" id="fan-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Ra</div><div><div class="card-title">Rayleigh Flow</div><div class="card-subtitle">Heat-addition in compressible duct flow</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\frac{T_0}{T_0^*}=\frac{2(\gamma+1)M^2}{(1+\gamma M^2)^2}\!\left(1+\tfrac{\gamma-1}{2}M^2\right)$$</div>
+        <div class="input-row"><div class="input-label">M₁</div><div class="input-wrap"><input class="field" id="ray-M1" type="number" value="0.4" min="0.01" step="0.05" oninput="rayCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">T₀₂/T₀₁</div><div class="input-wrap"><input class="field" id="ray-T02T01" type="number" value="1.5" min="0.01" step="0.1" oninput="rayCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">γ</div><div class="input-wrap"><input class="field" id="ray-gam" type="number" value="1.4" min="1" step="0.01" oninput="rayCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="rayCalc()">Calculate</button>
+        <div class="output" id="ray-out"><div class="output-header">Results</div><div class="output-body" id="ray-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MASS TRANSFER ── -->
+<div class="section" id="mass-transfer">
+  <div class="section-header">
+    <div class="section-tag">Mass Transfer</div>
+    <div class="section-title"><span class="ico">⬡</span> Mass Transfer</div>
+    <div class="section-desc">Fick's first law, Schmidt number, Sherwood number, and membrane / filtration flux.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">J</div><div><div class="card-title">Fick's First Law</div><div class="card-subtitle">Diffusive flux and timescale</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$J=-D\frac{dC}{dx}\approx D\frac{\Delta C}{L},\quad t_{diff}=L^2/D$$</div>
+        <div class="input-row"><div class="input-label">Diffusivity D</div><div class="input-wrap"><input class="field" id="fick-D" type="number" value="1e-9" min="0" step="1e-10" oninput="fickCalc()"><select class="unit-sel" id="fick-D-u" onchange="fickCalc()"><option value="1">m²/s</option><option value="1e-4">cm²/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Conc. gradient ΔC</div><div class="input-wrap"><input class="field" id="fick-dC" type="number" value="1000" oninput="fickCalc()"><select class="unit-sel"><option value="1">mol/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Length L</div><div class="input-wrap"><input class="field" id="fick-L" type="number" value="1" min="0" oninput="fickCalc()"><select class="unit-sel" id="fick-L-u" onchange="fickCalc()"><option value="0.001">mm</option><option value="1">m</option></select></div></div>
+        <button class="btn-calc" onclick="fickCalc()">Calculate</button>
+        <div class="output" id="fick-out"><div class="output-header">Results</div><div class="output-body" id="fick-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Sc</div><div><div class="card-title">Schmidt Number</div><div class="card-subtitle">Momentum vs. mass diffusivity ratio</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$Sc=\frac{\nu}{D}=\frac{\mu}{\rho D}$$</div>
+        <div class="input-row"><div class="input-label">Dynamic viscosity μ</div><div class="input-wrap"><input class="field" id="sc-mu" type="number" value="1" min="0" oninput="scCalc()"><select class="unit-sel" id="sc-mu-u" onchange="scCalc()"><option value="0.001">mPa·s</option><option value="1">Pa·s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Density ρ</div><div class="input-wrap"><input class="field" id="sc-rho" type="number" value="1000" min="0" oninput="scCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Diffusivity D</div><div class="input-wrap"><input class="field" id="sc-D" type="number" value="1e-9" min="0" step="1e-10" oninput="scCalc()"><select class="unit-sel" id="sc-D-u" onchange="scCalc()"><option value="1">m²/s</option><option value="1e-4">cm²/s</option></select></div></div>
+        <button class="btn-calc" onclick="scCalc()">Calculate</button>
+        <div class="output" id="sc-out"><div class="output-header">Results</div><div class="output-body" id="sc-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Sh</div><div><div class="card-title">Sherwood Number</div><div class="card-subtitle">Convective mass transfer coefficient (Dittus-Boelter)</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$Sh=0.023\,Re^{0.8}Sc^{1/3},\quad h_m=Sh\,D/L$$</div>
+        <div class="input-row"><div class="input-label">Reynolds number Re</div><div class="input-wrap"><input class="field" id="sh-Re" type="number" value="10000" min="0" oninput="shCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Schmidt number Sc</div><div class="input-wrap"><input class="field" id="sh-Sc" type="number" value="900" min="0" oninput="shCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Length L</div><div class="input-wrap"><input class="field" id="sh-L" type="number" value="1" min="0" oninput="shCalc()"><select class="unit-sel" id="sh-L-u" onchange="shCalc()"><option value="1">m</option><option value="0.001">mm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Diffusivity D</div><div class="input-wrap"><input class="field" id="sh-D" type="number" value="1e-9" min="0" step="1e-10" oninput="shCalc()"><select class="unit-sel" id="sh-D-u" onchange="shCalc()"><option value="1">m²/s</option><option value="1e-4">cm²/s</option></select></div></div>
+        <button class="btn-calc" onclick="shCalc()">Calculate</button>
+        <div class="output" id="sh-out"><div class="output-header">Results</div><div class="output-body" id="sh-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">J_m</div><div><div class="card-title">Membrane Flux</div><div class="card-subtitle">Diffusive and osmotic/pressure-driven flux</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$J=P_m\Delta C\quad(\text{diff.}),\quad J=L_p(\Delta P-\Delta\pi)\quad(\text{filtration})$$</div>
+        <div class="tabs" id="mflx-tabs">
+          <button class="tab active" onclick="setTab('mflx','diff')" data-tab="diff">Diffusion</button>
+          <button class="tab" onclick="setTab('mflx','osm')" data-tab="osm">Filtration</button>
+        </div>
+        <div class="tab-panel active" id="mflx-diff">
+          <div class="input-row"><div class="input-label">Permeability P_m</div><div class="input-wrap"><input class="field" id="mflx-Pm" type="number" value="1e-6" min="0" oninput="mflxCalc()"><select class="unit-sel"><option value="1">m/s</option></select></div></div>
+          <div class="input-row"><div class="input-label">ΔC</div><div class="input-wrap"><input class="field" id="mflx-dC" type="number" value="1000" oninput="mflxCalc()"><select class="unit-sel"><option value="1">mol/m³</option></select></div></div>
+          <div class="input-row"><div class="input-label">Area A (opt.)</div><div class="input-wrap"><input class="field" id="mflx-A" type="number" value="0.01" oninput="mflxCalc()"><select class="unit-sel"><option value="1">m²</option></select></div></div>
+          <button class="btn-calc" onclick="mflxCalc()">Calculate</button>
+          <div class="output" id="mflx-out"><div class="output-header">Results</div><div class="output-body" id="mflx-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="mflx-osm">
+          <div class="input-row"><div class="input-label">Hydraulic perm. L_p</div><div class="input-wrap"><input class="field" id="mflx-Lp" type="number" value="1e-11" min="0" oninput="mflxCalc()"><select class="unit-sel"><option value="1">m/(Pa·s)</option></select></div></div>
+          <div class="input-row"><div class="input-label">ΔP (transmembrane)</div><div class="input-wrap"><input class="field" id="mflx-dP" type="number" value="100000" oninput="mflxCalc()"><select class="unit-sel" id="mflx-dP-u" onchange="mflxCalc()"><option value="1">Pa</option><option value="1000">kPa</option></select></div></div>
+          <div class="input-row"><div class="input-label">Δπ (osmotic pressure)</div><div class="input-wrap"><input class="field" id="mflx-dpi" type="number" value="30000" oninput="mflxCalc()"><select class="unit-sel" id="mflx-dpi-u" onchange="mflxCalc()"><option value="1">Pa</option><option value="1000">kPa</option></select></div></div>
+          <div class="input-row"><div class="input-label">Area A (opt.)</div><div class="input-wrap"><input class="field" id="mflx-A2" type="number" value="1" oninput="mflxCalc()"><select class="unit-sel"><option value="1">m²</option></select></div></div>
+          <button class="btn-calc" onclick="mflxCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CONTROL SYSTEMS ── -->
+<div class="section" id="control-sys">
+  <div class="section-header">
+    <div class="section-tag">Control Systems</div>
+    <div class="section-title"><span class="ico">🎛</span> Control Systems</div>
+    <div class="section-desc">PID tuning (Ziegler-Nichols), 2nd-order step response, gain/phase margins, controllability &amp; observability.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">PID</div><div><div class="card-title">PID Tuning — Ziegler-Nichols</div><div class="card-subtitle">Ultimate gain / period method</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$K_p=0.6K_u,\quad T_i=0.5T_u,\quad T_d=0.125T_u$$</div>
+        <div class="input-row"><div class="input-label">Ultimate gain K_u</div><div class="input-wrap"><input class="field" id="pid-Ku" type="number" value="10" min="0" oninput="pidCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Ultimate period T_u</div><div class="input-wrap"><input class="field" id="pid-Tu" type="number" value="2" min="0" oninput="pidCalc()"><select class="unit-sel"><option value="1">s</option></select></div></div>
+        <button class="btn-calc" onclick="pidCalc()">Calculate</button>
+        <div class="output" id="pid-out"><div class="output-header">Results</div><div class="output-body" id="pid-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">ωₙ</div><div><div class="card-title">2nd-Order System Response</div><div class="card-subtitle">Overshoot, rise time, settling time</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$G(s)=\frac{\omega_n^2}{s^2+2\zeta\omega_n s+\omega_n^2}$$</div>
+        <div class="input-row"><div class="input-label">Natural freq ωₙ</div><div class="input-wrap"><input class="field" id="sos-wn" type="number" value="10" min="0" oninput="sosCalc()"><select class="unit-sel"><option value="1">rad/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Damping ratio ζ</div><div class="input-wrap"><input class="field" id="sos-zeta" type="number" value="0.5" min="0" step="0.05" oninput="sosCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="sosCalc()">Calculate</button>
+        <div class="output" id="sos-out"><div class="output-header">Results</div><div class="output-body" id="sos-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">GM/PM</div><div><div class="card-title">Gain &amp; Phase Margin</div><div class="card-subtitle">Stability margins for G(s) = K/[s(τ₁s+1)(τ₂s+1)]</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{PM}=180°+\angle G(j\omega_{gc}),\quad \mathrm{GM}=20\log_{10}(1/|G(j\omega_{pc})|)$$</div>
+        <div class="input-row"><div class="input-label">Gain K</div><div class="input-wrap"><input class="field" id="gpm-K" type="number" value="5" min="0" oninput="gpmCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Time const τ₁</div><div class="input-wrap"><input class="field" id="gpm-t1" type="number" value="1" min="0" oninput="gpmCalc()"><select class="unit-sel"><option value="1">s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Time const τ₂</div><div class="input-wrap"><input class="field" id="gpm-t2" type="number" value="0.5" min="0" oninput="gpmCalc()"><select class="unit-sel"><option value="1">s</option></select></div></div>
+        <button class="btn-calc" onclick="gpmCalc()">Calculate</button>
+        <div class="output" id="gpm-out"><div class="output-header">Results</div><div class="output-body" id="gpm-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">C/O</div><div><div class="card-title">Controllability &amp; Observability</div><div class="card-subtitle">Rank test for 2nd-order state-space system</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\dot{\mathbf{x}}=A\mathbf{x}+B\mathbf{u},\quad \mathbf{y}=C\mathbf{x}$$</div>
+        <p style="font-size:.75em;color:var(--muted);margin-bottom:6px">A = [[a₁₁,a₁₂],[a₂₁,a₂₂]], B = [b₁,b₂]ᵀ, C = [c₁,c₂]</p>
+        <div class="input-row"><div class="input-label">A row 1 (a₁₁, a₁₂)</div><div class="input-wrap"><input class="field" id="cob-a11" type="number" value="0" oninput="cobCalc()" style="width:80px"><input class="field" id="cob-a12" type="number" value="1" oninput="cobCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">A row 2 (a₂₁, a₂₂)</div><div class="input-wrap"><input class="field" id="cob-a21" type="number" value="-2" oninput="cobCalc()" style="width:80px"><input class="field" id="cob-a22" type="number" value="-3" oninput="cobCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">B (b₁, b₂)</div><div class="input-wrap"><input class="field" id="cob-b1" type="number" value="0" oninput="cobCalc()" style="width:80px"><input class="field" id="cob-b2" type="number" value="1" oninput="cobCalc()" style="width:80px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">C (c₁, c₂)</div><div class="input-wrap"><input class="field" id="cob-c1" type="number" value="1" oninput="cobCalc()" style="width:80px"><input class="field" id="cob-c2" type="number" value="0" oninput="cobCalc()" style="width:80px;margin-left:4px"></div></div>
+        <button class="btn-calc" onclick="cobCalc()">Calculate</button>
+        <div class="output" id="cob-out"><div class="output-header">Results</div><div class="output-body" id="cob-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CHEMICAL ENGINEERING ── -->
+<div class="section" id="chem-eng">
+  <div class="section-header">
+    <div class="section-tag">Chemical Eng.</div>
+    <div class="section-title"><span class="ico">⚗</span> Chemical Engineering</div>
+    <div class="section-desc">Ideal gas law, Antoine vapor pressure, CSTR &amp; PFR reactor design, Damköhler number, and van der Waals gas.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">PV=nRT</div><div><div class="card-title">Ideal Gas Law</div><div class="card-subtitle">Solve for any state variable</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$PV=nRT,\quad R=8.314\,\text{J/(mol·K)}$$</div>
+        <div class="input-row"><div class="input-label">Solve for</div><div class="input-wrap"><select class="field" id="igl-mode" onchange="iglCalc()" style="padding:6px 8px;font-size:.82em"><option value="P">Pressure P</option><option value="V">Volume V</option><option value="n">Moles n</option><option value="T">Temperature T</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Pressure P</div><div class="input-wrap"><input class="field" id="igl-P" type="number" value="101325" oninput="iglCalc()"><select class="unit-sel" id="igl-P-u" onchange="iglCalc()"><option value="1">Pa</option><option value="1000">kPa</option><option value="101325">atm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Volume V (m³)</div><div class="input-wrap"><input class="field" id="igl-V" type="number" value="0.0224" min="0" oninput="iglCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Moles n</div><div class="input-wrap"><input class="field" id="igl-n" type="number" value="1" min="0" oninput="iglCalc()"><select class="unit-sel"><option value="1">mol</option></select></div></div>
+        <div class="input-row"><div class="input-label">Temperature T</div><div class="input-wrap"><input class="field" id="igl-T" type="number" value="0" oninput="iglCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <button class="btn-calc" onclick="iglCalc()">Calculate</button>
+        <div class="output" id="igl-out"><div class="output-header">Results</div><div class="output-body" id="igl-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">P_vap</div><div><div class="card-title">Antoine Vapor Pressure</div><div class="card-subtitle">Clausius-Clapeyron approximation for common solvents</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\log_{10}P=A-\frac{B}{C+T}$$</div>
+        <div class="input-row"><div class="input-label">Compound</div><div class="input-wrap"><select class="field" id="ant-preset" onchange="antCalc()" style="padding:6px 8px;font-size:.82em"><option value="water">Water</option><option value="ethanol">Ethanol</option><option value="acetone">Acetone</option><option value="toluene">Toluene</option><option value="custom">Custom</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">A, B, C (custom)</div><div class="input-wrap"><input class="field" id="ant-A" type="number" value="8.07" oninput="antCalc()" style="width:52px"><input class="field" id="ant-B" type="number" value="1730" oninput="antCalc()" style="width:60px;margin-left:3px"><input class="field" id="ant-C" type="number" value="233" oninput="antCalc()" style="width:52px;margin-left:3px"></div></div>
+        <div class="input-row"><div class="input-label">Temperature T</div><div class="input-wrap"><input class="field" id="ant-T" type="number" value="25" oninput="antCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <button class="btn-calc" onclick="antCalc()">Calculate</button>
+        <div class="output" id="ant-out"><div class="output-header">Results</div><div class="output-body" id="ant-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">CSTR</div><div><div class="card-title">CSTR Reactor Design</div><div class="card-subtitle">Volume for 1st-order reaction at target conversion</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$V=\frac{F_0 C_{A0} X}{k\,C_A},\quad C_A=C_{A0}(1-X)$$</div>
+        <div class="input-row"><div class="input-label">Volumetric flow F₀</div><div class="input-wrap"><input class="field" id="cstr-F0" type="number" value="0.01" min="0" oninput="cstrCalc()"><select class="unit-sel"><option value="1">m³/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Feed conc. C_A0</div><div class="input-wrap"><input class="field" id="cstr-CA0" type="number" value="1000" min="0" oninput="cstrCalc()"><select class="unit-sel"><option value="1">mol/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Target conversion X</div><div class="input-wrap"><input class="field" id="cstr-X" type="number" value="80" min="0" max="99" oninput="cstrCalc()"><select class="unit-sel"><option value="1">%</option></select></div></div>
+        <div class="input-row"><div class="input-label">Rate constant k (1st order)</div><div class="input-wrap"><input class="field" id="cstr-k" type="number" value="0.05" min="0" oninput="cstrCalc()"><select class="unit-sel"><option value="1">s⁻¹</option></select></div></div>
+        <button class="btn-calc" onclick="cstrCalc()">Calculate</button>
+        <div class="output" id="cstr-out"><div class="output-header">Results</div><div class="output-body" id="cstr-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">PFR</div><div><div class="card-title">PFR Reactor Design</div><div class="card-subtitle">Plug-flow volume vs. CSTR comparison</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$V=\frac{F_0}{k}\ln\!\frac{1}{1-X}$$</div>
+        <div class="input-row"><div class="input-label">Volumetric flow F₀</div><div class="input-wrap"><input class="field" id="pfr-F0" type="number" value="0.01" min="0" oninput="pfrCalc()"><select class="unit-sel"><option value="1">m³/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Feed conc. C_A0</div><div class="input-wrap"><input class="field" id="pfr-CA0" type="number" value="1000" min="0" oninput="pfrCalc()"><select class="unit-sel"><option value="1">mol/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Target conversion X</div><div class="input-wrap"><input class="field" id="pfr-X" type="number" value="80" min="0" max="99" oninput="pfrCalc()"><select class="unit-sel"><option value="1">%</option></select></div></div>
+        <div class="input-row"><div class="input-label">Rate constant k</div><div class="input-wrap"><input class="field" id="pfr-k" type="number" value="0.05" min="0" oninput="pfrCalc()"><select class="unit-sel"><option value="1">s⁻¹</option></select></div></div>
+        <button class="btn-calc" onclick="pfrCalc()">Calculate</button>
+        <div class="output" id="pfr-out"><div class="output-header">Results</div><div class="output-body" id="pfr-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Da</div><div><div class="card-title">Damköhler Number</div><div class="card-subtitle">Reaction vs. transport rate — regime identification</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$Da_I=k\tau,\quad Da_{II}=\frac{kL^2}{\mathcal{D}}$$</div>
+        <div class="input-row"><div class="input-label">Rate constant k</div><div class="input-wrap"><input class="field" id="dam-k" type="number" value="0.1" min="0" oninput="damCalc()"><select class="unit-sel"><option value="1">s⁻¹</option></select></div></div>
+        <div class="input-row"><div class="input-label">Residence time τ</div><div class="input-wrap"><input class="field" id="dam-tau" type="number" value="10" min="0" oninput="damCalc()"><select class="unit-sel"><option value="1">s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Length scale L</div><div class="input-wrap"><input class="field" id="dam-L" type="number" value="1" min="0" oninput="damCalc()"><select class="unit-sel" id="dam-L-u" onchange="damCalc()"><option value="0.001">mm</option><option value="1">m</option></select></div></div>
+        <div class="input-row"><div class="input-label">Diffusivity D</div><div class="input-wrap"><input class="field" id="dam-Dif" type="number" value="1e-9" min="0" oninput="damCalc()"><select class="unit-sel" id="dam-Dif-u" onchange="damCalc()"><option value="1">m²/s</option><option value="1e-4">cm²/s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Vessel diameter D</div><div class="input-wrap"><input class="field" id="dam-D" type="number" value="0.1" min="0" oninput="damCalc()"><select class="unit-sel" id="dam-D-u" onchange="damCalc()"><option value="1">m</option><option value="0.001">mm</option></select></div></div>
+        <button class="btn-calc" onclick="damCalc()">Calculate</button>
+        <div class="output" id="dam-out"><div class="output-header">Results</div><div class="output-body" id="dam-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">vdW</div><div><div class="card-title">Van der Waals Gas</div><div class="card-subtitle">Real-gas molar volume and compressibility</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\left(P+\frac{a}{V^2}\right)(V-b)=RT$$</div>
+        <div class="input-row"><div class="input-label">Gas</div><div class="input-wrap"><select class="field" id="vdw-preset" onchange="vdwCalc()" style="padding:6px 8px;font-size:.82em"><option value="ideal">Ideal gas</option><option value="co2">CO₂</option><option value="n2">N₂</option><option value="h2o">H₂O</option><option value="ch4">CH₄</option><option value="custom">Custom</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Pressure P</div><div class="input-wrap"><input class="field" id="vdw-P" type="number" value="1" min="0" oninput="vdwCalc()"><select class="unit-sel" id="vdw-P-u" onchange="vdwCalc()"><option value="101325">atm</option><option value="1000">kPa</option><option value="1">Pa</option></select></div></div>
+        <div class="input-row"><div class="input-label">Temperature T</div><div class="input-wrap"><input class="field" id="vdw-T" type="number" value="25" oninput="vdwCalc()"><select class="unit-sel"><option value="1">°C</option></select></div></div>
+        <div class="input-row"><div class="input-label">a (Pa·m⁶/mol²) custom</div><div class="input-wrap"><input class="field" id="vdw-a" type="number" value="0.3658" min="0" oninput="vdwCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">b (m³/mol) custom</div><div class="input-wrap"><input class="field" id="vdw-b" type="number" value="4.286e-5" min="0" oninput="vdwCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="vdwCalc()">Calculate</button>
+        <div class="output" id="vdw-out"><div class="output-header">Results</div><div class="output-body" id="vdw-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── FEA / MESHING ── -->
+<div class="section" id="fea-tools">
+  <div class="section-header">
+    <div class="section-tag">FEA / Meshing</div>
+    <div class="section-title"><span class="ico">🔲</span> FEA Mesh &amp; Analysis</div>
+    <div class="section-desc">Grid Convergence Index (GCI), element aspect ratio quality, explicit time step, and modal participation factor.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">GCI</div><div><div class="card-title">Grid Convergence Index</div><div class="card-subtitle">Roache GCI — numerical uncertainty on 3 grids</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$p=\frac{\ln|e_{32}/e_{21}|}{\ln r},\quad GCI_{21}=\frac{F_s|e_{21}|}{r^p-1}$$</div>
+        <div class="input-row"><div class="input-label">Fine grid value f₁</div><div class="input-wrap"><input class="field" id="gci-f1" type="number" value="0.9710" oninput="gciCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Medium grid value f₂</div><div class="input-wrap"><input class="field" id="gci-f2" type="number" value="0.9680" oninput="gciCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Coarse grid value f₃</div><div class="input-wrap"><input class="field" id="gci-f3" type="number" value="0.9510" oninput="gciCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Refinement ratio r</div><div class="input-wrap"><input class="field" id="gci-r" type="number" value="1.414" min="1.01" step="0.1" oninput="gciCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="gciCalc()">Calculate</button>
+        <div class="output" id="gci-out"><div class="output-header">Results</div><div class="output-body" id="gci-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">AR</div><div><div class="card-title">Element Aspect Ratio</div><div class="card-subtitle">Mesh quality from side lengths</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$AR=\frac{L_{max}}{L_{min}}$$</div>
+        <div class="input-row"><div class="input-label">Side L₁</div><div class="input-wrap"><input class="field" id="arq-L1" type="number" value="1" min="0" oninput="arqCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Side L₂</div><div class="input-wrap"><input class="field" id="arq-L2" type="number" value="3" min="0" oninput="arqCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Side L₃ (optional)</div><div class="input-wrap"><input class="field" id="arq-L3" type="number" value="" oninput="arqCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Side L₄ (optional)</div><div class="input-wrap"><input class="field" id="arq-L4" type="number" value="" oninput="arqCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="arqCalc()">Calculate</button>
+        <div class="output" id="arq-out"><div class="output-header">Results</div><div class="output-body" id="arq-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Δt_cr</div><div><div class="card-title">Explicit Time Step</div><div class="card-subtitle">Critical Δt for structural or CFD explicit schemes</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\Delta t_{cr}=L/c,\quad c=\sqrt{E/\rho}\text{ (struct.)}$$</div>
+        <div class="tabs" id="expts-tabs">
+          <button class="tab active" onclick="setTab('expts','struct')" data-tab="struct">Structural</button>
+          <button class="tab" onclick="setTab('expts','cfd')" data-tab="cfd">CFD (CFL=1)</button>
+        </div>
+        <div class="tab-panel active" id="expts-struct">
+          <div class="input-row"><div class="input-label">Element size L</div><div class="input-wrap"><input class="field" id="expts-L" type="number" value="5" min="0" oninput="exptsCalc()"><select class="unit-sel" id="expts-L-u" onchange="exptsCalc()"><option value="0.001">mm</option><option value="1">m</option></select></div></div>
+          <div class="input-row"><div class="input-label">Elastic modulus E</div><div class="input-wrap"><input class="field" id="expts-E" type="number" value="200" min="0" oninput="exptsCalc()"><select class="unit-sel"><option value="1">GPa</option></select></div></div>
+          <div class="input-row"><div class="input-label">Density ρ</div><div class="input-wrap"><input class="field" id="expts-rho" type="number" value="7850" min="0" oninput="exptsCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+          <button class="btn-calc" onclick="exptsCalc()">Calculate</button>
+          <div class="output" id="expts-out"><div class="output-header">Results</div><div class="output-body" id="expts-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="expts-cfd">
+          <div class="input-row"><div class="input-label">Cell size Δx</div><div class="input-wrap"><input class="field" id="expts-dx" type="number" value="1" min="0" oninput="exptsCalc()"><select class="unit-sel" id="expts-dx-u" onchange="exptsCalc()"><option value="0.001">mm</option><option value="1">m</option></select></div></div>
+          <div class="input-row"><div class="input-label">Velocity u</div><div class="input-wrap"><input class="field" id="expts-u" type="number" value="10" oninput="exptsCalc()"><select class="unit-sel" id="expts-u-u" onchange="exptsCalc()"><option value="1">m/s</option><option value="0.3048">ft/s</option></select></div></div>
+          <button class="btn-calc" onclick="exptsCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Γ</div><div><div class="card-title">Modal Participation Factor</div><div class="card-subtitle">Effective mass for seismic / dynamic analysis</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\Gamma=\frac{\phi^T M\mathbf{1}}{\phi^T M\phi},\quad M_{eff}=\Gamma^2\phi^T M\phi$$</div>
+        <p style="font-size:.75em;color:var(--muted);margin-bottom:6px">Enter 3 DOF masses and mode shape components</p>
+        <div class="input-row"><div class="input-label">Masses m₁, m₂, m₃ (kg)</div><div class="input-wrap"><input class="field" id="mpf-m1" type="number" value="100" min="0" oninput="mpfCalc()" style="width:60px"><input class="field" id="mpf-m2" type="number" value="100" min="0" oninput="mpfCalc()" style="width:60px;margin-left:3px"><input class="field" id="mpf-m3" type="number" value="100" min="0" oninput="mpfCalc()" style="width:60px;margin-left:3px"></div></div>
+        <div class="input-row"><div class="input-label">Mode shape φ₁, φ₂, φ₃</div><div class="input-wrap"><input class="field" id="mpf-p1" type="number" value="1" oninput="mpfCalc()" style="width:60px"><input class="field" id="mpf-p2" type="number" value="0.7" oninput="mpfCalc()" style="width:60px;margin-left:3px"><input class="field" id="mpf-p3" type="number" value="0.3" oninput="mpfCalc()" style="width:60px;margin-left:3px"></div></div>
+        <button class="btn-calc" onclick="mpfCalc()">Calculate</button>
+        <div class="output" id="mpf-out"><div class="output-header">Results</div><div class="output-body" id="mpf-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── AEROSPACE ── -->
+<div class="section" id="aerospace">
+  <div class="section-header">
+    <div class="section-tag">Aerospace</div>
+    <div class="section-title"><span class="ico">🚀</span> Aerospace</div>
+    <div class="section-desc">Lift and drag, stall speed, Tsiolkovsky rocket equation, circular orbit mechanics, and Hohmann transfer.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">L/D</div><div><div class="card-title">Lift &amp; Drag</div><div class="card-subtitle">Aerodynamic forces from wing / body</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$L=\tfrac{1}{2}\rho V^2 S C_L,\quad D=\tfrac{1}{2}\rho V^2 S C_D$$</div>
+        <div class="input-row"><div class="input-label">Air density ρ</div><div class="input-wrap"><input class="field" id="ld-rho" type="number" value="1.225" min="0" oninput="ldCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Velocity V</div><div class="input-wrap"><input class="field" id="ld-V" type="number" value="60" min="0" oninput="ldCalc()"><select class="unit-sel" id="ld-V-u" onchange="ldCalc()"><option value="1">m/s</option><option value="0.5144">knots</option></select></div></div>
+        <div class="input-row"><div class="input-label">Wing area S</div><div class="input-wrap"><input class="field" id="ld-S" type="number" value="20" min="0" oninput="ldCalc()"><select class="unit-sel"><option value="1">m²</option></select></div></div>
+        <div class="input-row"><div class="input-label">C_L</div><div class="input-wrap"><input class="field" id="ld-CL" type="number" value="0.5" min="0" step="0.01" oninput="ldCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">C_D</div><div class="input-wrap"><input class="field" id="ld-CD" type="number" value="0.04" min="0" step="0.001" oninput="ldCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="ldCalc()">Calculate</button>
+        <div class="output" id="ld-out"><div class="output-header">Results</div><div class="output-body" id="ld-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">V_s</div><div><div class="card-title">Stall Speed</div><div class="card-subtitle">Minimum speed at maximum lift coefficient</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$V_s=\sqrt{\frac{2W}{\rho S C_{L,max}}}$$</div>
+        <div class="input-row"><div class="input-label">Weight W</div><div class="input-wrap"><input class="field" id="stall-W" type="number" value="15000" min="0" oninput="stallCalc()"><select class="unit-sel" id="stall-W-u" onchange="stallCalc()"><option value="1">N</option><option value="4.448">lbf</option></select></div></div>
+        <div class="input-row"><div class="input-label">Air density ρ</div><div class="input-wrap"><input class="field" id="stall-rho" type="number" value="1.225" min="0" oninput="stallCalc()"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Wing area S</div><div class="input-wrap"><input class="field" id="stall-S" type="number" value="20" min="0" oninput="stallCalc()"><select class="unit-sel"><option value="1">m²</option></select></div></div>
+        <div class="input-row"><div class="input-label">C_L,max</div><div class="input-wrap"><input class="field" id="stall-CLmax" type="number" value="1.6" min="0" step="0.1" oninput="stallCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="stallCalc()">Calculate</button>
+        <div class="output" id="stall-out"><div class="output-header">Results</div><div class="output-body" id="stall-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">ΔV</div><div><div class="card-title">Tsiolkovsky Rocket Equation</div><div class="card-subtitle">Ideal ΔV from Isp and mass ratio</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\Delta V=I_{sp}\,g_0\ln\!\frac{m_0}{m_f}$$</div>
+        <div class="input-row"><div class="input-label">Specific impulse I_sp</div><div class="input-wrap"><input class="field" id="rkt-Isp" type="number" value="450" min="0" oninput="rktCalc()"><select class="unit-sel"><option value="1">s</option></select></div></div>
+        <div class="input-row"><div class="input-label">Initial mass m₀</div><div class="input-wrap"><input class="field" id="rkt-m0" type="number" value="10000" min="0" oninput="rktCalc()"><select class="unit-sel"><option value="1">kg</option></select></div></div>
+        <div class="input-row"><div class="input-label">Final (dry) mass m_f</div><div class="input-wrap"><input class="field" id="rkt-mf" type="number" value="2000" min="0" oninput="rktCalc()"><select class="unit-sel"><option value="1">kg</option></select></div></div>
+        <button class="btn-calc" onclick="rktCalc()">Calculate</button>
+        <div class="output" id="rkt-out"><div class="output-header">Results</div><div class="output-body" id="rkt-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">v_c</div><div><div class="card-title">Circular Orbit Mechanics</div><div class="card-subtitle">Period, velocity, and escape speed</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$T=2\pi\sqrt{r^3/\mu},\quad v_c=\sqrt{\mu/r},\quad v_e=\sqrt{2\mu/r}$$</div>
+        <div class="input-row"><div class="input-label">Altitude h</div><div class="input-wrap"><input class="field" id="orb-h" type="number" value="400" min="0" oninput="orbCalc()"><select class="unit-sel"><option value="1">km</option></select></div></div>
+        <div class="input-row"><div class="input-label">Central body</div><div class="input-wrap"><select class="field" id="orb-body" onchange="orbCalc()" style="padding:6px 8px;font-size:.82em"><option value="earth">Earth</option><option value="moon">Moon</option><option value="mars">Mars</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="orbCalc()">Calculate</button>
+        <div class="output" id="orb-out"><div class="output-header">Results</div><div class="output-body" id="orb-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Δv₁₂</div><div><div class="card-title">Hohmann Transfer</div><div class="card-subtitle">Minimum-energy orbit transfer ΔV budget</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\Delta v_1=\sqrt{\mu/r_1}\!\left(\sqrt{\frac{2r_2}{r_1+r_2}}-1\right)$$</div>
+        <div class="input-row"><div class="input-label">Initial radius r₁</div><div class="input-wrap"><input class="field" id="hoh-r1" type="number" value="6771" min="0" oninput="hohCalc()"><select class="unit-sel"><option value="1">km</option></select></div></div>
+        <div class="input-row"><div class="input-label">Target radius r₂</div><div class="input-wrap"><input class="field" id="hoh-r2" type="number" value="42164" min="0" oninput="hohCalc()"><select class="unit-sel"><option value="1">km</option></select></div></div>
+        <div class="input-row"><div class="input-label">Central body</div><div class="input-wrap"><select class="field" id="hoh-body" onchange="hohCalc()" style="padding:6px 8px;font-size:.82em"><option value="earth">Earth</option><option value="moon">Moon</option><option value="mars">Mars</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="hohCalc()">Calculate</button>
+        <div class="output" id="hoh-out"><div class="output-header">Results</div><div class="output-body" id="hoh-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── ACOUSTICS & OPTICS ── -->
+<div class="section" id="acoustics-optics">
+  <div class="section-header">
+    <div class="section-tag">Acoustics / Optics</div>
+    <div class="section-title"><span class="ico">🔊</span> Acoustics &amp; Optics</div>
+    <div class="section-desc">Sound pressure level (dB), room reverberation time (RT60), thin lens imaging, and optical resolution limit.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">dB</div><div><div class="card-title">Sound Pressure Level</div><div class="card-subtitle">SPL from pressure amplitude or intensity</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$SPL=20\log_{10}\!\frac{p}{p_{ref}},\quad p_{ref}=20\,\mu\text{Pa}$$</div>
+        <div class="input-row"><div class="input-label">Input mode</div><div class="input-wrap"><select class="field" id="spl-mode" onchange="splCalc()" style="padding:6px 8px;font-size:.82em"><option value="P">Pressure p</option><option value="I">Intensity I (W/m²)</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Pressure p</div><div class="input-wrap"><input class="field" id="spl-P" type="number" value="0.02" min="0" oninput="splCalc()"><select class="unit-sel" id="spl-P-u" onchange="splCalc()"><option value="1">Pa</option><option value="1e-6">μPa</option></select></div></div>
+        <div class="input-row"><div class="input-label">Intensity I (W/m²)</div><div class="input-wrap"><input class="field" id="spl-I" type="number" value="1e-6" min="0" oninput="splCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <button class="btn-calc" onclick="splCalc()">Calculate</button>
+        <div class="output" id="spl-out"><div class="output-header">Results</div><div class="output-body" id="spl-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">RT60</div><div><div class="card-title">Room Reverberation Time</div><div class="card-subtitle">Sabine formula — RT60 from volume and absorption</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$T_{60}=\frac{0.161\,V}{A},\quad A=\sum S_i\alpha_i$$</div>
+        <div class="input-row"><div class="input-label">Room volume V</div><div class="input-wrap"><input class="field" id="rt-V" type="number" value="200" min="0" oninput="rtCalc()"><select class="unit-sel"><option value="1">m³</option></select></div></div>
+        <div class="input-row"><div class="input-label">Surface 1: area, α</div><div class="input-wrap"><input class="field" id="rt-S1" type="number" value="80" min="0" oninput="rtCalc()" style="width:80px"><input class="field" id="rt-a1" type="number" value="0.05" min="0" max="1" step="0.01" oninput="rtCalc()" style="width:60px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">Surface 2: area, α</div><div class="input-wrap"><input class="field" id="rt-S2" type="number" value="60" min="0" oninput="rtCalc()" style="width:80px"><input class="field" id="rt-a2" type="number" value="0.3" min="0" max="1" step="0.01" oninput="rtCalc()" style="width:60px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">Surface 3: area, α</div><div class="input-wrap"><input class="field" id="rt-S3" type="number" value="40" min="0" oninput="rtCalc()" style="width:80px"><input class="field" id="rt-a3" type="number" value="0.7" min="0" max="1" step="0.01" oninput="rtCalc()" style="width:60px;margin-left:4px"></div></div>
+        <div class="input-row"><div class="input-label">Surface 4: area, α</div><div class="input-wrap"><input class="field" id="rt-S4" type="number" value="" min="0" oninput="rtCalc()" style="width:80px"><input class="field" id="rt-a4" type="number" value="0.1" min="0" max="1" step="0.01" oninput="rtCalc()" style="width:60px;margin-left:4px"></div></div>
+        <button class="btn-calc" onclick="rtCalc()">Calculate</button>
+        <div class="output" id="rt-out"><div class="output-header">Results</div><div class="output-body" id="rt-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">f</div><div><div class="card-title">Thin Lens</div><div class="card-subtitle">Focal length (lensmaker) and image position</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\frac{1}{f}=(n-1)\!\left(\frac{1}{R_1}-\frac{1}{R_2}\right),\quad\frac{1}{d_i}=\frac{1}{f}-\frac{1}{d_o}$$</div>
+        <div class="tabs" id="lens-tabs">
+          <button class="tab active" onclick="setTab('lens','design')" data-tab="design">Lensmaker</button>
+          <button class="tab" onclick="setTab('lens','imaging')" data-tab="imaging">Imaging</button>
+        </div>
+        <div class="tab-panel active" id="lens-design">
+          <div class="input-row"><div class="input-label">Refractive index n</div><div class="input-wrap"><input class="field" id="lens-n" type="number" value="1.5" min="1.001" step="0.01" oninput="lensCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Radius R₁ (+ = convex)</div><div class="input-wrap"><input class="field" id="lens-R1" type="number" value="50" oninput="lensCalc()"><select class="unit-sel" id="lens-R1-u" onchange="lensCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+          <div class="input-row"><div class="input-label">Radius R₂ (− = convex)</div><div class="input-wrap"><input class="field" id="lens-R2" type="number" value="-50" oninput="lensCalc()"><select class="unit-sel" id="lens-R2-u" onchange="lensCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+          <button class="btn-calc" onclick="lensCalc()">Calculate</button>
+          <div class="output" id="lens-out"><div class="output-header">Results</div><div class="output-body" id="lens-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="lens-imaging">
+          <div class="input-row"><div class="input-label">Focal length f</div><div class="input-wrap"><input class="field" id="lens-f2" type="number" value="50" oninput="lensCalc()"><select class="unit-sel" id="lens-f2-u" onchange="lensCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+          <div class="input-row"><div class="input-label">Object distance d_o</div><div class="input-wrap"><input class="field" id="lens-do" type="number" value="200" oninput="lensCalc()"><select class="unit-sel" id="lens-do-u" onchange="lensCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+          <button class="btn-calc" onclick="lensCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">δ</div><div><div class="card-title">Optical Resolution</div><div class="card-subtitle">Rayleigh &amp; Abbe diffraction limits</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\delta_R=1.22\lambda/D,\quad\delta_A=\lambda/(2\,NA)$$</div>
+        <div class="input-row"><div class="input-label">Wavelength λ</div><div class="input-wrap"><input class="field" id="opres-lam" type="number" value="550" min="0" oninput="opresCalc()"><select class="unit-sel"><option value="1">nm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Aperture diameter D</div><div class="input-wrap"><input class="field" id="opres-D" type="number" value="50" min="0" oninput="opresCalc()"><select class="unit-sel" id="opres-D-u" onchange="opresCalc()"><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+        <div class="input-row"><div class="input-label">Refractive index n</div><div class="input-wrap"><input class="field" id="opres-n" type="number" value="1" min="0" step="0.1" oninput="opresCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Half-angle θ (for NA)</div><div class="input-wrap"><input class="field" id="opres-theta" type="number" value="30" min="0" max="90" oninput="opresCalc()"><select class="unit-sel"><option value="1">°</option></select></div></div>
+        <button class="btn-calc" onclick="opresCalc()">Calculate</button>
+        <div class="output" id="opres-out"><div class="output-header">Results</div><div class="output-body" id="opres-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── LAB & RESEARCH ── -->
+<div class="section" id="lab-tools">
+  <div class="section-header">
+    <div class="section-tag">Lab / Research</div>
+    <div class="section-title"><span class="ico">🧪</span> Lab &amp; Research</div>
+    <div class="section-desc">Serial dilution, molarity, PCR primer Tm, microscopy scale bar, h-index, and DPI/resolution calculator.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">C₁V₁</div><div><div class="card-title">Dilution Calculator</div><div class="card-subtitle">C₁V₁ = C₂V₂ — solve any variable</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$C_1 V_1=C_2 V_2$$</div>
+        <div class="input-row"><div class="input-label">Solve for</div><div class="input-wrap"><select class="field" id="dil-mode" onchange="dilCalc()" style="padding:6px 8px;font-size:.82em"><option value="C2">C₂ (final conc.)</option><option value="V2">V₂ (final volume)</option><option value="C1">C₁ (stock conc.)</option><option value="V1">V₁ (stock volume)</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Stock conc. C₁</div><div class="input-wrap"><input class="field" id="dil-C1" type="number" value="10" min="0" oninput="dilCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Stock volume V₁</div><div class="input-wrap"><input class="field" id="dil-V1" type="number" value="1" min="0" oninput="dilCalc()"><select class="unit-sel" id="dil-V1-u" onchange="dilCalc()"><option value="0.001">mL</option><option value="1">L</option></select></div></div>
+        <div class="input-row"><div class="input-label">Target conc. C₂</div><div class="input-wrap"><input class="field" id="dil-C2" type="number" value="1" min="0" oninput="dilCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Final volume V₂</div><div class="input-wrap"><input class="field" id="dil-V2" type="number" value="10" min="0" oninput="dilCalc()"><select class="unit-sel" id="dil-V2-u" onchange="dilCalc()"><option value="0.001">mL</option><option value="1">L</option></select></div></div>
+        <button class="btn-calc" onclick="dilCalc()">Calculate</button>
+        <div class="output" id="dil-out"><div class="output-header">Results</div><div class="output-body" id="dil-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">M</div><div><div class="card-title">Molarity Calculator</div><div class="card-subtitle">Mass ↔ moles ↔ molarity conversion</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$M=\frac{n}{V},\quad n=\frac{m}{MW}$$</div>
+        <div class="input-row"><div class="input-label">Mode</div><div class="input-wrap"><select class="field" id="mol-mode" onchange="molCalc()" style="padding:6px 8px;font-size:.82em"><option value="m2M">Mass → Molarity</option><option value="M2m">Molarity → Mass</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Molecular weight MW</div><div class="input-wrap"><input class="field" id="mol-MW" type="number" value="58.44" min="0" oninput="molCalc()"><select class="unit-sel"><option value="1">g/mol</option></select></div></div>
+        <div class="input-row"><div class="input-label">Volume V</div><div class="input-wrap"><input class="field" id="mol-V" type="number" value="1" min="0" oninput="molCalc()"><select class="unit-sel"><option value="1">L</option></select></div></div>
+        <div class="input-row"><div class="input-label">Mass m (g) [mass→M]</div><div class="input-wrap"><input class="field" id="mol-m" type="number" value="5.844" min="0" oninput="molCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Molarity M [M→mass]</div><div class="input-wrap"><input class="field" id="mol-M" type="number" value="0.1" min="0" oninput="molCalc()"><select class="unit-sel"><option value="1">mol/L</option></select></div></div>
+        <button class="btn-calc" onclick="molCalc()">Calculate</button>
+        <div class="output" id="mol-out"><div class="output-header">Results</div><div class="output-body" id="mol-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">Tm</div><div><div class="card-title">PCR Primer Melting Temp</div><div class="card-subtitle">Wallace rule and nearest-neighbor estimate</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$T_m\approx2(A+T)+4(G+C)\quad\text{(Wallace)}$$</div>
+        <div class="input-row"><div class="input-label">Primer sequence</div><div class="input-wrap"><textarea class="field" id="pcr-seq" rows="2" style="resize:vertical;font-size:.82em;text-transform:uppercase" oninput="pcrCalc()" placeholder="e.g. ATCGATCGATCG">GCTATCGATCGAT</textarea></div></div>
+        <button class="btn-calc" onclick="pcrCalc()">Calculate</button>
+        <div class="output" id="pcr-out"><div class="output-header">Results</div><div class="output-body" id="pcr-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">nm/px</div><div><div class="card-title">Microscopy Scale Bar</div><div class="card-subtitle">nm per pixel and scale bar length</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\text{nm/px}=\frac{\text{pixel size}(\mu m)\times1000}{\text{magnification}}$$</div>
+        <div class="input-row"><div class="input-label">Magnification</div><div class="input-wrap"><input class="field" id="scb-mag" type="number" value="40" min="0" oninput="scbCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Camera pixel size</div><div class="input-wrap"><input class="field" id="scb-px" type="number" value="6.5" min="0" oninput="scbCalc()"><select class="unit-sel"><option value="1">μm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Scale bar (pixels)</div><div class="input-wrap"><input class="field" id="scb-bar" type="number" value="100" min="0" oninput="scbCalc()"><select class="unit-sel"><option value="1">px</option></select></div></div>
+        <button class="btn-calc" onclick="scbCalc()">Calculate</button>
+        <div class="output" id="scb-out"><div class="output-header">Results</div><div class="output-body" id="scb-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">h</div><div><div class="card-title">h-index Calculator</div><div class="card-subtitle">h-index and i10-index from citation counts</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$h:\text{largest }h\text{ s.t. }h\text{ papers have }\geq h\text{ citations each}$$</div>
+        <div class="input-row"><div class="input-label">Citation counts (comma-sep)</div><div class="input-wrap"><textarea class="field" id="hidx-data" rows="2" style="resize:vertical;font-size:.82em" oninput="hidxCalc()">45, 30, 22, 18, 15, 12, 10, 8, 6, 4, 2</textarea></div></div>
+        <button class="btn-calc" onclick="hidxCalc()">Calculate</button>
+        <div class="output" id="hidx-out"><div class="output-header">Results</div><div class="output-body" id="hidx-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">DPI</div><div><div class="card-title">Print DPI / Resolution</div><div class="card-subtitle">Pixel dimensions and file size estimate</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$px_w=\mathrm{DPI}\times W/0.0254,\quad px_h=\mathrm{DPI}\times H/0.0254$$</div>
+        <div class="input-row"><div class="input-label">DPI</div><div class="input-wrap"><input class="field" id="dpi-dpi" type="number" value="300" min="0" oninput="dpiCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label">Width W</div><div class="input-wrap"><input class="field" id="dpi-W" type="number" value="8.5" min="0" oninput="dpiCalc()"><select class="unit-sel" id="dpi-W-u" onchange="dpiCalc()"><option value="0.0254">in</option><option value="0.01">cm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Height H</div><div class="input-wrap"><input class="field" id="dpi-H" type="number" value="11" min="0" oninput="dpiCalc()"><select class="unit-sel" id="dpi-H-u" onchange="dpiCalc()"><option value="0.0254">in</option><option value="0.01">cm</option></select></div></div>
+        <div class="input-row"><div class="input-label">Bit depth</div><div class="input-wrap"><input class="field" id="dpi-bits" type="number" value="8" min="1" oninput="dpiCalc()"><select class="unit-sel"><option value="1">bits/channel</option></select></div></div>
+        <button class="btn-calc" onclick="dpiCalc()">Calculate</button>
+        <div class="output" id="dpi-out"><div class="output-header">Results</div><div class="output-body" id="dpi-out-body"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-icon">pH</div><div><div class="card-title">Henderson-Hasselbalch</div><div class="card-subtitle">Buffer pH from weak acid/conjugate base ratio</div></div></div>
+      <div class="card-body">
+        <div class="formula-latex">$$\mathrm{pH}=pK_a+\log_{10}\!\frac{[\mathrm{A}^-]}{[\mathrm{HA}]}$$</div>
+        <div class="tabs" id="hh-tabs">
+          <button class="tab active" onclick="setTab('hh','pH')" data-tab="pH">Find pH</button>
+          <button class="tab" onclick="setTab('hh','ratio')" data-tab="ratio">Find ratio</button>
+        </div>
+        <div class="tab-panel active" id="hh-pH">
+          <div class="input-row"><div class="input-label">pKa</div><div class="input-wrap"><input class="field" id="hh-pKa" type="number" value="6.1" step="0.1" oninput="hhCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">[A⁻]/[HA] ratio</div><div class="input-wrap"><input class="field" id="hh-ratio" type="number" value="1.5" min="0.001" step="0.1" oninput="hhCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <button class="btn-calc" onclick="hhCalc()">Calculate</button>
+          <div class="output" id="hh-out"><div class="output-header">Results</div><div class="output-body" id="hh-out-body"></div></div>
+        </div>
+        <div class="tab-panel" id="hh-ratio">
+          <div class="input-row"><div class="input-label">pKa</div><div class="input-wrap"><input class="field" id="hh-pKa2" type="number" value="6.1" step="0.1" oninput="hhCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label">Target pH</div><div class="input-wrap"><input class="field" id="hh-pH" type="number" value="7.4" step="0.1" oninput="hhCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <button class="btn-calc" onclick="hhCalc()">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </main>
 </div><!-- /layout -->
 
 <script src="script.js"></script>
+<script src="calc-ext.js"></script>
 
 <button class="acc-btn" id="acc-btn" onclick="accToggle()" title="Display Settings" aria-label="Display Settings">⚙</button>
 <div class="acc-panel" id="acc-panel">
