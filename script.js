@@ -404,7 +404,7 @@ function wssCalc(){
   const tab=document.querySelector('#wss-tabs .tab.active')?.textContent||'';
   let tau,gd,Q2;
   if(tab.includes('Flow')){
-    const Q=v('wss-Q')*su('wss-Q-u');
+    const Q=v('wss-Qval')*su('wss-Qval-u');
     tau=4*mu*Q/(Math.PI*Math.pow(R,3));
     gd=4*Q/(Math.PI*Math.pow(R,3));
     Q2=Q;
