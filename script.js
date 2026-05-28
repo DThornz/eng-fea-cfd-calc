@@ -561,8 +561,7 @@ function vmCalc(){
   const tab=document.querySelector('#vm-tabs .tab.active')?.textContent||'';
   let svm, tresca;
   if(tab.includes('2D')){
-    const su1=su('vm-sx-u');
-    const sx=v('vm-sx')*su1, sy=v('vm-sy')*su1, txy=v('vm-txy')*su1;
+    const sx=v('vm-sx')*su('vm-sx-u'), sy=v('vm-sy')*su('vm-sy-u'), txy=v('vm-txy')*su('vm-txy-u');
     svm=Math.sqrt(sx*sx-sx*sy+sy*sy+3*txy*txy);
     const s1=0.5*(sx+sy)+Math.sqrt(0.25*(sx-sy)*(sx-sy)+txy*txy);
     const s2=0.5*(sx+sy)-Math.sqrt(0.25*(sx-sy)*(sx-sy)+txy*txy);
@@ -588,10 +587,10 @@ function pvCalc(){
   const Pmpa=P;
   let s_h,s_a;
   if(tRatio<0.1){
-    s_h=Pmpa*ri/t*1e-3; s_a=Pmpa*ri/(2*t)*1e-3;
+    s_h=Pmpa*ri/t; s_a=Pmpa*ri/(2*t);
   } else {
-    const A=Pmpa*ri*ri/(ro*ro-ri*ri)*1e-3;
-    const B=Pmpa*ri*ri*ro*ro/(ro*ro-ri*ri)*1e-3;
+    const A=Pmpa*ri*ri/(ro*ro-ri*ri);
+    const B=Pmpa*ri*ri*ro*ro/(ro*ro-ri*ri);
     s_h=A+B/(ri*ri); s_a=A;
   }
   const svm=Math.sqrt(s_h*s_h-s_h*s_a+s_a*s_a);
@@ -618,7 +617,7 @@ function bmCalc(){
   let delta, sigma;
   if(tab.includes('Cantilever')){delta=F*L*L*L/(3*E*I);sigma=F*L*c/I;}
   else if(tab.includes('Simply')){delta=F*L*L*L/(48*E*I);sigma=F*L*c/(4*I);}
-  else{delta=5*F*L*L*L*L/(384*E*I);sigma=F*L*L*c/(8*I);} // UDL w=F/L
+  else{delta=5*F*L*L*L/(384*E*I);sigma=F*L*c/(8*I);} // UDL: F = total load W
   showOut('bm-out',[
     {label:'Max deflection δ',val:fmtN(delta*1000),unit:'mm',cls:'good'},
     {label:'δ (m)',val:fmtN(delta),unit:'m'},
@@ -940,7 +939,7 @@ function fracCalc(){
   const Y=gv('frac-Y');
   const Kic=gv('frac-Kic');  // MPa√m (keep as-is)
   if(!sig||!a||!Y||!Kic) return;
-  const sigMPa=sig/1e6;
+  const sigMPa=sig;
   const KI=Y*sigMPa*Math.sqrt(Math.PI*a);
   const safe=KI<Kic;
   res('frac-body',[
@@ -953,11 +952,11 @@ function fracCalc(){
   (function(){const _e=document.getElementById('frac-out');if(_e)_e.classList.add('visible')})();
 }
 function fatCalc(){
-  const sa=gv('fat-sa')*gu('fat-sa-u')/1e6;  // to MPa
-  const sf=gv('fat-sf')*gu('fat-sf-u')/1e6;
+  const sa=gv('fat-sa')*gu('fat-sa-u');
+  const sf=gv('fat-sf')*gu('fat-sf-u');
   const b=gv('fat-b');
-  const sm=gv('fat-sm')*gu('fat-sm-u')/1e6;
-  const Su=gv('fat-Su')*gu('fat-Su-u')/1e6;
+  const sm=gv('fat-sm')*gu('fat-sm-u');
+  const Su=gv('fat-Su')*gu('fat-Su-u');
   if(!sa||!sf||!b||isNaN(sm)) return;
   const Nf=0.5*Math.pow(sa/sf,1/b);
   // Goodman: σ_a/Se + σ_m/Su = 1 → check if σ_a + σ_m·(σ_a_corrected) exceeds limit
@@ -1003,14 +1002,14 @@ function torCalcHollow(){
   (function(){const _e=document.getElementById('torh-out');if(_e)_e.classList.add('visible')})();
 }
 function pvCalcLame(){
-  const p=v('pv-p')*gu('pv-p-u'), ri=gv('pv-ri')*gu('pv-ri-u'), ro=gv('pv-ro')*gu('pv-ro-u');
+  const p=v('pv-p')*gu('pv-p-u'), ri=gv('pv2-ri')*gu('pv2-ri-u'), ro=gv('pv2-ro')*gu('pv2-ro-u');
   if(!p||!ri||!ro||ro<=ri) return;
   // Lamé: inner surface (worst case r=ri)
   const sig_th=(p*(ro*ro+ri*ri))/(ro*ro-ri*ri);  // hoop at r=ri
   const sig_r=-p;  // radial at r=ri (equal to -p at inner surface)
   const sig_th_outer=p*2*ri*ri/(ro*ro-ri*ri);  // hoop at outer wall
   const t=ro-ri;
-  res('pv-body',[
+  res('pv2-body',[
     ['Wall thickness t', (t*1000).toFixed(2)+' mm', ''],
     ['Hoop stress σ_θ (inner)', (sig_th/1e6).toFixed(2)+' MPa', 'Lamé, r=r_i'],
     ['Radial stress σ_r (inner)', (sig_r/1e6).toFixed(2)+' MPa', '= −p at inner wall'],
@@ -1018,7 +1017,7 @@ function pvCalcLame(){
     ['Von Mises (inner)', (Math.sqrt(sig_th*sig_th+sig_r*sig_r-sig_th*sig_r)/1e6).toFixed(2)+' MPa', '—'],
     ['Thin-wall check (t/r_i)', (t/ri).toFixed(3), t/ri<0.1?'< 0.1: thin-wall approx OK':'≥ 0.1: use thick-wall (Lamé) — correct']
   ]);
-  (function(){const _e=document.getElementById('pv-out');if(_e)_e.classList.add('visible')})();
+  (function(){const _e=document.getElementById('pv2-out');if(_e)_e.classList.add('visible')})();
 }
 function buckleCalc(){
   const E=gv('bk-E')*gu('bk-E-u'), I=gv('bk-I')*gu('bk-I-u');

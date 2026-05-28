@@ -1,6 +1,6 @@
 # eng-fea-cfd-calc
 
-**Engineering FEA / CFD Calculator Hub** — 80+ client-side engineering calculators across 12 disciplines.
+**Engineering FEA / CFD Calculator Hub** — 82+ client-side engineering calculators across 13 disciplines.
 
 Part of the [A. Mirza academic tools portfolio](https://dthornz.github.io/website-cv-tools/).
 
@@ -15,6 +15,9 @@ Y+ / Y* wall units · Reynolds / Mach / Strouhal / Dean / Péclet numbers · Tur
 
 ### Biomedical CFD
 Power Law & Carreau viscosity models (blood, Cho & Kensey parameters) · Newtonian validity check (γ̇ threshold) · Womersley number · Wall shear stress from Q or ΔP · OSI / TAWSS from pasted time-series
+
+### Porous Media Flow
+Darcy's Law + Kozeny–Carman permeability (k = ε³dp²/[180(1−ε)²]) · Forchheimer inertial correction (ΔP/L = μu/k + βρu²) · Ergun β coefficient · Pore Reynolds number validity check
 
 ### Structural FEA
 Isotropic elastic constants conversion (E, ν, G, K, λ) · Von Mises + Tresca + safety factor · Pressure vessel (thin-wall + Lamé thick-wall + column buckling) · Beam deflection (cantilever, simply supported, UDL) · Second moment of area (rectangle, circle, hollow, I-beam)

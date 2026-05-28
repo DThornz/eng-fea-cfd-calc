@@ -781,7 +781,7 @@
         <div class="input-row"><div class="input-label">Inner radius r_i</div><div class="input-wrap"><input class="field" id="pv-ri" type="number" value="10"><select class="unit-sel" id="pv-ri-u"><option value="1">mm</option><option value="10">cm</option><option value="1000">m</option></select></div></div>
         <div class="input-row"><div class="input-label">Outer radius r_o</div><div class="input-wrap"><input class="field" id="pv-ro" type="number" value="12"><select class="unit-sel" id="pv-ro-u"><option value="1">mm</option><option value="10">cm</option><option value="1000">m</option></select></div></div>
         <div class="input-row"><div class="input-label">Yield strength σ_y</div><div class="input-wrap"><input class="field" id="pv-Sy" type="number" value="250"><select class="unit-sel"><option>MPa</option></select></div></div>
-        <button class="btn-calc" onclick="pvCalcLame()">Calculate</button>
+        <button class="btn-calc" onclick="pvCalc()">Calculate</button>
         <div class="output" id="pv-out"><div class="output-header">Results</div><div class="output-body" id="pv-out-body"></div></div>
       </div>
     </div>
@@ -1394,11 +1394,11 @@
           <button class="tab" onclick="setTab('pv','buckle')">Column Buckling</button>
         </div>
         <div class="tab-panel active" id="pv-vessel">
-          <div class="input-row"><div class="input-label">Internal pressure p</div><div class="input-wrap"><input class="field" id="pv-p" type="number" value="10" min="0" oninput="pvCalc()"><select class="unit-sel" id="pv-p-u" onchange="pvCalc()"><option value="1e6">MPa</option><option value="1000">kPa</option><option value="6894.76">psi</option></select></div></div>
-          <div class="input-row"><div class="input-label">Inner radius r_i</div><div class="input-wrap"><input class="field" id="pv-ri" type="number" value="0.1" min="0" oninput="pvCalc()"><select class="unit-sel" id="pv-ri-u" onchange="pvCalc()"><option value="1">m</option><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
-          <div class="input-row"><div class="input-label">Outer radius r_o</div><div class="input-wrap"><input class="field" id="pv-ro" type="number" value="0.15" min="0" oninput="pvCalc()"><select class="unit-sel" id="pv-ro-u" onchange="pvCalc()"><option value="1">m</option><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+          <div class="input-row"><div class="input-label">Internal pressure p</div><div class="input-wrap"><input class="field" id="pv-p" type="number" value="10" min="0" oninput="pvCalcLame()"><select class="unit-sel" id="pv-p-u" onchange="pvCalcLame()"><option value="1e6">MPa</option><option value="1000">kPa</option><option value="6894.76">psi</option></select></div></div>
+          <div class="input-row"><div class="input-label">Inner radius r_i</div><div class="input-wrap"><input class="field" id="pv2-ri" type="number" value="0.1" min="0" oninput="pvCalcLame()"><select class="unit-sel" id="pv2-ri-u" onchange="pvCalcLame()"><option value="1">m</option><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
+          <div class="input-row"><div class="input-label">Outer radius r_o</div><div class="input-wrap"><input class="field" id="pv2-ro" type="number" value="0.15" min="0" oninput="pvCalcLame()"><select class="unit-sel" id="pv2-ro-u" onchange="pvCalcLame()"><option value="1">m</option><option value="0.001">mm</option><option value="0.0254">in</option></select></div></div>
           <button class="btn-calc" onclick="pvCalcLame()">Calculate</button>
-          <div class="output" id="pv-out"><div class="output-header">Results</div><div class="output-body" id="pv-body"></div></div>
+          <div class="output" id="pv2-out"><div class="output-header">Results</div><div class="output-body" id="pv2-body"></div></div>
         </div>
         <div class="tab-panel" id="pv-buckle">
           <p style="font-size:.75em;color:var(--muted);margin-bottom:8px">K: 0.5=fixed-fixed, 0.7=fixed-pinned, 1.0=pinned-pinned, 2.0=fixed-free</p>
