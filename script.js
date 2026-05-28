@@ -927,8 +927,7 @@ function initResizeReflow(){
   document.querySelectorAll('.card').forEach(c => ro.observe(c));
 }
 
-// Pre-compute defaults on load for better UX
-window.addEventListener('load',()=>{ initUnitAutoConvert(); initCardRestore(); initResizeReflow(); buildSearchIndex(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
+window.addEventListener('load',()=>{ initUnitAutoConvert(); initCardRestore(); initResizeReflow(); buildSearchIndex(); fitFormulas(); });
 
 
 /* ── Compatibility shims for new sections ── */
