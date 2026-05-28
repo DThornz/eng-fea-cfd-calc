@@ -248,7 +248,7 @@ button{cursor:pointer;font-family:var(--serif)}
 }
 .hero-title{font-size:1.7em;font-weight:700;color:var(--text);margin-bottom:6px}
 .hero-title span{color:var(--teal)}
-.hero-sub{font-size:.88em;color:var(--muted);max-width:560px;line-height:1.55}
+.hero-sub{font-size:.88em;color:var(--muted);line-height:1.55}
 .hero-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .hero-tag{
   padding:3px 10px;border-radius:99px;font-size:.72em;font-family:var(--mono);
