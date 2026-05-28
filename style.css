@@ -104,6 +104,7 @@ button{cursor:pointer;font-family:var(--serif)}
 .calc-grid.wide{grid-template-columns:1fr}
 .calc-grid.two{grid-template-columns:repeat(auto-fill,minmax(500px,1fr))}
 .calc-grid.three{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.calc-grid-turb{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;align-items:start}
 
 .card{
   background:var(--bg2);border:1px solid var(--border);
@@ -255,7 +256,7 @@ button{cursor:pointer;font-family:var(--serif)}
 @media(max-width:768px){
   .sidebar{display:none}
   .content{padding:16px 14px 60px}
-  .calc-grid,.calc-grid.two{grid-template-columns:1fr}
+  .calc-grid,.calc-grid.two,.calc-grid-turb{grid-template-columns:1fr}
   .hero-banner{flex-direction:column}
 }
 
