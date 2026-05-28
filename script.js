@@ -741,8 +741,36 @@ function convertTemp(src){
    INIT
 ════════════════════════════════════════════════════════ */
 buildConverters();
+
+/* ════════════════════════════════════════════════════════
+   UNIT AUTO-CONVERT
+   When a unit selector changes, convert the sibling
+   field value so it still represents the same quantity.
+   Each selector's value is a multiplier: field * value = SI.
+   Wraps the existing onchange so conversion happens first.
+════════════════════════════════════════════════════════ */
+function initUnitAutoConvert(){
+  document.querySelectorAll('select.unit-sel').forEach(sel => {
+    sel.dataset.prevU = sel.value;
+    const prev = sel.onchange;
+    sel.onchange = function(e){
+      const oldU = parseFloat(this.dataset.prevU);
+      const newU = parseFloat(this.value);
+      if(isFinite(oldU) && isFinite(newU) && oldU !== 0 && newU !== 0 && oldU !== newU){
+        const inp = this.closest('.input-wrap')?.querySelector('input.field');
+        if(inp && inp.value !== ''){
+          const raw = parseFloat(inp.value);
+          if(isFinite(raw)) inp.value = parseFloat((raw * oldU / newU).toPrecision(6));
+        }
+      }
+      this.dataset.prevU = this.value;
+      if(prev) prev.call(this, e);
+    };
+  });
+}
+
 // Pre-compute defaults on load for better UX
-window.addEventListener('load',()=>{ ypCalc(); reCalc(); tbCalc(); });
+window.addEventListener('load',()=>{ initUnitAutoConvert(); ypCalc(); reCalc(); tbCalc(); });
 
 
 /* ── Compatibility shims for new sections ── */
