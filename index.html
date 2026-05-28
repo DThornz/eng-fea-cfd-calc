@@ -1435,7 +1435,7 @@
     <!-- epsilon-NTU -->
     <div class="card">
       <div class="card-header">
-        <div class="card-icon">ε-NTU</div>
+        <div class="card-icon">NTU</div>
         <div><div class="card-title">ε-NTU Heat Exchanger</div>
         <div class="card-subtitle">Effectiveness — Number of Transfer Units method</div></div>
       </div>
@@ -1909,7 +1909,7 @@
     <!-- Loading & Maintenance Dose -->
     <div class="card">
       <div class="card-header">
-        <div class="card-icon">LD/MD</div>
+        <div class="card-icon">Dose</div>
         <div><div class="card-title">Loading & Maintenance Dose</div>
         <div class="card-subtitle">Target-concentration dosing regimen</div></div>
       </div>
@@ -2796,7 +2796,7 @@
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-icon">GM/PM</div><div><div class="card-title">Gain &amp; Phase Margin</div><div class="card-subtitle">Stability margins for G(s) = K/[s(τ₁s+1)(τ₂s+1)]</div></div></div>
+      <div class="card-header"><div class="card-icon">Bode</div><div><div class="card-title">Gain &amp; Phase Margin</div><div class="card-subtitle">Stability margins for G(s) = K/[s(τ₁s+1)(τ₂s+1)]</div></div></div>
       <div class="card-body">
         <div class="formula-latex">$$\mathrm{PM}=180°+\angle G(j\omega_{gc}),\quad \mathrm{GM}=20\log_{10}(1/|G(j\omega_{pc})|)$$</div>
         <div class="input-row"><div class="input-label">Gain K</div><div class="input-wrap"><input class="field" id="gpm-K" type="number" value="5" min="0" oninput="gpmCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
@@ -2835,9 +2835,9 @@
   <div class="calc-grid two">
 
     <div class="card">
-      <div class="card-header"><div class="card-icon">PV=nRT</div><div><div class="card-title">Ideal Gas Law</div><div class="card-subtitle">Solve for any state variable</div></div></div>
+      <div class="card-header"><div class="card-icon">IGL</div><div><div class="card-title">Ideal Gas Law</div><div class="card-subtitle">Solve for any state variable</div></div></div>
       <div class="card-body">
-        <div class="formula-latex">$$PV=nRT,\quad R=8.314\,\text{J/(mol·K)}$$</div>
+        <div class="formula-latex">$$PV=nRT,\quad R=8.314\;\mathrm{J\,mol^{-1}K^{-1}}$$</div>
         <div class="input-row"><div class="input-label">Solve for</div><div class="input-wrap"><select class="field" id="igl-mode" onchange="iglCalc()" style="padding:6px 8px;font-size:.82em"><option value="P">Pressure P</option><option value="V">Volume V</option><option value="n">Moles n</option><option value="T">Temperature T</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
         <div class="input-row"><div class="input-label">Pressure P</div><div class="input-wrap"><input class="field" id="igl-P" type="number" value="101325" oninput="iglCalc()"><select class="unit-sel" id="igl-P-u" onchange="iglCalc()"><option value="1">Pa</option><option value="1000">kPa</option><option value="101325">atm</option></select></div></div>
         <div class="input-row"><div class="input-label">Volume V (m³)</div><div class="input-wrap"><input class="field" id="igl-V" type="number" value="0.0224" min="0" oninput="iglCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
@@ -2849,7 +2849,7 @@
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-icon">P_vap</div><div><div class="card-title">Antoine Vapor Pressure</div><div class="card-subtitle">Clausius-Clapeyron approximation for common solvents</div></div></div>
+      <div class="card-header"><div class="card-icon">Pvap</div><div><div class="card-title">Antoine Vapor Pressure</div><div class="card-subtitle">Clausius-Clapeyron approximation for common solvents</div></div></div>
       <div class="card-body">
         <div class="formula-latex">$$\log_{10}P=A-\frac{B}{C+T}$$</div>
         <div class="input-row"><div class="input-label">Compound</div><div class="input-wrap"><select class="field" id="ant-preset" onchange="antCalc()" style="padding:6px 8px;font-size:.82em"><option value="water">Water</option><option value="ethanol">Ethanol</option><option value="acetone">Acetone</option><option value="toluene">Toluene</option><option value="custom">Custom</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
@@ -2954,7 +2954,7 @@
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-icon">Δt_cr</div><div><div class="card-title">Explicit Time Step</div><div class="card-subtitle">Critical Δt for structural or CFD explicit schemes</div></div></div>
+      <div class="card-header"><div class="card-icon">Δt</div><div><div class="card-title">Explicit Time Step</div><div class="card-subtitle">Critical Δt for structural or CFD explicit schemes</div></div></div>
       <div class="card-body">
         <div class="formula-latex">$$\Delta t_{cr}=L/c,\quad c=\sqrt{E/\rho}\text{ (struct.)}$$</div>
         <div class="tabs" id="expts-tabs">
@@ -3190,7 +3190,7 @@
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-icon">nm/px</div><div><div class="card-title">Microscopy Scale Bar</div><div class="card-subtitle">nm per pixel and scale bar length</div></div></div>
+      <div class="card-header"><div class="card-icon">SCL</div><div><div class="card-title">Microscopy Scale Bar</div><div class="card-subtitle">nm per pixel and scale bar length</div></div></div>
       <div class="card-body">
         <div class="formula-latex">$$\text{nm/px}=\frac{\text{pixel size}(\mu m)\times1000}{\text{magnification}}$$</div>
         <div class="input-row"><div class="input-label">Magnification</div><div class="input-wrap"><input class="field" id="scb-mag" type="number" value="40" min="0" oninput="scbCalc()"><select class="unit-sel" style="visibility:hidden"></select></div></div>
