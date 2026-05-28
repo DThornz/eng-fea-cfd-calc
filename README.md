@@ -51,6 +51,9 @@ Pressure · Dynamic viscosity · Kinematic viscosity · Velocity · Length · Fo
 
 ---
 
+### UI Features
+Unit system switcher (SI / MMKS / CGS / IPS / BIN / BFT) — sets preferred units across all calculators · Live card search — filter by keyword across titles, subtitles, and input labels · Unit auto-convert — changing a unit selector converts the current field value automatically · Resizable cards — drag the bottom-right corner to resize any card · Restore button (↺) on each card — resets size and all inputs to defaults
+
 **Tech:** Vanilla HTML/CSS/JS · No build step · GitHub Pages
 
 ---
