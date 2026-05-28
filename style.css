@@ -100,11 +100,14 @@ button{cursor:pointer;font-family:var(--serif)}
 /* ═══════════════════════════════════════════════════════════
    CALCULATOR GRID & CARDS
 ═══════════════════════════════════════════════════════════ */
-.calc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:18px}
-.calc-grid.wide{grid-template-columns:1fr}
-.calc-grid.two{grid-template-columns:repeat(auto-fill,minmax(500px,1fr))}
-.calc-grid.three{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
-.calc-grid-turb{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;align-items:start}
+.calc-grid{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
+.calc-grid > .card{flex:1 1 380px}
+.calc-grid.wide > .card{flex:1 1 100%}
+.calc-grid.two > .card{flex:1 1 500px}
+.calc-grid.three > .card{flex:1 1 320px}
+.calc-grid-turb{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
+.calc-grid-turb > .card:first-child{flex:2 1 440px}
+.calc-grid-turb > .card:not(:first-child){flex:1 1 220px}
 
 .card{
   background:var(--bg2);border:1px solid var(--border);
@@ -259,7 +262,7 @@ button{cursor:pointer;font-family:var(--serif)}
 @media(max-width:768px){
   .sidebar{display:none}
   .content{padding:16px 14px 60px}
-  .calc-grid,.calc-grid.two,.calc-grid-turb{grid-template-columns:1fr}
+  .calc-grid > .card,.calc-grid.two > .card,.calc-grid-turb > .card{flex:1 1 100% !important}
   .hero-banner{flex-direction:column}
 }
 

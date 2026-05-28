@@ -890,8 +890,12 @@ function initCardRestore(){
     btn.title = 'Restore default size and values';
     btn.textContent = '↺';
     btn.addEventListener('click', () => {
+      // Clear resize + flex overrides so card snaps back to grid flow
       card.style.width = '';
       card.style.height = '';
+      card.style.flexBasis = '';
+      card.style.flexGrow = '';
+      card.style.flexShrink = '';
       card.querySelectorAll('input').forEach(inp => { inp.value = inp.defaultValue; });
       card.querySelectorAll('select').forEach(sel => {
         const def = Array.from(sel.options).find(o => o.defaultSelected);
@@ -903,8 +907,25 @@ function initCardRestore(){
   });
 }
 
+function initResizeReflow(){
+  if(!window.ResizeObserver) return;
+  const ro = new ResizeObserver(entries => {
+    for(const entry of entries){
+      const card = entry.target;
+      // Only react when user has explicitly resized (browser sets inline width/height)
+      if(card.style.width !== '' || card.style.height !== ''){
+        const w = entry.borderBoxSize?.[0]?.inlineSize ?? card.offsetWidth;
+        card.style.flexBasis = w + 'px';
+        card.style.flexGrow = '0';
+        card.style.flexShrink = '0';
+      }
+    }
+  });
+  document.querySelectorAll('.card').forEach(c => ro.observe(c));
+}
+
 // Pre-compute defaults on load for better UX
-window.addEventListener('load',()=>{ initUnitAutoConvert(); initCardRestore(); buildSearchIndex(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
+window.addEventListener('load',()=>{ initUnitAutoConvert(); initCardRestore(); initResizeReflow(); buildSearchIndex(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
 
 
 /* ── Compatibility shims for new sections ── */
