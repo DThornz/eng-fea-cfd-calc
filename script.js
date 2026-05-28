@@ -769,8 +769,27 @@ function initUnitAutoConvert(){
   });
 }
 
+/* ════════════════════════════════════════════════════════
+   FORMULA FIT
+   Shrink any KaTeX display block that overflows its card
+   column using CSS zoom (affects layout, no scrollbars).
+════════════════════════════════════════════════════════ */
+function fitFormulas(){
+  document.querySelectorAll('.formula-latex').forEach(wrap => {
+    const disp = wrap.querySelector('.katex-display');
+    if(!disp) return;
+    disp.style.zoom = '';                      // reset before measuring
+    const overflow = disp.scrollWidth - wrap.clientWidth;
+    if(overflow > 2 && wrap.clientWidth > 0){
+      disp.style.zoom = Math.max(0.55, wrap.clientWidth / disp.scrollWidth);
+    }
+  });
+}
+let _fitTimer;
+window.addEventListener('resize', () => { clearTimeout(_fitTimer); _fitTimer = setTimeout(fitFormulas, 150); });
+
 // Pre-compute defaults on load for better UX
-window.addEventListener('load',()=>{ initUnitAutoConvert(); ypCalc(); reCalc(); tbCalc(); });
+window.addEventListener('load',()=>{ initUnitAutoConvert(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
 
 
 /* ── Compatibility shims for new sections ── */
