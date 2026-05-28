@@ -108,7 +108,8 @@ button{cursor:pointer;font-family:var(--serif)}
 
 .card{
   background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;
+  border-radius:var(--r);overflow:auto;
+  resize:both;min-width:260px;min-height:80px;
   transition:border-color var(--tr),box-shadow var(--tr);
 }
 .card:hover{border-color:var(--teal-dim);box-shadow:0 0 0 1px rgba(45,212,191,.06)}
