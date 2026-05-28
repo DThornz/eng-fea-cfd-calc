@@ -881,8 +881,30 @@ function fitFormulas(){
 let _fitTimer;
 window.addEventListener('resize', () => { clearTimeout(_fitTimer); _fitTimer = setTimeout(fitFormulas, 150); });
 
+function initCardRestore(){
+  document.querySelectorAll('.card').forEach(card => {
+    const header = card.querySelector('.card-header');
+    if(!header) return;
+    const btn = document.createElement('button');
+    btn.className = 'card-restore';
+    btn.title = 'Restore default size and values';
+    btn.textContent = '↺';
+    btn.addEventListener('click', () => {
+      card.style.width = '';
+      card.style.height = '';
+      card.querySelectorAll('input').forEach(inp => { inp.value = inp.defaultValue; });
+      card.querySelectorAll('select').forEach(sel => {
+        const def = Array.from(sel.options).find(o => o.defaultSelected);
+        sel.value = def ? def.value : (sel.options[0]?.value ?? '');
+        sel.dataset.prevU = sel.value;
+      });
+    });
+    header.appendChild(btn);
+  });
+}
+
 // Pre-compute defaults on load for better UX
-window.addEventListener('load',()=>{ initUnitAutoConvert(); buildSearchIndex(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
+window.addEventListener('load',()=>{ initUnitAutoConvert(); initCardRestore(); buildSearchIndex(); fitFormulas(); ypCalc(); reCalc(); tbCalc(); });
 
 
 /* ── Compatibility shims for new sections ── */
