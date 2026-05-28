@@ -136,6 +136,8 @@ button{cursor:pointer;font-family:var(--serif)}
   margin-bottom:14px;line-height:1.7;white-space:pre-wrap;word-break:break-word;
 }
 .formula .comment{color:var(--dim)}
+.formula-latex{overflow-x:auto;max-width:100%;padding-bottom:4px;margin-bottom:10px}
+.formula-latex .katex-display{margin:0}
 
 /* Input rows */
 .input-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
