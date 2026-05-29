@@ -410,6 +410,7 @@ window.addEventListener('load', () => {
   initUnitAutoConvert();
   initCardRestore();
   initResizeReflow();
+  initCardReferences();
   buildSearchIndex();
   fitFormulas();
   initTooltipToggle();
