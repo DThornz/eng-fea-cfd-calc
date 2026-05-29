@@ -61,7 +61,6 @@ const _R = {
   irwin_1957:         'Irwin, G.R. (1957). Analysis of stresses and strains near the end of a crack traversing a plate. Journal of Applied Mechanics, 24, 361–364.',
   anderson_fracture:  'Anderson, T.L. (2017). Fracture Mechanics: Fundamentals and Applications (4th ed.). CRC Press.',
   basquin_1910:       'Basquin, O.H. (1910). The exponential law of endurance tests. Proceedings of the American Society for Testing Materials, 10, 625–630.',
-  goodman_1899:       'Goodman, J. (1899). Mechanics Applied to Engineering. Longmans, Green and Co.',
   suresh_fatigue:     'Suresh, S. (1998). Fatigue of Materials (2nd ed.). Cambridge University Press.',
   shigley:            'Budynas, R.G. & Nisbett, J.K. (2020). Shigley\'s Mechanical Engineering Design (11th ed.). McGraw-Hill.',
   hertz_1882:         'Hertz, H. (1882). Über die Berührung fester elastischer Körper. Journal für die reine und angewandte Mathematik, 92, 156–171.',
