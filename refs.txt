@@ -1,0 +1,1364 @@
+================================================================================
+ENGINEERING / FEA / CFD CALCULATOR HUB — SOURCE REFERENCES
+All citations verified against publisher databases.
+Generated from: js/refs.js
+================================================================================
+
+Total cards: 151  |  Cards with references: 151
+
+
+================================================================================
+SECTION: Y+ ESTIMATION  [Mesh Sizing]  (#yplus)
+================================================================================
+
+  Card: Wall Distance for Target Y+
+  Subtitle: Estimates Δy from flow conditions using skin friction coefficient correlation
+  Function(s): setTab, ypCalc
+  References:
+    [1] Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.).
+        Springer-Verlag.
+    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
+
+  Card: Y* — Pressure-Velocity Wall Unit
+  Subtitle: Wall-distance scaling when pressure gradient dominates over friction
+  Function(s): ysCalc
+  References:
+    [1] Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.).
+        Springer-Verlag.
+    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
+
+================================================================================
+SECTION: DIMENSIONLESS NUMBERS  [Flow Classification]  (#reynolds)
+================================================================================
+
+  Card: Reynolds Number
+  Subtitle: Re = ρ·U·L/μ — inertial vs viscous forces
+  Function(s): reCalc
+  References:
+    [1] Reynolds, O. (1883). An experimental investigation of the circumstances
+        which determine whether the motion of water shall be direct or sinuous.
+        Philosophical Transactions of the Royal Society of London, 174, 935–982.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+  Card: Mach Number
+  Subtitle: Ma = U/a — compressibility effects
+  Function(s): maCalc
+  References:
+    [1] Anderson, J.D. (2003). Modern Compressible Flow (3rd ed.). McGraw-Hill.
+    [2] Shapiro, A.H. (1953). The Dynamics and Thermodynamics of Compressible
+        Fluid Flow, Vol. 1. Ronald Press.
+
+  Card: Strouhal Number
+  Subtitle: St = f·L/U — oscillation vs convection
+  Function(s): stCalc
+  References:
+    [1] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+  Card: Dean Number
+  Subtitle: De = Re·√(r/R) — curved pipe secondary flow
+  Function(s): deCalc
+  References:
+    [1] Dean, W.R. (1928). The streamline motion of fluid in a curved pipe.
+        Philosophical Magazine, 5(30), 673–695.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+  Card: Péclet Number
+  Subtitle: Pe = U·L/D — advection vs diffusion
+  Function(s): peCalc
+  References:
+    [1] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+        (2nd ed.). Wiley.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+================================================================================
+SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#turbulence)
+================================================================================
+
+  Card: Turbulence Inlet BCs — k, ε, ω, νₜ
+  Subtitle: For k-ε, k-ω SST, and Spalart-Allmaras solvers from I and ℓ
+  Function(s): tbCalc
+  References:
+    [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+        Industries.
+    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
+
+  Card: Turbulence Intensity Estimate
+  Subtitle: From Reynolds number (pipe / free-stream)
+  Function(s): tiCalc
+  References:
+    [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+        Industries.
+    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
+
+  Card: Turbulent Length Scale Estimate
+  Subtitle: From geometry type and characteristic dimension
+  Function(s): lsCalc
+  References:
+    [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+        Industries.
+    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
+
+================================================================================
+SECTION: BOUNDARY LAYER THICKNESS  [Boundary Layer]  (#boundary-layer)
+================================================================================
+
+  Card: Flat Plate BL Thickness
+  Subtitle: Laminar (Blasius) and turbulent Schlichting correlations
+  Function(s): blCalc
+  References:
+    [1] Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.).
+        Springer-Verlag.
+    [2] Blasius, H. (1908). Grenzschichten in Flüssigkeiten mit kleiner Reibung.
+        Zeitschrift für Mathematik und Physik, 56, 1–37.
+
+  Card: Pipe Entry / Development Length
+  Subtitle: Hydrodynamic and thermal entry lengths
+  Function(s): leCalc
+  References:
+    [1] Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.).
+        Springer-Verlag.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+================================================================================
+SECTION: PIPE & CHANNEL FLOW  [Internal Flow]  (#pipe-flow)
+================================================================================
+
+  Card: Hagen-Poiseuille (Laminar)
+  Subtitle: Q = πR⁴ΔP / (8μL) — assumes Re < 2300
+  Function(s): setTab, hpCalc
+  References:
+    [1] Batchelor, G.K. (1967). An Introduction to Fluid Dynamics. Cambridge
+        University Press.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+  Card: Darcy-Weisbach Pressure Drop
+  Subtitle: ΔP = f·(L/D)·(ρU²/2) with Moody friction factor
+  Function(s): dwCalc
+  References:
+    [1] Moody, L.F. (1944). Friction factors for pipe flow. Transactions of the
+        ASME, 66, 671–684.
+    [2] Colebrook, C.F. (1939). Turbulent flow in pipes, with particular reference
+        to the transition region between smooth and rough pipe laws. Journal of
+        the Institution of Civil Engineers, 11(4), 133–156.
+
+  Card: Hydraulic Diameter
+  Subtitle: D_h = 4A/P for non-circular channels
+  Function(s): setTab, dhCalc
+  References:
+    [1] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+================================================================================
+SECTION: NON-NEWTONIAN VISCOSITY MODELS  [Biomedical CFD]  (#non-newt)
+================================================================================
+
+  Card: Power Law (Ostwald-de Waele)
+  Subtitle: μ_eff = K·γ̇ⁿ⁻¹
+  Function(s): plCalc
+  References:
+    [1] Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of
+        blood on flows in a diseased arterial vessel. Biorheology, 28(3–4),
+        241–262.
+    [2] Carreau, P.J. (1972). Rheological equations from molecular network
+        theories. Transactions of the Society of Rheology, 16(1), 99–127.
+
+  Card: Carreau Model (Blood Default)
+  Subtitle: μ_eff = μ_∞ + (μ₀−μ_∞)·[1+(λγ̇)²]^((n−1)/2)
+  Function(s): caCalc
+  References:
+    [1] Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of
+        blood on flows in a diseased arterial vessel. Biorheology, 28(3–4),
+        241–262.
+    [2] Carreau, P.J. (1972). Rheological equations from molecular network
+        theories. Transactions of the Society of Rheology, 16(1), 99–127.
+
+  Card: Newtonian Validity Check
+  Subtitle: Identifies regions where non-Newtonian models are needed
+  Function(s): nvCalc
+  References:
+    [1] Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of
+        blood on flows in a diseased arterial vessel. Biorheology, 28(3–4),
+        241–262.
+    [2] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+        (2nd ed.). Wiley.
+
+================================================================================
+SECTION: PULSATILE FLOW & WALL METRICS  [Biomedical CFD]  (#pulsatile)
+================================================================================
+
+  Card: Womersley Number
+  Subtitle: α = R·√(2πf/ν) — pulsatile flow inertia
+  Function(s): woCalc
+  References:
+    [1] Womersley, J.R. (1955). Method for the calculation of velocity, rate of
+        flow and viscous drag in arteries when the pressure gradient is known.
+        Journal of Physiology, 127(3), 553–563.
+    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+        Flow in Arteries (6th ed.). Hodder Arnold.
+
+  Card: Wall Shear Stress (Pipe)
+  Subtitle: Laminar: τ_w = 4μQ/(πR³) or from ΔP
+  Function(s): setTab, wssCalc
+  References:
+    [1] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+        Flow in Arteries (6th ed.). Hodder Arnold.
+    [2] Womersley, J.R. (1955). Method for the calculation of velocity, rate of
+        flow and viscous drag in arteries when the pressure gradient is known.
+        Journal of Physiology, 127(3), 553–563.
+
+  Card: Oscillatory Shear Index (OSI)
+  Subtitle: Quantifies WSS directionality over a cardiac cycle
+  Function(s): osiCalc
+  References:
+    [1] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+        Flow in Arteries (6th ed.). Hodder Arnold.
+    [2] Womersley, J.R. (1955). Method for the calculation of velocity, rate of
+        flow and viscous drag in arteries when the pressure gradient is known.
+        Journal of Physiology, 127(3), 553–563.
+
+================================================================================
+SECTION: POROUS MEDIA FLOW  [Biomedical CFD]  (#porous)
+================================================================================
+
+  Card: Darcy Flow + Kozeny–Carman
+  Subtitle: Superficial velocity through a porous filter; k estimated from porosity & particle size
+  Function(s): setTab, pmCalc
+  References:
+    [1] Darcy, H. (1856). Les Fontaines Publiques de la Ville de Dijon. Dalmont,
+        Paris.
+    [2] Kozeny, J. (1927). Über kapillare Leitung des Wassers im Boden.
+        Sitzungsberichte der Akademie der Wissenschaften in Wien, 136, 271–306. /
+        Carman, P.C. (1937). Fluid flow through granular beds. Transactions of the
+        Institution of Chemical Engineers, 15, 150–166.
+
+  Card: Forchheimer Inertial Correction
+  Subtitle: Extended Darcy: ΔP/L = (μ/k)u + βρu² — inertia at higher velocities
+  Function(s): setTab, fchCalc
+  References:
+    [1] Forchheimer, P. (1901). Wasserbewegung durch Boden. Zeitschrift des
+        Vereines Deutscher Ingenieure, 45, 1781–1788.
+    [2] Ergun, S. (1952). Fluid flow through packed columns. Chemical Engineering
+        Progress, 48(2), 89–94.
+
+================================================================================
+SECTION: ELASTIC CONSTANTS CONVERSION  [Structural FEA]  (#elastic)
+================================================================================
+
+  Card: Isotropic Elastic Constants
+  Subtitle: Given any two independent constants, compute all others
+  Function(s): elCalc
+  References:
+    [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+
+================================================================================
+SECTION: ⚡ STRESS ANALYSIS & FAILURE CRITERIA  [Structural FEA]  (#stress)
+================================================================================
+
+  Card: Von Mises Stress (2D / 3D)
+  Subtitle: Distortion energy failure criterion
+  Function(s): setTab, vmCalc
+  References:
+    [1] von Mises, R. (1913). Mechanik der festen Körper im plastisch-deformablen
+        Zustand. Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen,
+        Mathematisch-Physikalische Klasse, 1913, 582–592.
+    [2] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+
+  Card: Pressure Vessel / Cylinder
+  Subtitle: Lamé equations for thick/thin-walled vessels
+  Function(s): pvCalc
+  References:
+    [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+    [2] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+
+================================================================================
+SECTION: BEAM DEFLECTION & SECOND MOMENT OF AREA  [Structural FEA]  (#beam)
+================================================================================
+
+  Card: Beam Deflection
+  Subtitle: Cantilever, simply supported, UDL cases
+  Function(s): setTab, bmCalc
+  References:
+    [1] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+    [2] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+
+  Card: Second Moment of Area
+  Subtitle: I for rectangle, circle, hollow circle, I-beam
+  Function(s): setTab, smaCalc
+  References:
+    [1] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+    [2] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+
+================================================================================
+SECTION: GEOMETRY  [All Engineers]  (#geometry)
+================================================================================
+
+  Card: 2D Shape Properties
+  Subtitle: Area, perimeter, centroid, second moment of area
+  Function(s): setTab, gCircle, gRect, gTriangle, gEllipse, gAnnulus
+  References:
+    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+
+  Card: 3D Shape Properties
+  Subtitle: Volume, surface area, centroid height
+  Function(s): setTab, gSphere, gCyl, gCone, gBox, gTorus
+  References:
+    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+
+  Card: Triangle Solver Auto-solve — Law of Cosines / Sines
+  Subtitle: Enter any 3 known values (side or angle) — all others computed
+  Function(s): triSolve
+  References:
+    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+
+  Card: Coordinate Geometry
+  Subtitle: Distance, midpoint, line equations, angle between lines, circle equation
+  Function(s): setTab, coordPts, lineEq, circEq
+  References:
+    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+
+================================================================================
+SECTION: ∫ CALCULUS TOOLS  [All Engineers]  (#calculus)
+================================================================================
+
+  Card: Numerical Differentiation
+  Subtitle: Forward, backward, central difference — enter f(x±h) values
+  Function(s): numDiff
+  References:
+    [1] Press, W.H., Teukolsky, S.A., Vetterling, W.T. & Flannery, B.P. (2007).
+        Numerical Recipes: The Art of Scientific Computing (3rd ed.). Cambridge
+        University Press.
+    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+
+  Card: Numerical Integration
+  Subtitle: Trapezoidal rule, Simpson's 1/3, Simpson's 3/8 — up to 9 equally-spaced points
+  Function(s): numInt
+  References:
+    [1] Press, W.H., Teukolsky, S.A., Vetterling, W.T. & Flannery, B.P. (2007).
+        Numerical Recipes: The Art of Scientific Computing (3rd ed.). Cambridge
+        University Press.
+    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+
+  Card: Taylor Series Approximation
+  Subtitle: sin, cos, eˣ, ln(1+x), (1+x)ⁿ — value and error estimate
+  Function(s): taylorCalc
+  References:
+    [1] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+    [2] Press, W.H., Teukolsky, S.A., Vetterling, W.T. & Flannery, B.P. (2007).
+        Numerical Recipes: The Art of Scientific Computing (3rd ed.). Cambridge
+        University Press.
+
+  Card: Vector Calculus — Gradient, Divergence, Curl
+  Subtitle: Numerical evaluation at a point from finite-difference stencils
+  Function(s): setTab, vcGrad, vcDiv, vcCurl
+  References:
+    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+
+================================================================================
+SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
+================================================================================
+
+  Card: Temperature
+  Subtitle: °C · °F · K · °R
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+  Card: Pressure
+  Subtitle: Base unit: Pa
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+  Card: Dynamic Viscosity
+  Subtitle: Base unit: Pa·s
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+  Card: Kinematic Viscosity
+  Subtitle: Base unit: m²/s
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+  Card: Velocity
+  Subtitle: Base unit: m/s
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+  Card: Length
+  Subtitle: Base unit: m
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+  Card: Force
+  Subtitle: Base unit: N
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+  Card: Density
+  Subtitle: Base unit: kg/m³
+  Function(s): —
+  References:
+    [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
+        International des Poids et Mesures.
+
+================================================================================
+SECTION: ️ HEAT TRANSFER  [MME / ChE / EE]  (#heat-transfer)
+================================================================================
+
+  Card: Fourier Conduction / Thermal Resistance
+  Subtitle: Flat wall, cylindrical, and composite wall
+  Function(s): setTab, htCondFlat, htCondCyl
+  References:
+    [1] Fourier, J.B.J. (1822). Théorie Analytique de la Chaleur. Firmin Didot,
+        Paris.
+    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: Forced Convection — Nusselt / h
+  Subtitle: Dittus-Boelter (pipe), Churchill-Bernstein (cylinder), flat plate
+  Function(s): setTab, htConvPipe, htConvPlate
+  References:
+    [1] Dittus, F.W. & Boelter, L.M.K. (1930). Heat transfer in automobile
+        radiators of the tubular type. Publications in Engineering, University of
+        California, Berkeley, 2(13), 443–461.
+    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: Thermal Radiation — Stefan-Boltzmann
+  Subtitle: Blackbody, greybody, and net exchange between surfaces
+  Function(s): htRad
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: Extended Surface (Fin) Efficiency
+  Subtitle: Rectangular, spine, and annular fins
+  Function(s): finCalc
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: Biot Number
+  Subtitle: Lumped capacitance validity check
+  Function(s): biCalc
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: Fourier Number
+  Subtitle: Dimensionless time for transient conduction
+  Function(s): foCalc
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: Lumped Capacitance Transient
+  Subtitle: Temperature decay with time constant τ
+  Function(s): lcCalc
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: LMTD Heat Exchanger
+  Subtitle: Log Mean Temperature Difference method
+  Function(s): setTab, lmtdCalc, lmtdParCalc
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: ε-NTU Heat Exchanger
+  Subtitle: Effectiveness — Number of Transfer Units method
+  Function(s): entuCalc
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+================================================================================
+SECTION: ❄️ PSYCHROMETRICS & MOIST AIR  [HVAC · Thermodynamics · Environmental]  (#hvac)
+================================================================================
+
+  Card: Psychrometric State Calculator
+  Subtitle: All moist-air properties from two independent inputs + pressure
+  Function(s): psyAltToP, setTab, psyCalc
+  References:
+    [1] ASHRAE (2021). 2021 ASHRAE Handbook—Fundamentals. American Society of
+        Heating, Refrigerating and Air-Conditioning Engineers.
+    [2] Çengel, Y.A. & Boles, M.A. (2019). Thermodynamics: An Engineering Approach
+        (9th ed.). McGraw-Hill.
+
+  Card: HVAC Process Analysis
+  Subtitle: Sensible / latent loads for heating, cooling, humidification and air mixing
+  Function(s): setTab, psyHeatCalc, psyCoolCalc, psyHumidCalc, psyMixCalc
+  References:
+    [1] ASHRAE (2021). 2021 ASHRAE Handbook—Fundamentals. American Society of
+        Heating, Refrigerating and Air-Conditioning Engineers.
+    [2] Çengel, Y.A. & Boles, M.A. (2019). Thermodynamics: An Engineering Approach
+        (9th ed.). McGraw-Hill.
+
+================================================================================
+SECTION: MATERIAL & FRACTURE MECHANICS  [MME / Civil / Aerospace]  (#fracture)
+================================================================================
+
+  Card: Stress Intensity Factor — Mode I
+  Subtitle: Through-crack in infinite plate; Irwin K_I = σ√(πa)
+  Function(s): fracCalc
+  References:
+    [1] Irwin, G.R. (1957). Analysis of stresses and strains near the end of a
+        crack traversing a plate. Journal of Applied Mechanics, 24, 361–364.
+    [2] Anderson, T.L. (2017). Fracture Mechanics: Fundamentals and Applications
+        (4th ed.). CRC Press.
+
+  Card: Fatigue Life — Basquin S-N
+  Subtitle: Cycles to failure from stress amplitude and material constants
+  Function(s): fatCalc
+  References:
+    [1] Basquin, O.H. (1910). The exponential law of endurance tests. Proceedings
+        of the American Society for Testing Materials, 10, 625–630.
+    [2] Goodman, J. (1899). Mechanics Applied to Engineering. Longmans, Green and
+        Co.
+
+  Card: Torsion of Circular Shaft
+  Subtitle: Shear stress, angle of twist, polar moment of inertia
+  Function(s): setTab, torCalcSolid, torCalcHollow
+  References:
+    [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+    [2] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+
+  Card: Thick-Wall Pressure Vessel & Column Buckling
+  Subtitle: Lamé hoop/radial stress; Euler critical load
+  Function(s): setTab, pvCalcLame, buckleCalc
+  References:
+    [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+
+================================================================================
+SECTION: ⚡ ELECTRICAL ENGINEERING  [EE / BME]  (#electrical)
+================================================================================
+
+  Card: Ohm's Law & DC Power
+  Subtitle: Solve any two of V, I, R, P
+  Function(s): —
+  References:
+    [1] Nilsson, J.W. & Riedel, S.A. (2014). Electric Circuits (10th ed.).
+        Pearson.
+
+  Card: RC / RL / RLC Circuits
+  Subtitle: Time constants, cutoff frequency, resonance, Q-factor
+  Function(s): setTab, rcCalc, rlCalc, rlcCalc
+  References:
+    [1] Nilsson, J.W. & Riedel, S.A. (2014). Electric Circuits (10th ed.).
+        Pearson.
+
+  Card: Decibels & Signal Levels
+  Subtitle: Voltage gain, power gain, dBm, SNR, and noise figure
+  Function(s): setTab, dbCalc, dbmCalc, dbmRevCalc
+  References:
+    [1] Nilsson, J.W. & Riedel, S.A. (2014). Electric Circuits (10th ed.).
+        Pearson.
+
+  Card: Op-Amp Configurations
+  Subtitle: Inverting, non-inverting, difference, integrator, differentiator
+  Function(s): setTab, opampInv, opampNoninv, opampDiff
+  References:
+    [1] Horowitz, P. & Hill, W. (2015). The Art of Electronics (3rd ed.).
+        Cambridge University Press.
+
+================================================================================
+SECTION: BIOMEDICAL ENGINEERING  [BME / Clinical]  (#biomedical)
+================================================================================
+
+  Card: Cardiovascular Hemodynamics
+  Subtitle: Cardiac output, stroke volume, vascular resistance, Poiseuille
+  Function(s): setTab, coCalc, poisCalc
+  References:
+    [1] Guyton, A.C. & Hall, J.E. (2015). Textbook of Medical Physiology (13th
+        ed.). Elsevier/Saunders.
+    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+        Flow in Arteries (6th ed.). Hodder Arnold.
+
+  Card: Nernst & Goldman Equations
+  Subtitle: Equilibrium potential, Goldman membrane voltage
+  Function(s): setTab, nernstCalc, goldmanCalc
+  References:
+    [1] Nernst, W. (1888). Zur Kinetik der in Lösung befindlichen Körper.
+        Zeitschrift für Physikalische Chemie, 2(9), 613–637.
+    [2] Guyton, A.C. & Hall, J.E. (2015). Textbook of Medical Physiology (13th
+        ed.). Elsevier/Saunders.
+
+  Card: Windkessel Model (2-element)
+  Subtitle: Arterial compliance, peripheral resistance, pressure waveform
+  Function(s): wkCalc
+  References:
+    [1] Westerhof, N., Lankhaar, J.W. & Westerhof, B.E. (2009). The arterial
+        Windkessel. Medical & Biological Engineering & Computing, 47(2), 131–141.
+    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+        Flow in Arteries (6th ed.). Hodder Arnold.
+
+  Card: Pulse Wave Velocity
+  Subtitle: Moens-Korteweg — arterial stiffness index
+  Function(s): pwvCalc
+  References:
+    [1] Korteweg, D.J. (1878). Ueber die Fortpflanzungsgeschwindigkeit des
+        Schalles in elastischen Röhren. Annalen der Physik und Chemie, Neue Folge,
+        5, 525–542.
+    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+        Flow in Arteries (6th ed.). Hodder Arnold.
+
+  Card: Michaelis-Menten Kinetics
+  Subtitle: Enzyme reaction velocity, Lineweaver-Burk
+  Function(s): mmCalc
+  References:
+    [1] Michaelis, L. & Menten, M.L. (1913). Die Kinetik der Invertinwirkung.
+        Biochemische Zeitschrift, 49, 333–369.
+
+  Card: Hill Equation
+  Subtitle: Cooperative binding, fractional occupancy
+  Function(s): hillCalc
+  References:
+    [1] Hill, A.V. (1910). The possible effects of the aggregation of the
+        molecules of haemoglobin on its dissociation curves. Journal of
+        Physiology, 40(Supplement), iv–vii.
+
+  Card: Cell Doubling Time
+  Subtitle: Exponential growth — doubling time or cell count
+  Function(s): setTab, cdtCalc, cdtPredCalc
+  References:
+    [1] Guyton, A.C. & Hall, J.E. (2015). Textbook of Medical Physiology (13th
+        ed.). Elsevier/Saunders.
+
+  Card: One-Compartment PK Model
+  Subtitle: IV bolus: concentration-time, AUC, half-life
+  Function(s): pkCalc
+  References:
+    [1] Rowland, M. & Tozer, T.N. (2011). Clinical Pharmacokinetics and
+        Pharmacodynamics (4th ed.). Lippincott Williams & Wilkins.
+
+  Card: Loading & Maintenance Dose
+  Subtitle: Target-concentration dosing regimen
+  Function(s): doseCalc
+  References:
+    [1] Rowland, M. & Tozer, T.N. (2011). Clinical Pharmacokinetics and
+        Pharmacodynamics (4th ed.). Lippincott Williams & Wilkins.
+
+  Card: Coronary Flow Reserve & FFR
+  Subtitle: Myocardial ischaemia severity indices
+  Function(s): setTab, cfrCalc
+  References:
+    [1] Pijls, N.H.J., De Bruyne, B. et al. (1996). Measurement of fractional flow
+        reserve to assess the functional severity of coronary-artery stenoses. New
+        England Journal of Medicine, 334(26), 1703–1708.
+    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+        Flow in Arteries (6th ed.). Hodder Arnold.
+
+================================================================================
+SECTION: ️ DYNAMICS & CONTROL  [MME / EE / Aerospace]  (#dynamics)
+================================================================================
+
+  Card: Mass-Spring-Damper System
+  Subtitle: Natural frequency, damping ratio, response classification
+  Function(s): msdCalc
+  References:
+    [1] Thomson, W.T. & Dahleh, M.D. (1997). Theory of Vibrations with
+        Applications (5th ed.). Prentice Hall.
+
+  Card: Projectile Motion
+  Subtitle: Range, max height, time of flight — vacuum and with drag
+  Function(s): projCalc
+  References:
+    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+
+================================================================================
+SECTION: ️ CIVIL & GEOTECHNICAL  [Civil / Environmental]  (#civil)
+================================================================================
+
+  Card: Manning's Open-Channel Flow
+  Subtitle: Discharge, velocity, and channel design for uniform flow
+  Function(s): setTab, mannRect, mannCirc
+  References:
+    [1] Manning, R. (1891). On the flow of water in open channels and pipes.
+        Transactions of the Institution of Civil Engineers of Ireland, 20,
+        161–207.
+
+  Card: Darcy's Law — Groundwater Seepage
+  Subtitle: Flow through porous media and soil permeability
+  Function(s): darcyCalc
+  References:
+    [1] Darcy, H. (1856). Les Fontaines Publiques de la Ville de Dijon. Dalmont,
+        Paris.
+
+================================================================================
+SECTION: ∑ MATH & NUMERICAL  [Mathematics]  (#math-tools)
+================================================================================
+
+  Card: Quadratic Formula
+  Subtitle: Roots, discriminant, vertex of ax²+bx+c=0
+  Function(s): qdCalc
+  References:
+    [1] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
+        National Bureau of Standards Applied Mathematics Series 55. U.S.
+        Government Printing Office.
+
+  Card: System of Linear Equations
+  Subtitle: Cramer's rule — 2×2 or 3×3
+  Function(s): setTab, sleCalc
+  References:
+    [1] Strang, G. (2016). Introduction to Linear Algebra (5th ed.).
+        Wellesley-Cambridge Press.
+
+  Card: Matrix Properties
+  Subtitle: Determinant, inverse, eigenvalues — 2×2 or 3×3
+  Function(s): setTab, matCalc
+  References:
+    [1] Strang, G. (2016). Introduction to Linear Algebra (5th ed.).
+        Wellesley-Cambridge Press.
+
+  Card: Error Propagation
+  Subtitle: Analytical uncertainty for basic operations
+  Function(s): errpCalc
+  References:
+    [1] Taylor, J.R. (1997). An Introduction to Error Analysis (2nd ed.).
+        University Science Books.
+
+  Card: Monte Carlo Uncertainty
+  Subtitle: Propagation via random sampling
+  Function(s): mcuCalc
+  References:
+    [1] Metropolis, N. & Ulam, S. (1949). The Monte Carlo method. Journal of the
+        American Statistical Association, 44(247), 335–341.
+
+================================================================================
+SECTION: STATISTICS & DATA  [Statistics]  (#statistics)
+================================================================================
+
+  Card: Confidence Interval
+  Subtitle: Mean estimate with margin of error
+  Function(s): ciCalc
+  References:
+    [1] Casella, G. & Berger, R.L. (2002). Statistical Inference (2nd ed.).
+        Duxbury Press.
+
+  Card: Sample Size Calculator
+  Subtitle: Required n for means or proportions
+  Function(s): setTab, ssCalc
+  References:
+    [1] Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences
+        (2nd ed.). Lawrence Erlbaum Associates.
+    [2] Casella, G. & Berger, R.L. (2002). Statistical Inference (2nd ed.).
+        Duxbury Press.
+
+  Card: Cohen's d Effect Size
+  Subtitle: Standardised mean difference
+  Function(s): cohCalc
+  References:
+    [1] Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences
+        (2nd ed.). Lawrence Erlbaum Associates.
+
+  Card: Chi-Square Goodness of Fit
+  Subtitle: Observed vs. expected frequency test
+  Function(s): chiCalc
+  References:
+    [1] Pearson, K. (1900). On the criterion that a given system of deviations
+        from the probable in the case of a correlated system of variables is such
+        that it can be reasonably supposed to have arisen from random sampling.
+        Philosophical Magazine, 50(302), 157–175.
+    [2] Fisher, R.A. (1925). Statistical Methods for Research Workers. Oliver &
+        Boyd.
+
+  Card: RMSE / MAE / R²
+  Subtitle: Model accuracy metrics from actual vs. predicted
+  Function(s): rmseCalc
+  References:
+    [1] Willmott, C.J. & Matsuura, K. (2005). Advantages of the mean absolute
+        error (MAE) over the root mean square error (RMSE) in assessing average
+        model performance. Climate Research, 30(1), 79–82.
+
+  Card: Logistic Function
+  Subtitle: Binary prediction probability from log-odds
+  Function(s): logfCalc
+  References:
+    [1] Casella, G. & Berger, R.L. (2002). Statistical Inference (2nd ed.).
+        Duxbury Press.
+
+  Card: Statistical Power
+  Subtitle: Probability of detecting a true effect (z-test)
+  Function(s): powerCalc
+  References:
+    [1] Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences
+        (2nd ed.). Lawrence Erlbaum Associates.
+
+  Card: One-Way ANOVA
+  Subtitle: Compare means across 2–4 independent groups
+  Function(s): anovaCalc
+  References:
+    [1] Fisher, R.A. (1925). Statistical Methods for Research Workers. Oliver &
+        Boyd.
+    [2] Casella, G. & Berger, R.L. (2002). Statistical Inference (2nd ed.).
+        Duxbury Press.
+
+================================================================================
+SECTION: 〜 SIGNAL PROCESSING  [Signal Processing]  (#signal-proc)
+================================================================================
+
+  Card: RMS & Crest Factor
+  Subtitle: From data or waveform type
+  Function(s): rmsCalc
+  References:
+    [1] Proakis, J.G. & Manolakis, D.K. (2006). Digital Signal Processing (4th
+        ed.). Pearson.
+
+  Card: Nyquist & Aliasing
+  Subtitle: Sampling rate adequacy, alias frequency
+  Function(s): nyqCalc
+  References:
+    [1] Nyquist, H. (1928). Certain topics in telegraph transmission theory.
+        Transactions of the American Institute of Electrical Engineers, 47(2),
+        617–644.
+    [2] Shannon, C.E. (1949). Communication in the presence of noise. Proceedings
+        of the IRE, 37(1), 10–21.
+
+  Card: Moving Average Smoothing
+  Subtitle: Causal sliding-window filter
+  Function(s): mavCalc
+  References:
+    [1] Proakis, J.G. & Manolakis, D.K. (2006). Digital Signal Processing (4th
+        ed.). Pearson.
+
+  Card: HRV Time-Domain Metrics
+  Subtitle: SDNN, RMSSD, pNN50 from RR intervals
+  Function(s): hrvCalc
+  References:
+    [1] Task Force of the European Society of Cardiology and the North American
+        Society of Pacing and Electrophysiology (1996). Heart rate variability:
+        Standards of measurement, physiological interpretation, and clinical use.
+        Circulation, 93(5), 1043–1065.
+
+  Card: Spectral Analysis (DFT)
+  Subtitle: Dominant frequencies from time-series data
+  Function(s): fftCalc
+  References:
+    [1] Cooley, J.W. & Tukey, J.W. (1965). An algorithm for the machine
+        calculation of complex Fourier series. Mathematics of Computation, 19(90),
+        297–301.
+    [2] Proakis, J.G. & Manolakis, D.K. (2006). Digital Signal Processing (4th
+        ed.). Pearson.
+
+================================================================================
+SECTION: ⚙ MECHANICAL DESIGN  [Mechanical Design]  (#mech-design)
+================================================================================
+
+  Card: Gear Ratio
+  Subtitle: Speed, torque, and power through a gear pair
+  Function(s): grCalc
+  References:
+    [1] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
+        Design (11th ed.). McGraw-Hill.
+
+  Card: Bearing Life (L10)
+  Subtitle: ISO 281 basic rating life
+  Function(s): brgCalc
+  References:
+    [1] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
+        Design (11th ed.). McGraw-Hill.
+
+  Card: Bolt Preload
+  Subtitle: Torque ↔ clamp force (nut factor K method)
+  Function(s): boltCalc
+  References:
+    [1] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
+        Design (11th ed.). McGraw-Hill.
+
+  Card: Spring Rate
+  Subtitle: Helical coil spring stiffness
+  Function(s): sprCalc
+  References:
+    [1] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
+        Design (11th ed.). McGraw-Hill.
+
+  Card: Hertz Contact Stress
+  Subtitle: Sphere-on-sphere or sphere-on-flat contact
+  Function(s): htzCalc
+  References:
+    [1] Hertz, H. (1882). Über die Berührung fester elastischer Körper. Journal
+        für die reine und angewandte Mathematik, 92, 156–171.
+    [2] Johnson, K.L. (1985). Contact Mechanics. Cambridge University Press.
+
+  Card: Thread Engagement Length
+  Subtitle: Tensile stress area and minimum thread engagement
+  Function(s): thrCalc
+  References:
+    [1] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
+        Design (11th ed.). McGraw-Hill.
+
+================================================================================
+SECTION: MATERIALS ENGINEERING  [Materials]  (#materials-eng)
+================================================================================
+
+  Card: Rule of Mixtures
+  Subtitle: Composite longitudinal & transverse modulus
+  Function(s): romCalc
+  References:
+    [1] Voigt, W. (1889). Über die Beziehung zwischen den beiden
+        Elasticitätsconstanten isotroper Körper. Annalen der Physik, 274(12),
+        573–587. / Reuss, A. (1929). Berechnung der Fließgrenze von
+        Mischkristallen. Zeitschrift für angewandte Mathematik und Mechanik, 9(1),
+        49–58.
+
+  Card: Thermal Mismatch Stress
+  Subtitle: Stress from CTE difference (constrained bimaterial)
+  Function(s): temCalc
+  References:
+    [1] Timoshenko, S.P. (1925). Analysis of bi-metal thermostats. Journal of the
+        Optical Society of America, 11(3), 233–255.
+    [2] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+        McGraw-Hill.
+
+  Card: Norton Creep Law
+  Subtitle: Steady-state creep rate and time to 1% strain
+  Function(s): crpCalc
+  References:
+    [1] Norton, F.H. (1929). Creep of Steel at High Temperatures. McGraw-Hill.
+
+  Card: Larson-Miller Parameter
+  Subtitle: High-temperature rupture life prediction
+  Function(s): lmpCalc
+  References:
+    [1] Larson, F.R. & Miller, J. (1952). A time-temperature relationship for
+        rupture and creep stresses. Transactions of the ASME, 74, 765–771.
+
+  Card: Tsai-Wu Failure Criterion
+  Subtitle: Composite lamina failure index
+  Function(s): tsaiCalc
+  References:
+    [1] Tsai, S.W. & Wu, E.M. (1971). A general theory of strength for anisotropic
+        materials. Journal of Composite Materials, 5(1), 58–80.
+
+================================================================================
+SECTION: COMPRESSIBLE FLOW  [Compressible / CFD]  (#compressible-flow)
+================================================================================
+
+  Card: CFL Number
+  Subtitle: Courant-Friedrichs-Lewy stability criterion
+  Function(s): cflCalc
+  References:
+    [1] Courant, R., Friedrichs, K. & Lewy, H. (1928). Über die partiellen
+        Differenzengleichungen der mathematischen Physik. Mathematische Annalen,
+        100, 32–74.
+    [2] Anderson, J.D. (2003). Modern Compressible Flow (3rd ed.). McGraw-Hill.
+
+  Card: Isentropic Relations
+  Subtitle: Total-to-static ratios from Mach number
+  Function(s): isoCalc
+  References:
+    [1] Shapiro, A.H. (1953). The Dynamics and Thermodynamics of Compressible
+        Fluid Flow, Vol. 1. Ronald Press.
+    [2] Anderson, J.D. (2003). Modern Compressible Flow (3rd ed.). McGraw-Hill.
+
+  Card: Normal Shock Relations
+  Subtitle: Properties across a normal shock wave
+  Function(s): nshCalc
+  References:
+    [1] Shapiro, A.H. (1953). The Dynamics and Thermodynamics of Compressible
+        Fluid Flow, Vol. 1. Ronald Press.
+    [2] Anderson, J.D. (2003). Modern Compressible Flow (3rd ed.). McGraw-Hill.
+
+  Card: Oblique Shock
+  Subtitle: θ-β-M relation — shock angle from deflection
+  Function(s): oshCalc
+  References:
+    [1] Shapiro, A.H. (1953). The Dynamics and Thermodynamics of Compressible
+        Fluid Flow, Vol. 1. Ronald Press.
+    [2] Anderson, J.D. (2003). Modern Compressible Flow (3rd ed.). McGraw-Hill.
+
+  Card: Prandtl-Meyer Expansion
+  Subtitle: Supersonic expansion fan — M₂ from turning angle
+  Function(s): pmeCalc
+  References:
+    [1] Shapiro, A.H. (1953). The Dynamics and Thermodynamics of Compressible
+        Fluid Flow, Vol. 1. Ronald Press.
+    [2] Anderson, J.D. (2003). Modern Compressible Flow (3rd ed.). McGraw-Hill.
+
+  Card: Pump Affinity Laws
+  Subtitle: Scale Q, H, P with speed ratio
+  Function(s): pmpCalc
+  References:
+    [1] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+  Card: NPSH & Cavitation Risk
+  Subtitle: Net positive suction head — pump inlet
+  Function(s): cavCalc
+  References:
+    [1] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+  Card: Stokes Settling Velocity
+  Subtitle: Terminal velocity of a sphere in viscous fluid
+  Function(s): stkCalc
+  References:
+    [1] Batchelor, G.K. (1967). An Introduction to Fluid Dynamics. Cambridge
+        University Press.
+
+  Card: Droplet & Surface Tension Numbers
+  Subtitle: Weber, Capillary, Bond numbers
+  Function(s): dim3Calc
+  References:
+    [1] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+
+  Card: Fanno Flow
+  Subtitle: Friction-driven compressible duct flow
+  Function(s): fanCalc
+  References:
+    [1] Shapiro, A.H. (1953). The Dynamics and Thermodynamics of Compressible
+        Fluid Flow, Vol. 1. Ronald Press.
+
+  Card: Rayleigh Flow
+  Subtitle: Heat-addition in compressible duct flow
+  Function(s): rayCalc
+  References:
+    [1] Shapiro, A.H. (1953). The Dynamics and Thermodynamics of Compressible
+        Fluid Flow, Vol. 1. Ronald Press.
+
+================================================================================
+SECTION: ⬡ MASS TRANSFER  [Mass Transfer]  (#mass-transfer)
+================================================================================
+
+  Card: Fick's First Law
+  Subtitle: Diffusive flux and timescale
+  Function(s): fickCalc
+  References:
+    [1] Fick, A. (1855). Über Diffusion. Annalen der Physik, 170(1), 59–86.
+    [2] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+        (2nd ed.). Wiley.
+
+  Card: Schmidt Number
+  Subtitle: Momentum vs. mass diffusivity ratio
+  Function(s): scCalc
+  References:
+    [1] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+        (2nd ed.). Wiley.
+    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+  Card: Sherwood Number
+  Subtitle: Convective mass transfer coefficient (Dittus-Boelter)
+  Function(s): shCalc
+  References:
+    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+    [2] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+        (2nd ed.). Wiley.
+
+  Card: Membrane Flux
+  Subtitle: Diffusive and osmotic/pressure-driven flux
+  Function(s): setTab, mflxCalc
+  References:
+    [1] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+        (2nd ed.). Wiley.
+    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+        Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
+
+================================================================================
+SECTION: CONTROL SYSTEMS  [Control Systems]  (#control-sys)
+================================================================================
+
+  Card: PID Tuning — Ziegler-Nichols
+  Subtitle: Ultimate gain / period method
+  Function(s): pidCalc
+  References:
+    [1] Ziegler, J.G. & Nichols, N.B. (1942). Optimum settings for automatic
+        controllers. Transactions of the ASME, 64, 759–768.
+    [2] Tyreus, B.D. & Luyben, W.L. (1992). Tuning PI controllers for
+        integrator/dead time processes. Industrial & Engineering Chemistry
+        Research, 31(11), 2625–2628.
+
+  Card: 2nd-Order System Response
+  Subtitle: Overshoot, rise time, settling time
+  Function(s): sosCalc
+  References:
+    [1] Franklin, G.F., Powell, J.D. & Emami-Naeini, A. (2019). Feedback Control
+        of Dynamic Systems (8th ed.). Pearson.
+
+  Card: Gain & Phase Margin
+  Subtitle: Stability margins for G(s) = K/[s(τ₁s+1)(τ₂s+1)]
+  Function(s): gpmCalc
+  References:
+    [1] Franklin, G.F., Powell, J.D. & Emami-Naeini, A. (2019). Feedback Control
+        of Dynamic Systems (8th ed.). Pearson.
+
+  Card: Controllability & Observability
+  Subtitle: Rank test for 2nd-order state-space system
+  Function(s): cobCalc
+  References:
+    [1] Kalman, R.E. (1960). On the general theory of control systems. Proceedings
+        of the First International Congress on Automatic Control, 1, 481–492.
+    [2] Franklin, G.F., Powell, J.D. & Emami-Naeini, A. (2019). Feedback Control
+        of Dynamic Systems (8th ed.). Pearson.
+
+================================================================================
+SECTION: ⚗ CHEMICAL ENGINEERING  [Chemical Eng.]  (#chem-eng)
+================================================================================
+
+  Card: Ideal Gas Law
+  Subtitle: Solve for any state variable
+  Function(s): iglCalc
+  References:
+    [1] Smith, J.M., Van Ness, H.C. & Abbott, M.M. (2005). Introduction to
+        Chemical Engineering Thermodynamics (7th ed.). McGraw-Hill.
+
+  Card: Antoine Vapor Pressure
+  Subtitle: Clausius-Clapeyron approximation for common solvents
+  Function(s): antCalc
+  References:
+    [1] Antoine, C. (1888). Tensions des vapeurs; nouvelle relation entre les
+        tensions et les températures. Comptes Rendus de l'Académie des Sciences,
+        107, 681–684.
+    [2] Smith, J.M., Van Ness, H.C. & Abbott, M.M. (2005). Introduction to
+        Chemical Engineering Thermodynamics (7th ed.). McGraw-Hill.
+
+  Card: CSTR Reactor Design
+  Subtitle: Volume for 1st-order reaction at target conversion
+  Function(s): cstrCalc
+  References:
+    [1] Levenspiel, O. (1999). Chemical Reaction Engineering (3rd ed.). Wiley.
+
+  Card: PFR Reactor Design
+  Subtitle: Plug-flow volume vs. CSTR comparison
+  Function(s): pfrCalc
+  References:
+    [1] Levenspiel, O. (1999). Chemical Reaction Engineering (3rd ed.). Wiley.
+
+  Card: Damköhler Number
+  Subtitle: Reaction vs. transport rate — regime identification
+  Function(s): damCalc
+  References:
+    [1] Levenspiel, O. (1999). Chemical Reaction Engineering (3rd ed.). Wiley.
+
+  Card: Van der Waals Gas
+  Subtitle: Real-gas molar volume and compressibility
+  Function(s): vdwCalc
+  References:
+    [1] van der Waals, J.D. (1873). Over de Continuïteit van den Gas- en
+        Vloeistoftoestand. Doctoral dissertation, Universiteit Leiden.
+    [2] Smith, J.M., Van Ness, H.C. & Abbott, M.M. (2005). Introduction to
+        Chemical Engineering Thermodynamics (7th ed.). McGraw-Hill.
+
+================================================================================
+SECTION: FEA MESH & ANALYSIS  [FEA / Meshing]  (#fea-tools)
+================================================================================
+
+  Card: Grid Convergence Index
+  Subtitle: Roache GCI — numerical uncertainty on 3 grids
+  Function(s): gciCalc
+  References:
+    [1] Roache, P.J. (1994). Perspective: A method for uniform reporting of grid
+        refinement studies. Journal of Fluids Engineering, 116(3), 405–413.
+    [2] Celik, I.B., Ghia, U., Roache, P.J. et al. (2008). Procedure for
+        estimation and reporting of uncertainty due to discretization in CFD
+        applications. Journal of Fluids Engineering, 130(7), 078001.
+
+  Card: Element Aspect Ratio
+  Subtitle: Mesh quality from side lengths
+  Function(s): arqCalc
+  References:
+    [1] Zienkiewicz, O.C. & Taylor, R.L. (2000). The Finite Element Method (5th
+        ed.). Butterworth-Heinemann.
+
+  Card: Explicit Time Step
+  Subtitle: Critical Δt for structural or CFD explicit schemes
+  Function(s): setTab, exptsCalc
+  References:
+    [1] Courant, R., Friedrichs, K. & Lewy, H. (1928). Über die partiellen
+        Differenzengleichungen der mathematischen Physik. Mathematische Annalen,
+        100, 32–74.
+
+  Card: Modal Participation Factor
+  Subtitle: Effective mass for seismic / dynamic analysis
+  Function(s): mpfCalc
+  References:
+    [1] Chopra, A.K. (2016). Dynamics of Structures: Theory and Applications to
+        Earthquake Engineering (5th ed.). Pearson.
+
+================================================================================
+SECTION: AEROSPACE  [Aerospace]  (#aerospace)
+================================================================================
+
+  Card: Lift & Drag
+  Subtitle: Aerodynamic forces from wing / body
+  Function(s): ldCalc
+  References:
+    [1] Anderson, J.D. (2017). Introduction to Flight (8th ed.). McGraw-Hill.
+
+  Card: Stall Speed
+  Subtitle: Minimum speed at maximum lift coefficient
+  Function(s): stallCalc
+  References:
+    [1] Anderson, J.D. (2017). Introduction to Flight (8th ed.). McGraw-Hill.
+
+  Card: Tsiolkovsky Rocket Equation
+  Subtitle: Ideal ΔV from Isp and mass ratio
+  Function(s): rktCalc
+  References:
+    [1] Tsiolkovsky, K.E. (1903). The exploration of cosmic space by means of
+        reaction devices (Issledovanie mirovykh prostranstv reaktivnymi
+        priborami). Nauchnoye Obozreniye (Science Review), No. 5.
+
+  Card: Circular Orbit Mechanics
+  Subtitle: Period, velocity, and escape speed
+  Function(s): orbCalc
+  References:
+    [1] Bate, R.R., Mueller, D.D. & White, J.E. (1971). Fundamentals of
+        Astrodynamics. Dover Publications.
+
+  Card: Hohmann Transfer
+  Subtitle: Minimum-energy orbit transfer ΔV budget
+  Function(s): hohCalc
+  References:
+    [1] Hohmann, W. (1925). Die Erreichbarkeit der Himmelskörper. Oldenbourg,
+        Munich.
+    [2] Bate, R.R., Mueller, D.D. & White, J.E. (1971). Fundamentals of
+        Astrodynamics. Dover Publications.
+
+================================================================================
+SECTION: ACOUSTICS & OPTICS  [Acoustics / Optics]  (#acoustics-optics)
+================================================================================
+
+  Card: Sound Pressure Level
+  Subtitle: SPL from pressure amplitude or intensity
+  Function(s): splCalc
+  References:
+    [1] Kinsler, L.E., Frey, A.R., Coppens, A.B. & Sanders, J.V. (2000).
+        Fundamentals of Acoustics (4th ed.). Wiley.
+
+  Card: Room Reverberation Time
+  Subtitle: Sabine formula — RT60 from volume and absorption
+  Function(s): rtCalc
+  References:
+    [1] Sabine, W.C. (1900). Reverberation. The American Architect and Building
+        News, 68(1249).
+    [2] Kinsler, L.E., Frey, A.R., Coppens, A.B. & Sanders, J.V. (2000).
+        Fundamentals of Acoustics (4th ed.). Wiley.
+
+  Card: Thin Lens
+  Subtitle: Focal length (lensmaker) and image position
+  Function(s): setTab, lensCalc
+  References:
+    [1] Hecht, E. (2016). Optics (5th ed.). Pearson.
+
+  Card: Optical Resolution
+  Subtitle: Rayleigh & Abbe diffraction limits
+  Function(s): opresCalc
+  References:
+    [1] Abbe, E. (1873). Beiträge zur Theorie des Mikroskops und der
+        mikroskopischen Wahrnehmung. Archiv für Mikroskopische Anatomie, 9,
+        413–468.
+    [2] Hecht, E. (2016). Optics (5th ed.). Pearson.
+
+================================================================================
+SECTION: LAB & RESEARCH  [Lab / Research]  (#lab-tools)
+================================================================================
+
+  Card: Dilution Calculator
+  Subtitle: C₁V₁ = C₂V₂ — solve any variable
+  Function(s): dilCalc
+  References:
+    [1] Skoog, D.A., West, D.M., Holler, F.J. & Crouch, S.R. (2014). Fundamentals
+        of Analytical Chemistry (9th ed.). Brooks/Cole.
+
+  Card: Molarity Calculator
+  Subtitle: Mass ↔ moles ↔ molarity conversion
+  Function(s): molCalc
+  References:
+    [1] Skoog, D.A., West, D.M., Holler, F.J. & Crouch, S.R. (2014). Fundamentals
+        of Analytical Chemistry (9th ed.). Brooks/Cole.
+
+  Card: PCR Primer Melting Temp
+  Subtitle: Wallace rule and nearest-neighbor estimate
+  Function(s): pcrCalc
+  References:
+    [1] Wallace, R.B. et al. (1979). Hybridization of synthetic
+        oligodeoxyribonucleotides to phi chi 174 DNA: the effect of single base
+        pair mismatch. Nucleic Acids Research, 6(11), 3543–3557.
+    [2] Rychlik, W., Spencer, W.J. & Rhoads, R.E. (1990). Optimization of the
+        annealing temperature for DNA amplification in vitro. Nucleic Acids
+        Research, 18(21), 6409–6412.
+
+  Card: Microscopy Scale Bar
+  Subtitle: nm per pixel and scale bar length
+  Function(s): scbCalc
+  References:
+    [1] Williams, D.B. & Carter, C.B. (2009). Transmission Electron Microscopy: A
+        Textbook for Materials Science (2nd ed.). Springer.
+
+  Card: h-index Calculator
+  Subtitle: h-index and i10-index from citation counts
+  Function(s): hidxCalc
+  References:
+    [1] Hirsch, J.E. (2005). An index to quantify an individual's scientific
+        research output. Proceedings of the National Academy of Sciences, 102(46),
+        16569–16572.
+
+  Card: Print DPI / Resolution
+  Subtitle: Pixel dimensions and file size estimate
+  Function(s): dpiCalc
+  References:
+    [1] Skoog, D.A., West, D.M., Holler, F.J. & Crouch, S.R. (2014). Fundamentals
+        of Analytical Chemistry (9th ed.). Brooks/Cole.
+
+  Card: Henderson-Hasselbalch
+  Subtitle: Buffer pH from weak acid/conjugate base ratio
+  Function(s): setTab, hhCalc
+  References:
+    [1] Henderson, L.J. (1908). Concerning the relationship between the strength
+        of acids and their capacity to preserve neutrality. American Journal of
+        Physiology, 21(2), 173–179.
+    [2] Hasselbalch, K.A. (1917). Die Berechnung der Wasserstoffzahl des Blutes
+        aus der freien und gebundenen Kohlensäure desselben. Biochemische
+        Zeitschrift, 78, 112–144.
+
+================================================================================
+END OF REFERENCE LIST
+================================================================================
