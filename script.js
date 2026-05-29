@@ -111,7 +111,7 @@ function reCalc(){
     {label:'Reynolds number',val:fmtN(Re,5),unit:''},
     {label:'Flow regime',val:regime,unit:'',cls},
     {label:'Kinematic viscosity ν',val:fmtN(mu/rho),unit:'m²/s'},
-  ]);
+  ],'Re<2300: laminar (Hagen-Poiseuille valid). Re>4000: turbulent (use k-ε or k-ω SST). Transition 2300–4000 is unpredictable — avoid designing CFD inlets in this range.');
 }
 
 function maCalc(){
@@ -150,7 +150,7 @@ function deCalc(){
     {label:'Dean number De',val:fmtN(De),unit:'',cls:De>36?'warn':'good'},
     {label:'Curvature ratio r/R',val:fmtN(r/R),unit:''},
     {label:'Secondary flow regime',val:regime,unit:''},
-  ]);
+  ],'De<36: no secondary vortices. De 36–64: weak Dean vortices develop. De>64: strong 4-vortex pattern — significant increase in mixing and pressure drop. Relevant in curved arteries and heat exchanger coils.');
 }
 
 function peCalc(){
@@ -162,7 +162,7 @@ function peCalc(){
     {label:'Diffusion time L²/D',val:fmtN(L*L/D),unit:'s'},
     {label:'Convection time L/U',val:fmtN(L/U),unit:'s'},
     {label:'Dominant transport',val:Pe>1?'Advection dominated':'Diffusion dominated',unit:''},
-  ]);
+  ],'Pe>>1: convection dominates, sharp concentration gradients persist downstream. Pe<<1: diffusion dominates, species well-mixed. Pe≈1: balanced transport — upwind schemes may introduce artificial diffusion in CFD.');
 }
 
 /* ════════════════════════════════════════════════════════
@@ -327,16 +327,16 @@ function dhCalc(){
   if(tab.includes('Rect')){
     const w=v('dh-w')*su('dh-w-u'), h=v('dh-h')*su('dh-h-u');
     A=w*h; P=2*(w+h); Dh=4*A/P;
-    showOut('dh-out',[{label:'Hydraulic diameter D_h',val:fmtN(Dh*1000),unit:'mm'},{label:'D_h (m)',val:fmtN(Dh),unit:'m'},{label:'Area A',val:fmtN(A*1e6),unit:'mm²'},{label:'Wetted perimeter P',val:fmtN(P*1000),unit:'mm'},{label:'Aspect ratio w/h',val:fmtN(w/h),unit:''}]);
+    showOut('dh-out',[{label:'Hydraulic diameter D_h',val:fmtN(Dh*1000),unit:'mm'},{label:'D_h (m)',val:fmtN(Dh),unit:'m'},{label:'Area A',val:fmtN(A*1e6),unit:'mm²'},{label:'Wetted perimeter P',val:fmtN(P*1000),unit:'mm'},{label:'Aspect ratio w/h',val:fmtN(w/h),unit:''}],'D_h = 4A/P_wetted. Use D_h in place of diameter for Re, Darcy-Weisbach, and Nu correlations. Aspect ratio>4 significantly reduces heat transfer — prefer aspect ratios closer to 1 for compact heat exchangers.');
   } else if(tab.includes('Annul')){
     const Do=v('dh-Do')*su('dh-Do-u'), Di=v('dh-Di')*su('dh-Di-u');
     Dh=Do-Di;
-    showOut('dh-out',[{label:'Hydraulic diameter D_h',val:fmtN(Dh*1000),unit:'mm'},{label:'D_h = D_o − D_i',val:fmtN(Dh),unit:'m'}]);
+    showOut('dh-out',[{label:'Hydraulic diameter D_h',val:fmtN(Dh*1000),unit:'mm'},{label:'D_h = D_o − D_i',val:fmtN(Dh),unit:'m'}],'D_h = 4A/P_wetted = D_o − D_i for annulus. Use D_h in Re and Darcy-Weisbach. For heat transfer in annuli, the heated equivalent diameter may differ — consult Dittus-Boelter annulus corrections.');
   } else {
     const b=v('dh-b')*su('dh-b-u'), h=v('dh-ht')*su('dh-ht-u');
     const hyp=Math.sqrt(b*b/4+h*h);
     A=0.5*b*h; P=b+2*hyp; Dh=4*A/P;
-    showOut('dh-out',[{label:'Hydraulic diameter D_h',val:fmtN(Dh*1000),unit:'mm'},{label:'Area A',val:fmtN(A*1e6),unit:'mm²'},{label:'Perimeter P',val:fmtN(P*1000),unit:'mm'}]);
+    showOut('dh-out',[{label:'Hydraulic diameter D_h',val:fmtN(Dh*1000),unit:'mm'},{label:'Area A',val:fmtN(A*1e6),unit:'mm²'},{label:'Perimeter P',val:fmtN(P*1000),unit:'mm'}],'D_h = 4A/P_wetted. Use D_h in place of diameter for Re and Darcy-Weisbach in non-circular ducts. Correlations based on D_h are approximate — accuracy improves for shapes closer to circular.');
   }
 }
 
@@ -352,7 +352,7 @@ function plCalc(){
     {label:'μ_eff (Pa·s)',val:fmtN(mu),unit:'Pa·s'},
     {label:'Shear stress τ',val:fmtN(tau),unit:'Pa'},
     {label:'Behaviour',val:n<0.99?'Shear-thinning':n>1.01?'Shear-thickening':'Newtonian',unit:''},
-  ]);
+  ],'Power Law diverges as γ̇→0 (unphysical infinite viscosity at low shear). Use Carreau model for low-shear regions. Valid range for blood: γ̇=1–1000 s⁻¹. n<1 shear-thinning; n>1 shear-thickening.');
 }
 
 function caCalc(){
@@ -577,7 +577,7 @@ function vmCalc(){
     {label:'Tresca σ_T',val:fmtN(tresca),unit:'MPa'},
     {label:'Safety factor (VM)',val:fmtN(SF),unit:'',cls:SF<1?'bad':SF<2?'warn':'good'},
     {label:'Status',val:SF>=1?`OK — ${fmtN(SF,3)}× safety`:'⚠ YIELDING — SF < 1',unit:'',cls:SF<1?'bad':'good'},
-  ]);
+  ],'SF<1.0: material has yielded — redesign required. SF 1.5–2.0: typical engineering design margin. SF>4: over-designed, consider weight reduction. For fatigue loading use Goodman correction on alternating stress.');
 }
 
 function pvCalc(){
@@ -602,7 +602,7 @@ function pvCalc(){
     {label:'Axial stress σ_a',val:fmtN(s_a),unit:'MPa'},
     {label:'Von Mises σ_vm',val:fmtN(svm),unit:'MPa'},
     {label:'Safety factor',val:fmtN(SF),unit:'',cls:SF<1?'bad':SF<2?'warn':'good'},
-  ]);
+  ],'Thin-wall valid when t/r < 0.1 (t/D < 0.05). For t/r > 0.1 use Lamé thick-wall equations. Code design (ASME VIII) typically requires SF≥4 on UTS for unfired pressure vessels.');
 }
 
 /* ════════════════════════════════════════════════════════
@@ -646,7 +646,7 @@ function smaCalc(){
     {label:'Cross-sectional area A',val:fmtN(A*1e6),unit:'mm²'},
     {label:'Neutral axis c',val:fmtN(c*1000),unit:'mm'},
     {label:'Section modulus Z = I/c',val:fmtN(I/c*1e9),unit:'mm³'},
-  ]);
+  ],'Larger I → stiffer beam (less deflection) and higher bending capacity. Moving material away from the neutral axis (I-beam, hollow section) maximises I for a given weight — the basis of efficient structural cross-sections.');
 }
 
 /* ════════════════════════════════════════════════════════

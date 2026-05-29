@@ -151,8 +151,30 @@ button{cursor:pointer;font-family:var(--serif)}
 .input-label{
   font-size:.78em;color:var(--muted);
   white-space:nowrap;min-width:120px;flex-shrink:0;
+  position:relative;
 }
 .input-label sub{color:var(--teal);font-size:.8em}
+
+/* Tooltip on input labels */
+.input-label[title]{cursor:help;text-decoration:underline dotted rgba(148,163,184,.45);text-underline-offset:2px}
+.input-label[title]::after{
+  content:attr(title);
+  position:absolute;
+  left:0;bottom:calc(100% + 6px);
+  z-index:300;
+  background:#0f2236;
+  color:#cbd5e1;
+  border:1px solid rgba(45,212,191,.28);
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:.77em;line-height:1.5;
+  width:250px;max-width:250px;
+  pointer-events:none;white-space:normal;
+  box-shadow:0 8px 24px rgba(0,0,0,.45);
+  opacity:0;transition:opacity .14s ease;
+  font-style:normal;text-decoration:none;
+}
+.input-label[title]:hover::after{opacity:1}
 .input-wrap{display:flex;gap:4px;align-items:center;flex:1;min-width:140px}
 .field{
   flex:1;padding:7px 10px;

@@ -16,7 +16,7 @@ function qdCalc(){
       {label:'x₂',val:fmtN(x2),unit:'',cls:'good'},
       {label:'Vertex x',val:fmtN(-b/(2*a)),unit:''},
       {label:'Vertex y',val:fmtN(c-b*b/(4*a)),unit:''},
-    ]);
+    ],'Δ>0: two distinct real roots. Δ=0: one repeated root (parabola tangent to x-axis). Δ<0: two complex conjugate roots (no real crossings). Vertex is the minimum (a>0) or maximum (a<0) of the parabola.');
   } else {
     const re=-b/(2*a), im=Math.sqrt(-disc)/(2*a);
     showOut('qd-out',[
@@ -24,7 +24,7 @@ function qdCalc(){
       {label:'Nature',val:'Complex conjugate roots',unit:'',cls:'warn'},
       {label:'x₁',val:`${fmtN(re)} + ${fmtN(im)}i`,unit:''},
       {label:'x₂',val:`${fmtN(re)} − ${fmtN(im)}i`,unit:''},
-    ]);
+    ],'Δ<0: no real roots — the parabola does not cross the x-axis. Complex roots occur in conjugate pairs. In engineering, complex roots of characteristic equations indicate oscillatory (underdamped) system response.');
   }
 }
 
@@ -35,7 +35,7 @@ function sleCalc(){
     const det=a*e-b*d;
     if(Math.abs(det)<1e-12) return errOut('sle-out','System is singular (no unique solution).');
     const x=(c*e-b*f)/det, y=(a*f-c*d)/det;
-    showOut('sle-out',[{label:'det(A)',val:fmtN(det),unit:''},{label:'x',val:fmtN(x),unit:'',cls:'good'},{label:'y',val:fmtN(y),unit:'',cls:'good'}]);
+    showOut('sle-out',[{label:'det(A)',val:fmtN(det),unit:''},{label:'x',val:fmtN(x),unit:'',cls:'good'},{label:'y',val:fmtN(y),unit:'',cls:'good'}],'det≠0: unique solution exists (Cramer\'s rule). det=0: system is singular — either no solution or infinitely many. Large |det| indicates a well-conditioned system; small |det| indicates near-singularity.');
   } else {
     const a=[[v('sle-a11b'),v('sle-a12b'),v('sle-a13b')],[v('sle-a21b'),v('sle-a22b'),v('sle-a23b')],[v('sle-a31b'),v('sle-a32b'),v('sle-a33b')]];
     const b=[v('sle-b1b'),v('sle-b2b'),v('sle-b3b')];
@@ -44,7 +44,7 @@ function sleCalc(){
     const dx=b[0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])-a[0][1]*(b[1]*a[2][2]-a[1][2]*b[2])+a[0][2]*(b[1]*a[2][1]-a[1][1]*b[2]);
     const dy=a[0][0]*(b[1]*a[2][2]-a[1][2]*b[2])-b[0]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])+a[0][2]*(a[1][0]*b[2]-b[1]*a[2][0]);
     const dz=a[0][0]*(a[1][1]*b[2]-b[1]*a[2][1])-a[0][1]*(a[1][0]*b[2]-b[1]*a[2][0])+b[0]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
-    showOut('sle-out',[{label:'det(A)',val:fmtN(det),unit:''},{label:'x',val:fmtN(dx/det),unit:'',cls:'good'},{label:'y',val:fmtN(dy/det),unit:'',cls:'good'},{label:'z',val:fmtN(dz/det),unit:'',cls:'good'}]);
+    showOut('sle-out',[{label:'det(A)',val:fmtN(det),unit:''},{label:'x',val:fmtN(dx/det),unit:'',cls:'good'},{label:'y',val:fmtN(dy/det),unit:'',cls:'good'},{label:'z',val:fmtN(dz/det),unit:'',cls:'good'}],'det≠0: unique solution exists (Cramer\'s rule). det=0: system is singular — either no solution or infinitely many. Large |det| indicates a well-conditioned system; small |det| indicates near-singularity.');
   }
 }
 
@@ -67,7 +67,7 @@ function matCalc(){
       rows.push({label:'λ₁',val:`${fmtN(tr/2)} + ${fmtN(Math.sqrt(-disc)/2)}i`,unit:''});
       rows.push({label:'λ₂',val:`${fmtN(tr/2)} − ${fmtN(Math.sqrt(-disc)/2)}i`,unit:''});
     }
-    showOut('mat-out',rows);
+    showOut('mat-out',rows,'det=0: singular matrix — no unique inverse, system linearly dependent. Eigenvalues of symmetric matrices are always real. Condition number κ = |λ_max/λ_min|: κ>1000 → ill-conditioned (numerical errors amplified).');
   } else {
     const r=[[v('mat3-a11'),v('mat3-a12'),v('mat3-a13')],[v('mat3-a21'),v('mat3-a22'),v('mat3-a23')],[v('mat3-a31'),v('mat3-a32'),v('mat3-a33')]];
     const det=r[0][0]*(r[1][1]*r[2][2]-r[1][2]*r[2][1])-r[0][1]*(r[1][0]*r[2][2]-r[1][2]*r[2][0])+r[0][2]*(r[1][0]*r[2][1]-r[1][1]*r[2][0]);
@@ -76,7 +76,7 @@ function matCalc(){
       {label:'det(A)',val:fmtN(det),unit:'',cls:Math.abs(det)<1e-10?'warn':'good'},
       {label:'trace',val:fmtN(tr),unit:''},
       {label:'Note',val:'Eigenvalues for 3×3 require numerical solver — use QR iteration in production.',unit:''},
-    ]);
+    ],'det=0: singular matrix — no unique inverse, system linearly dependent. Trace = sum of eigenvalues; det = product of eigenvalues. For stiffness matrices in FEA, det=0 indicates an unconstrained (free-body) model.');
   }
 }
 
@@ -94,7 +94,7 @@ function errpCalc(){
     {label:'σf (absolute)',val:fmtN(sf),unit:''},
     {label:'σf/f (relative)',val:fmtN(Math.abs(sf/f)*100),unit:'%'},
     {label:'95% CI',val:`${fmtN(f-1.96*sf)} to ${fmtN(f+1.96*sf)}`,unit:''},
-  ]);
+  ],'Fractional uncertainty σ_f/f shows each variable\'s relative contribution. The largest contributor dominates total uncertainty. To reduce total error, improve precision of the measurement with the largest fractional uncertainty first.');
 }
 
 function mcuCalc(){
@@ -119,7 +119,7 @@ function mcuCalc(){
     {label:'Std dev σ',val:fmtN(std),unit:''},
     {label:'95% CI (low)',val:fmtN(lo),unit:''},
     {label:'95% CI (high)',val:fmtN(hi),unit:''},
-  ],'Results vary slightly each run due to random sampling.');
+  ],'Monte Carlo is exact for any function shape — no small-error approximation needed. With N=10000 samples, uncertainty in the uncertainty itself is ~1/√N≈1%. Increase N for tighter confidence on rare-event tails. Results vary slightly each run.');
 }
 
 /* ── STATISTICS ── */
@@ -136,7 +136,7 @@ function ciCalc(){
     {label:'Upper bound',val:fmtN(xbar+me),unit:''},
     {label:'z/t critical',val:fmtN(z),unit:''},
     {label:'Standard error',val:fmtN(s/Math.sqrt(n)),unit:''},
-  ],n<30?'Using t-approximation for n<30.':'Using z-distribution.');
+  ],(n<30?'Using t-approximation for n<30. ':'')+'Wider CI = less precision. Narrower CI requires larger n or lower confidence level. If CI includes the null value (0 for differences) the result is not statistically significant at this confidence level.');
 }
 
 function ssCalc(){
@@ -147,11 +147,11 @@ function ssCalc(){
     const s=v('ss-s'),E=v('ss-E');
     if(s<=0||E<=0) return errOut('ss-out','Enter positive σ and E.');
     const n=Math.ceil((z*s/E)**2);
-    showOut('ss-out',[{label:'Required n',val:n,unit:'',cls:'good'},{label:'z critical',val:fmtN(z),unit:''},{label:'σ/E ratio',val:fmtN(s/E),unit:''}]);
+    showOut('ss-out',[{label:'Required n',val:n,unit:'',cls:'good'},{label:'z critical',val:fmtN(z),unit:''},{label:'σ/E ratio',val:fmtN(s/E),unit:''}],'Larger effect size or lower required precision → smaller n. Doubling precision (halving margin of error) requires 4× more samples. For proportions, n is largest when p=0.5.');
   } else {
     const p=v('ss-p')||0.5, E=v('ss-Ep');
     const n=Math.ceil(z*z*p*(1-p)/(E*E));
-    showOut('ss-out',[{label:'Required n',val:n,unit:'',cls:'good'},{label:'p assumed',val:fmtN(p),unit:''},{label:'z critical',val:fmtN(z),unit:''}]);
+    showOut('ss-out',[{label:'Required n',val:n,unit:'',cls:'good'},{label:'p assumed',val:fmtN(p),unit:''},{label:'z critical',val:fmtN(z),unit:''}],'Larger effect size or lower required precision → smaller n. Doubling precision (halving margin of error) requires 4× more samples. For proportions, n is largest when p=0.5.');
   }
 }
 
@@ -166,7 +166,7 @@ function cohCalc(){
     {label:'Interpretation',val:interp,unit:''},
     {label:'Pooled SD',val:fmtN(sp),unit:''},
     {label:'Mean difference',val:fmtN(Math.abs(m1-m2)),unit:''},
-  ]);
+  ],'d=0.2: small. d=0.5: medium. d=0.8: large. d>1.2: very large (obvious difference). In clinical trials, the minimum clinically important difference (MCID) defines the target d for power calculations.');
 }
 
 function chiCalc(){
@@ -184,7 +184,7 @@ function chiCalc(){
     {label:'df',val:df,unit:''},
     {label:'p-value (approx)',val:fmtN(pApprox),unit:'',cls:pApprox<0.05?'warn':'good'},
     {label:'Significant (α=0.05)?',val:pApprox<0.05?'Yes — reject H₀':'No — fail to reject H₀',unit:''},
-  ]);
+  ],'p<0.05: observed frequencies significantly different from expected (reject H₀). Large χ² with many categories may be driven by a single deviation — check individual (O−E)²/E terms to identify which category drives the result.');
 }
 
 function rmseCalc(){
@@ -206,7 +206,7 @@ function rmseCalc(){
     {label:'MAE',val:fmtN(mae),unit:''},
     {label:'R²',val:fmtN(r2),unit:'',cls:r2>0.9?'good':r2>0.7?'warn':'bad'},
     {label:'MAPE',val:fmtN(mape),unit:'%'},
-  ]);
+  ],'RMSE in same units as data — compare to mean value to assess relative error. R²=1: perfect fit. R²=0: no better than predicting the mean. R²<0: model worse than mean. MAE is less sensitive to outliers than RMSE.');
 }
 
 function logfCalc(){
@@ -219,7 +219,7 @@ function logfCalc(){
     {label:'Odds p/(1-p)',val:fmtN(p/(1-p)),unit:''},
     {label:'Log-odds (logit)',val:fmtN(z),unit:''},
     {label:'Class prediction',val:p>=0.5?'1 (positive)':'0 (negative)',unit:''},
-  ]);
+  ],'p≈0.5 is the decision boundary — small changes in x can flip classification here. Adjust classification threshold (default 0.5) based on cost of false positives vs. false negatives. β₁>0: increasing x raises probability; β₁<0: increasing x lowers probability.');
 }
 
 /* ── SIGNAL PROCESSING ── */
@@ -244,7 +244,7 @@ function rmsCalc(){
     {label:'Crest Factor',val:fmtN(cf),unit:''},
     {label:'Mean (DC)',val:fmtN(mean),unit:''},
     {label:'n samples',val:n,unit:''},
-  ]);
+  ],'RMS = effective (DC-equivalent) value for AC signals. Crest factor (peak/RMS): sine 1.414, triangle 1.732, square 1.0. Crest factor>4 may indicate impulsive noise or transient spikes. Power P = V_RMS²/R.');
 }
 
 function nyqCalc(){
@@ -260,7 +260,7 @@ function nyqCalc(){
   ];
   if(alias!==null) rows.push({label:'Alias frequency',val:fmtN(alias),unit:'Hz'});
   rows.push({label:'Min. fs needed',val:fmtN(2*f),unit:'Hz'});
-  showOut('nyq-out',rows);
+  showOut('nyq-out',rows,'Sample at ≥ 2×f_max to avoid aliasing. In practice, use 5–10× f_max for good reconstruction. Apply an anti-aliasing low-pass filter at f_Nyquist BEFORE sampling. ECG: 250–1000 Hz; audio: 44.1–48 kHz.');
 }
 
 function mavCalc(){
@@ -275,7 +275,7 @@ function mavCalc(){
     {label:'Original mean',val:fmtN(orig_mean),unit:''},
     {label:'Smoothed last value',val:fmtN(smooth[smooth.length-1]),unit:''},
     {label:'Smoothed values',val:smooth.map(x=>fmtN(x,3)).join(', '),unit:''},
-  ]);
+  ],'Larger window W smooths more but reduces time resolution and lags the signal. For physiological signals, keep W < 1/(10×f_signal) to preserve signal content. Moving average is a low-pass FIR filter with cutoff ≈ 0.45×f_s/W.');
 }
 
 function hrvCalc(){
@@ -296,7 +296,7 @@ function hrvCalc(){
     {label:'pNN50',val:fmtN(pnn50),unit:'%'},
     {label:'Min RR',val:fmtN(Math.min(...rr)),unit:'ms'},
     {label:'Max RR',val:fmtN(Math.max(...rr)),unit:'ms'},
-  ]);
+  ],'SDNN>50 ms: normal HRV. SDNN<20 ms: reduced HRV (cardiac risk marker). RMSSD reflects parasympathetic activity. pNN50>3%: normal autonomic function. Low HRV associated with post-MI mortality, diabetic neuropathy, and chronic stress.');
 }
 
 function fftCalc(){
@@ -325,7 +325,7 @@ function fftCalc(){
     {label:'Peak mag #1',val:fmtN(peaks[0].m),unit:''},
     {label:'Peak freq #2',val:fmtN(peaks[1].f),unit:'Hz'},
     {label:'Peak freq #3',val:fmtN(peaks[2]?.f??0),unit:'Hz'},
-  ],'DFT computed directly (O(N²)) — suitable for N≤256.');
+  ],'Frequency resolution = f_s/N — use more data points for finer resolution. Window the signal (Hanning, Hamming) to reduce spectral leakage. ECG rhythm ~1 Hz; HRV LF band 0.04–0.15 Hz; HF band 0.15–0.4 Hz. DFT O(N²) — suitable for N≤256.');
 }
 
 /* ── CONTROL SYSTEMS ── */
@@ -341,7 +341,7 @@ function pidCalc(){
     {label:'Kp',val:fmtN(Ku/3.2),unit:''},
     {label:'Ki',val:fmtN(Ku/(3.2*2.2*Tu)),unit:''},
     {label:'Kd',val:fmtN(Ku*Tu/(3.2*6.3)),unit:''},
-  ],'Ti = 0.5·Tu, Td = 0.125·Tu (Classic Z-N). Tune further with process testing.');
+  ],'Ziegler-Nichols tends to aggressive (oscillatory) tuning — add 20–50% more derivative for smoother response. Tyreus-Luyben gives less oscillatory, more conservative control. For processes with dead time, a Smith predictor outperforms PID.');
 }
 
 function sosCalc(){
@@ -360,7 +360,7 @@ function sosCalc(){
     {label:'Rise time tr',val:isFinite(tr)?fmtN(tr):'—',unit:'s'},
     {label:'Settling time (2%)',val:isFinite(ts2)?fmtN(ts2):'—',unit:'s'},
     {label:'Settling time (5%)',val:isFinite(ts5)?fmtN(ts5):'—',unit:'s'},
-  ]);
+  ],'Overshoot>20%: likely too underdamped — increase damping. ζ=1: critically damped (fastest settling, no overshoot). Rise time and peak time decrease with ωₙ. For robust control, design with gain margin>6 dB and phase margin>45°.');
 }
 
 function gpmCalc(){
@@ -389,7 +389,7 @@ function gpmCalc(){
     {label:'Phase crossover ωpc',val:fmtN(wpc),unit:'rad/s'},
     {label:'Gain margin',val:fmtN(gm),unit:'dB',cls:gm>6?'good':gm>0?'warn':'bad'},
     {label:'Stability',val:(pm>0&&gm>0)?'Stable':'Unstable',unit:'',cls:(pm>0&&gm>0)?'good':'bad'},
-  ]);
+  ],'GM>6 dB and PM>45°: adequate stability margins. GM<3 dB or PM<30°: close to instability — sensitive to parameter variation. Negative GM or PM: closed-loop system is already unstable.');
 }
 
 function cobCalc(){
@@ -406,7 +406,7 @@ function cobCalc(){
     {label:'Controllable?',val:Math.abs(detC)>1e-10?'Yes':'No — rank deficient',unit:''},
     {label:'det(Observability)',val:fmtN(detO),unit:'',cls:Math.abs(detO)>1e-10?'good':'bad'},
     {label:'Observable?',val:Math.abs(detO)>1e-10?'Yes':'No — rank deficient',unit:''},
-  ]);
+  ],'Uncontrollable modes cannot be driven to desired states regardless of the controller design. Unobservable modes cannot be inferred from output — a Kalman filter or state observer cannot reconstruct the full state vector.');
 }
 
 /* ── MECHANICAL DESIGN ── */
@@ -422,7 +422,7 @@ function grCalc(){
     {label:'Output speed',val:fmtN(rpm2),unit:'RPM'},
     {label:'Output torque',val:fmtN(T2),unit:'N·m'},
     {label:'Power (input)',val:fmtN(P),unit:'W'},
-  ]);
+  ],'Output torque = input torque × GR × η (efficiency). High GR increases torque but reduces speed proportionally. Reflected inertia to motor = J_load/GR². Optimal GR for inertia matching: GR = √(J_load/J_motor).');
 }
 
 function brgCalc(){
@@ -438,7 +438,7 @@ function brgCalc(){
     {label:'L10 life',val:fmtN(L10h),unit:'hours'},
     {label:'L50 life (median)',val:fmtN(L50h),unit:'hours'},
     {label:'C/P ratio',val:fmtN(C/P),unit:''},
-  ],'ISO 281 basic rating life. Does not include lubrication or misalignment factors.');
+  ],'L10 is the life at which 10% of bearings fail (90% survive). For 95% survival: L5≈0.62×L10. Actual service life depends on contamination, misalignment, and lubrication. Target L10=20,000–50,000 h for industrial machinery.');
 }
 
 function boltCalc(){
@@ -452,11 +452,11 @@ function boltCalc(){
     showOut('bolt-out',[
       {label:'Preload F',val:fmtN(F),unit:'N',cls:'good'},
       {label:'Clamping stress',val:fmtN(F/At),unit:'MPa'},
-    ]);
+    ],'Target preload F_i = 0.7×F_proof for structural joints. K=0.2 (as-received steel); K=0.15 (lubricated); K=0.12 (waxed). Verify joint does not separate under service load: F_service < F_i / joint factor.');
   } else {
     const F=v('bolt-F')*su('bolt-F-u');
     const T=K*d*F;
-    showOut('bolt-out',[{label:'Required torque T',val:fmtN(T),unit:'N·m',cls:'good'},{label:'Preload F',val:fmtN(F),unit:'N'}]);
+    showOut('bolt-out',[{label:'Required torque T',val:fmtN(T),unit:'N·m',cls:'good'},{label:'Preload F',val:fmtN(F),unit:'N'}],'Target preload F_i = 0.7×F_proof for structural joints. K=0.2 (as-received steel); K=0.15 (lubricated); K=0.12 (waxed). Verify joint does not separate under service load: F_service < F_i / joint factor.');
   }
 }
 
@@ -469,12 +469,12 @@ function sprCalc(){
     const C=D/dw;
     const delta=v('spr-delta')*su('spr-delta-u');
     const F=k*delta;
-    showOut('spr-out',[{label:'Spring rate k',val:fmtN(k),unit:'N/m',cls:'good'},{label:'Spring index C',val:fmtN(C),unit:''},{label:'Force at δ',val:fmtN(F),unit:'N'},{label:'Energy stored',val:fmtN(0.5*k*delta**2),unit:'J'}]);
+    showOut('spr-out',[{label:'Spring rate k',val:fmtN(k),unit:'N/m',cls:'good'},{label:'Spring index C',val:fmtN(C),unit:''},{label:'Force at δ',val:fmtN(F),unit:'N'},{label:'Energy stored',val:fmtN(0.5*k*delta**2),unit:'J'}],'Springs in series: 1/k_total = Σ(1/kᵢ). Springs in parallel: k_total = Σkᵢ. Check solid height and clash allowance (min. 10% travel). For fatigue: limit stress amplitude to <0.45×τ_ult for infinite life.');
   } else {
     const F=v('spr-F2')*su('spr-F2-u'),delta=v('spr-delta2')*su('spr-delta2-u');
     if(delta===0) return errOut('spr-out','Deflection cannot be zero.');
     const k=F/delta;
-    showOut('spr-out',[{label:'Spring rate k',val:fmtN(k),unit:'N/m',cls:'good'},{label:'Energy stored',val:fmtN(0.5*F*delta),unit:'J'}]);
+    showOut('spr-out',[{label:'Spring rate k',val:fmtN(k),unit:'N/m',cls:'good'},{label:'Energy stored',val:fmtN(0.5*F*delta),unit:'J'}],'Springs in series: 1/k_total = Σ(1/kᵢ). Springs in parallel: k_total = Σkᵢ. For fatigue loading, limit stress amplitude to <0.45×τ_ult for infinite life.');
   }
 }
 
@@ -493,7 +493,7 @@ function htzCalc(){
     {label:'Max shear stress depth',val:fmtN(0.48*a*1000),unit:'mm'},
     {label:'Max shear stress τ_max',val:fmtN(0.31*p0/1e6),unit:'MPa'},
     {label:'Effective modulus E*',val:fmtN(Estar/1e9),unit:'GPa'},
-  ]);
+  ],'Subsurface max shear stress occurs at depth ≈0.48a — where fatigue cracks initiate in rolling contact (bearings, gears). Compare p₀ to hardness (H≈3×σ_y). Repeated loading drives rolling contact fatigue (RCF) — verify against bearing/gear ratings.');
 }
 
 function thrCalc(){
@@ -506,7 +506,7 @@ function thrCalc(){
     {label:'Min engagement (same mat.)',val:fmtN(Le_same*1000),unit:'mm',cls:'good'},
     {label:'Min engagement (steel→Al)',val:fmtN(Le_al*1000),unit:'mm'},
     {label:'Shear area (per mm engage.)',val:fmtN(Math.PI*d*p/2*1e6),unit:'mm²/mm'},
-  ]);
+  ],'Minimum engagement ensures bolt breaks before threads strip. Standard recommendation: L_e ≥ 1×D for steel-in-steel; L_e ≥ 1.5×D for steel-in-aluminium; L_e ≥ 2×D for steel-in-plastics or soft metals.');
 }
 
 /* ── MATERIALS ENGINEERING ── */
@@ -522,7 +522,7 @@ function romCalc(){
     {label:'E longitudinal',val:fmtN(Ec_long/1e9),unit:'GPa',cls:'good'},
     {label:'E transverse',val:fmtN(Ec_trans/1e9),unit:'GPa'},
     {label:'Anisotropy ratio E₁/E₂',val:fmtN(Ec_long/Ec_trans),unit:''},
-  ]);
+  ],'Longitudinal (parallel) assumes iso-strain — fibres carry full load. Transverse (perpendicular) assumes iso-stress — matrix deforms more. Actual properties depend heavily on fibre-matrix interface quality and void content.');
 }
 
 function temCalc(){
@@ -536,7 +536,7 @@ function temCalc(){
     {label:'Thermal strain ε',val:fmtN(eps*1000),unit:'× 10⁻³'},
     {label:'Thermal stress σ (constrained)',val:fmtN(sig/1e6),unit:'MPa',cls:'good'},
     {label:'Tensile or compressive?',val:dT>0?(a1>a2?'Tensile in mat 1':'Compressive in mat 1'):'Reversed',unit:''},
-  ]);
+  ],'High σ_th indicates risk of delamination, cracking, or fatigue at interfaces. Critical in PCB solder joints (Cu/FR4), thermal barrier coatings, and bonded dissimilar metals. Use low-CTE matrix or compliant interlayer to reduce stress.');
 }
 
 function crpCalc(){
@@ -549,7 +549,7 @@ function crpCalc(){
     {label:'Creep rate ε̇',val:fmtN(edot),unit:'s⁻¹',cls:'good'},
     {label:'Time to 1% strain',val:fmtN(t1pct),unit:'hours'},
     {label:'Time to 1% strain',val:fmtN(t1pct/8760),unit:'years'},
-  ]);
+  ],'Norton creep is valid in the secondary (steady-state) creep regime. Creep rate roughly doubles every 10°C for metals. For turbine blades and pressure vessels: design below 1% creep strain in the intended design life.');
 }
 
 function lmpCalc(){
@@ -561,7 +561,7 @@ function lmpCalc(){
     {label:'T (K)',val:fmtN(T),unit:'K'},
     {label:'log₁₀(t)',val:fmtN(Math.log10(t)),unit:''},
     {label:'Note',val:'Compare P to material Larson-Miller curves for rupture prediction.',unit:''},
-  ]);
+  ],'The Larson-Miller parameter P is material-dependent — read rupture stress from a P vs. σ master curve. C≈20 for most steels and Ni-alloys. Higher P (higher T or longer time) → lower allowable stress for same rupture life.');
 }
 
 function tsaiCalc(){
@@ -575,7 +575,7 @@ function tsaiCalc(){
     {label:'Failure Index (FI)',val:fmtN(FI),unit:'',cls:FI>=1?'bad':'good'},
     {label:'Margin of Safety',val:fmtN(1/FI-1),unit:''},
     {label:'Failure?',val:FI>=1?'YES — failure predicted':'No — safe',unit:'',cls:FI>=1?'bad':'good'},
-  ]);
+  ],'FI<1: no first-ply failure. FI=1: first-ply failure (may not be catastrophic for laminates). FI>>1: catastrophic failure imminent. Tsai-Wu requires biaxial strength data (F₁₂ interaction term). Check all plies, not just the peak stress ply.');
 }
 
 /* ── COMPRESSIBLE FLOW ── */
@@ -605,7 +605,7 @@ function isoCalc(){
     {label:'ρ₀/ρ',val:fmtN(rho0rho),unit:''},
     {label:'A/A*',val:M>0?fmtN(AAstar):'∞',unit:''},
     {label:'Regime',val:M<0.3?'Incompressible':M<0.8?'Subsonic':M<1.2?'Transonic':'Supersonic',unit:''},
-  ]);
+  ],'Isentropic relations assume adiabatic, reversible (shock-free) flow. Stagnation conditions represent flow brought to rest isentropically. Choked flow occurs at M=1 at the throat — maximum mass flow for given upstream conditions.');
 }
 
 function nshCalc(){
@@ -624,7 +624,7 @@ function nshCalc(){
     {label:'ρ₂/ρ₁',val:fmtN(rho2rho1),unit:''},
     {label:'P₀₂/P₀₁',val:fmtN(P02P01),unit:'',cls:'warn'},
     {label:'Entropy increase?',val:P02P01<1?'Yes (irreversible shock)':'No',unit:''},
-  ]);
+  ],'Normal shocks always produce M₂<1 downstream. Total pressure loss (P₀₂/P₀₁<1) measures entropy generation — minimise for efficient intakes. Strong shocks (high M₁) have large total pressure loss — oblique shocks are preferred in intake design.');
 }
 
 function oshCalc(){
@@ -645,7 +645,7 @@ function oshCalc(){
     {label:'M₂',val:fmtN(M2),unit:''},
     {label:'P₂/P₁',val:fmtN(P2P1),unit:''},
     {label:'Mn₁ (normal component)',val:fmtN(Mn1),unit:''},
-  ]);
+  ],'Weak solution (smaller β) is physically realised in most cases. Strong solution only for blunt bodies. If M₁ < M₁_min for given deflection angle θ, shock detaches and a bow shock forms. Oblique shocks always have lower total pressure loss than equivalent normal shocks.');
 }
 
 function pmeCalc(){
@@ -665,7 +665,7 @@ function pmeCalc(){
     {label:'ν(M₂)',val:fmtN(nu2*180/Math.PI),unit:'°'},
     {label:'M₂',val:fmtN(M2),unit:'',cls:'good'},
     {label:'P₂/P₁',val:fmtN(P2P1),unit:''},
-  ]);
+  ],'Expansion fans are isentropic — no total pressure loss (opposite of shocks). Maximum turning angle ν_max = 130.45° (M→∞). For M<1, expansion is impossible — flow must first accelerate through a throat. P₂/P₁<1: pressure always drops through expansion.');
 }
 
 function pmpCalc(){
@@ -677,7 +677,7 @@ function pmpCalc(){
     {label:'Q₂ (flow rate)',val:fmtN(Q1*r),unit:'(same unit as Q₁)'},
     {label:'H₂ (head)',val:fmtN(H1*r*r),unit:'(same unit as H₁)'},
     {label:'P₂ (power)',val:fmtN(P1*r*r*r),unit:'(same unit as P₁)'},
-  ],'Pump affinity laws assume geometrically similar conditions and constant efficiency.');
+  ],'Affinity laws are exact only for geometrically similar operating points (same efficiency). Power scales as N³ — even small speed reduction dramatically cuts energy use. Verify the new operating point stays on the stable part of the pump curve (left of BEP).');
 }
 
 function cavCalc(){
@@ -691,7 +691,7 @@ function cavCalc(){
     {label:'NPSH required',val:fmtN(NPSHr),unit:'m'},
     {label:'Cavitation margin',val:fmtN(margin),unit:'m',cls:margin>0.5?'good':margin>0?'warn':'bad'},
     {label:'Risk',val:margin>0.5?'Low':margin>0?'Marginal — add safety factor':'HIGH — cavitation likely',unit:''},
-  ]);
+  ],'NPSH_A > NPSH_R required to avoid cavitation. Add 0.5–1 m safety margin. NPSH_A decreases with higher elevation, lower suction pressure, warmer fluid, or longer/smaller suction piping. Cavitation causes noise, erosion, and loss of head.');
 }
 
 function stkCalc(){
@@ -703,7 +703,7 @@ function stkCalc(){
     {label:'Settling velocity Vt',val:fmtN(Vt*1000),unit:'mm/s',cls:'good'},
     {label:'Particle Re',val:fmtN(Re),unit:'',cls:Re<0.5?'good':'warn'},
     {label:'Stokes regime valid?',val:Re<0.5?'Yes (Re < 0.5)':'No — use intermediate law',unit:''},
-  ]);
+  ],'Stokes law valid for Re_p<1. For Re_p 1–1000 use Schiller-Naumann: C_D=24/Re×(1+0.15×Re^0.687). For Re_p>1000 use C_D≈0.44. Very fine particles may remain suspended by Brownian motion — check Péclet number for sedimentation.');
 }
 
 function dim3Calc(){
@@ -719,7 +719,7 @@ function dim3Calc(){
     {label:'  → Ca << 1',val:'Surface tension dominates viscosity',unit:''},
     {label:'Bond number Bo',val:fmtN(Bo),unit:''},
     {label:'  → Bo >> 1',val:'Gravity dominates capillary forces',unit:''},
-  ]);
+  ],'We>>1: inertia dominates, droplet breakup likely. Ca>>1: viscous forces dominate surface tension. Bo>>1: gravity dominates, large droplets/puddles flatten. We<1, Ca<1, Bo<1: surface tension dominates — droplets remain spherical.');
 }
 
 function fanCalc(){
@@ -741,7 +741,7 @@ function fanCalc(){
     {label:'T₂/T₁',val:fmtN(T2T1),unit:''},
     {label:'P₂/P₁',val:fmtN(P2P1),unit:''},
     {label:'fL*/D at inlet',val:fmtN(fLs1),unit:''},
-  ]);
+  ],'Friction drives both subsonic and supersonic flows toward Ma=1 (choking). 4fL*/D is the maximum friction length for the given Ma — adding more pipe beyond L* chokes the flow or induces normal shocks.');
 }
 
 function rayCalc(){
@@ -760,7 +760,7 @@ function rayCalc(){
     {label:'M₂',val:fmtN(M2),unit:'',cls:'good'},
     {label:'T₂/T₁',val:fmtN(T2T1),unit:''},
     {label:'P₂/P₁',val:fmtN(P2P1),unit:''},
-  ]);
+  ],'Heat addition drives both subsonic and supersonic flows toward Ma=1 (thermal choking). There is a maximum heat addition Q* before choking. Rayleigh flow is used to analyse combustion in ramjet and scramjet combustors.');
 }
 
 /* ── HEAT TRANSFER EXTENSIONS ── */
@@ -772,7 +772,7 @@ function biCalc(){
     {label:'Biot number Bi',val:fmtN(Bi),unit:'',cls:Bi<0.1?'good':'warn'},
     {label:'Lumped capacitance valid?',val:Bi<0.1?'Yes (Bi < 0.1)':'No — use distributed model',unit:''},
     {label:'Interpretation',val:Bi<0.1?'Internal resistance ≪ external':'Significant internal temperature gradient',unit:''},
-  ]);
+  ],'Bi<0.1: lumped capacitance valid — temperature uniform throughout the solid. Bi>1: significant spatial gradients — must solve full 1D or 3D heat equation. Bi = h·Lc/k compares surface convection to internal conduction resistance.');
 }
 
 function foCalc(){
@@ -784,7 +784,7 @@ function foCalc(){
     {label:'Thermal diffusivity α',val:fmtN(alpha*1e6),unit:'mm²/s',cls:'good'},
     {label:'Fourier number Fo',val:fmtN(Fo),unit:''},
     {label:'Interpretation',val:Fo>0.2?'Quasi-steady (Fo > 0.2)':'Transient dominated',unit:''},
-  ]);
+  ],'Fo>0.2: single-term approximation accurate to <2%. Fo~1 means the object has largely equilibrated to the boundary condition. Time to reach Fo=0.2 sets the characteristic thermal response time.');
 }
 
 function lcCalc(){
@@ -858,7 +858,7 @@ function fickCalc(){
     {label:'Flux J',val:fmtN(J),unit:'mol/(m²·s)',cls:'good'},
     {label:'Diffusion timescale',val:fmtN(t_diff),unit:'s'},
     {label:'Diffusion timescale',val:fmtN(t_diff/60),unit:'min'},
-  ]);
+  ],'Diffusion timescale τ=L²/D: time to establish steady-state concentration profile. Small molecules in water: D≈10⁻⁹ m²/s; proteins: D≈10⁻¹¹ m²/s; gases in air: D≈10⁻⁵ m²/s. Reduce L or increase D (raise temperature) to speed mass transfer.');
 }
 
 function scCalc(){
@@ -870,7 +870,7 @@ function scCalc(){
     {label:'Schmidt number Sc',val:fmtN(Sc),unit:'',cls:'good'},
     {label:'ν (kinematic visc.)',val:fmtN(nu),unit:'m²/s'},
     {label:'Interpretation',val:Sc>1?'Momentum diffusion faster than mass':'Mass diffusion faster than momentum',unit:''},
-  ]);
+  ],'Sc=1 (gases in air): momentum and mass boundary layers have equal thickness. Sc>>1 (liquids): concentration boundary layer much thinner than velocity boundary layer. Sc<<1 (liquid metals): concentration boundary layer much thicker.');
 }
 
 function shCalc(){
@@ -882,7 +882,7 @@ function shCalc(){
     {label:'Sherwood number Sh',val:fmtN(Sh),unit:'',cls:'good'},
     {label:'Mass transfer coeff hm',val:fmtN(hm),unit:'m/s'},
     {label:'Analogy note',val:'Dittus-Boelter analogy (turbulent pipe)',unit:''},
-  ]);
+  ],'Larger Sh → faster convective mass transfer relative to diffusion. Mass-heat transfer analogy: Sh↔Nu, Sc↔Pr. Use h_m to find molar flux: J = h_m × ΔC. Applies to membrane, electrode, and dissolution systems in turbulent pipe flow.');
 }
 
 function mflxCalc(){
@@ -890,11 +890,11 @@ function mflxCalc(){
   if(tab==='diff'){
     const Pm=v('mflx-Pm'),dC=v('mflx-dC'),A=v('mflx-A');
     const J=Pm*dC;
-    showOut('mflx-out',[{label:'Flux J',val:fmtN(J),unit:'mol/(m²·s)',cls:'good'},{label:'Total flow (×A)',val:isFinite(A)&&A>0?fmtN(J*A):'—',unit:'mol/s'}]);
+    showOut('mflx-out',[{label:'Flux J',val:fmtN(J),unit:'mol/(m²·s)',cls:'good'},{label:'Total flow (×A)',val:isFinite(A)&&A>0?fmtN(J*A):'—',unit:'mol/s'}],'Diffusive flux driven by concentration gradient, independent of pressure. Flux increases linearly with ΔC and decreases with membrane thickness. Membrane fouling reduces effective permeability over time.');
   } else {
     const Lp=v('mflx-Lp'),dP=v('mflx-dP')*su('mflx-dP-u'),dpi=v('mflx-dpi')*su('mflx-dpi-u'),A=v('mflx-A2');
     const J=Lp*(dP-dpi);
-    showOut('mflx-out',[{label:'Filtration flux J',val:fmtN(J*1e6),unit:'μm/s',cls:J>0?'good':'warn'},{label:'Total flow (×A)',val:isFinite(A)&&A>0?fmtN(J*A*1e6):'—',unit:'μL/s'}]);
+    showOut('mflx-out',[{label:'Filtration flux J',val:fmtN(J*1e6),unit:'μm/s',cls:J>0?'good':'warn'},{label:'Total flow (×A)',val:isFinite(A)&&A>0?fmtN(J*A*1e6):'—',unit:'μL/s'}],'Filtration flux driven by transmembrane pressure (TMP = ΔP − Δπ). J<0 means osmotic pressure exceeds applied pressure (reverse osmosis regime). Membrane fouling reduces L_p over time — monitor TMP increase at constant flux.');
   }
 }
 
@@ -903,10 +903,11 @@ function iglCalc(){
   const mode=g('igl-mode').value;
   const R=8.314;
   const P=v('igl-P')*su('igl-P-u'), V=v('igl-V'), n=v('igl-n'), T=v('igl-T')+273.15;
-  if(mode==='P'){ const Pout=n*R*T/V; showOut('igl-out',[{label:'Pressure P',val:fmtN(Pout/1000),unit:'kPa',cls:'good'},{label:'P',val:fmtN(Pout/101325),unit:'atm'}]); }
-  else if(mode==='V'){ const Vout=n*R*T/P; showOut('igl-out',[{label:'Volume V',val:fmtN(Vout),unit:'m³',cls:'good'},{label:'V',val:fmtN(Vout*1000),unit:'L'}]); }
-  else if(mode==='n'){ const nout=P*V/(R*T); showOut('igl-out',[{label:'Moles n',val:fmtN(nout),unit:'mol',cls:'good'}]); }
-  else { const Tout=P*V/(n*R)-273.15; showOut('igl-out',[{label:'Temperature T',val:fmtN(Tout),unit:'°C',cls:'good'},{label:'T',val:fmtN(Tout+273.15),unit:'K'}]); }
+  const iglNote='At STP (0°C, 1 atm): 1 mol ideal gas occupies 22.4 L. Real gases deviate at high P or low T — use van der Waals for corrections. PV=nRT exact only for ideal gases at moderate conditions.';
+  if(mode==='P'){ const Pout=n*R*T/V; showOut('igl-out',[{label:'Pressure P',val:fmtN(Pout/1000),unit:'kPa',cls:'good'},{label:'P',val:fmtN(Pout/101325),unit:'atm'}],iglNote); }
+  else if(mode==='V'){ const Vout=n*R*T/P; showOut('igl-out',[{label:'Volume V',val:fmtN(Vout),unit:'m³',cls:'good'},{label:'V',val:fmtN(Vout*1000),unit:'L'}],iglNote); }
+  else if(mode==='n'){ const nout=P*V/(R*T); showOut('igl-out',[{label:'Moles n',val:fmtN(nout),unit:'mol',cls:'good'}],iglNote); }
+  else { const Tout=P*V/(n*R)-273.15; showOut('igl-out',[{label:'Temperature T',val:fmtN(Tout),unit:'°C',cls:'good'},{label:'T',val:fmtN(Tout+273.15),unit:'K'}],iglNote); }
 }
 
 function antCalc(){
@@ -923,7 +924,7 @@ function antCalc(){
     {label:'Vapor pressure',val:fmtN(P_mmHg),unit:'mmHg',cls:'good'},
     {label:'Vapor pressure',val:fmtN(P_mmHg*133.322),unit:'Pa'},
     {label:'Vapor pressure',val:fmtN(P_mmHg/750.062),unit:'bar'},
-  ]);
+  ],'Antoine constants are fitted to data in a specific T range — extrapolation is unreliable. Verify your T is within the valid range (typically ±50°C of reference). Check NIST Webbook for validated constants and valid temperature ranges.');
 }
 
 function cstrCalc(){
@@ -938,7 +939,7 @@ function cstrCalc(){
     {label:'CA,out',val:fmtN(CA),unit:'mol/m³'},
     {label:'Residence time τ',val:fmtN(tau),unit:'s'},
     {label:'Conversion X',val:fmtN(X*100),unit:'%'},
-  ]);
+  ],'CSTR always requires larger volume than PFR for same conversion (positive-order reactions). Larger Da → more conversion at given τ. Temperature control is easier in CSTR. High recycle ratio converts CSTR behavior toward PFR performance.');
 }
 
 function pfrCalc(){
@@ -964,7 +965,7 @@ function damCalc(){
     {label:'  Regime (Da I)',val:Da1<0.1?'Transport limited':Da1>10?'Reaction limited':'Mixed',unit:''},
     {label:'Da II (diff.)',val:fmtN(Da2),unit:''},
     {label:'  Regime (Da II)',val:Da2<0.1?'Kinetically limited':Da2>10?'Diffusion limited':'Mixed',unit:''},
-  ]);
+  ],'Da_I<0.1: kinetically limited — increasing catalyst activity helps most. Da_I>10: mass-transfer limited — improve mixing or reduce particle size. Da_II>>1: large temperature rise possible — check for thermal runaway risk.');
 }
 
 function vdwCalc(){
@@ -983,7 +984,7 @@ function vdwCalc(){
     {label:'Compressibility Z',val:fmtN(Z),unit:''},
     {label:'Ideal gas Z',val:'1.000',unit:''},
     {label:'Deviation from ideal',val:fmtN(Math.abs(Z-1)*100),unit:'%',cls:Math.abs(Z-1)>0.05?'warn':'good'},
-  ]);
+  ],'Z=1: ideal gas. Z<1: attractive forces dominant (low T, moderate P). Z>1: repulsive forces dominant (very high P). Boyle temperature T_B=a/(bR) where Z→1 at moderate P. Van der Waals least accurate near the liquid-gas critical point.');
 }
 
 /* ── BIOMEDICAL EXTENSIONS ── */
@@ -1001,7 +1002,7 @@ function wkCalc(){
     {label:'RC time constant',val:fmtN(tau),unit:'s'},
     {label:'Systolic est.',val:fmtN(Psys/133.322),unit:'mmHg'},
     {label:'Diastolic est.',val:fmtN(Pdias/133.322),unit:'mmHg'},
-  ],'2-element Windkessel. Simplified — does not model wave reflections.');
+  ],'RC time constant τ=R₂C sets diastolic pressure decay rate. Normal τ≈1.5 s (aorta). Increased R₂ (hypertension): high diastolic pressure. Decreased C (arterial stiffening): wide pulse pressure. 2-element model — does not capture wave reflections.');
 }
 
 function pwvCalc(){
@@ -1012,7 +1013,7 @@ function pwvCalc(){
     {label:'PWV (Moens-Korteweg)',val:fmtN(pwv),unit:'m/s',cls:pwv<7?'good':'warn'},
     {label:'Normal range (young)',val:'4 – 7 m/s',unit:''},
     {label:'Stiffness assessment',val:pwv<7?'Within normal range':pwv<10?'Mildly elevated':'Significantly elevated (stiff artery)',unit:''},
-  ]);
+  ],'PWV is the gold-standard measure of arterial stiffness. Normal aortic PWV: 5–7 m/s (young adult). PWV>10 m/s indicates significant arterial stiffening and elevated cardiovascular risk. PWV increases ~1 m/s per decade of age.');
 }
 
 function mmCalc(){
@@ -1025,7 +1026,7 @@ function mmCalc(){
     {label:'Regime',val:S>>Km?'Saturated (v ≈ Vmax)':S<<Km?'Linear (v ≈ Vmax·[S]/Km)':'Mixed',unit:''},
     {label:'Lineweaver-Burk 1/v',val:fmtN(1/velo),unit:''},
     {label:'LB slope (Km/Vmax)',val:fmtN(Km/Vmax),unit:''},
-  ]);
+  ],'At [S]<Km/10: rate ≈ (Vmax/Km)×[S] (first-order). At [S]>10×Km: rate ≈ Vmax (zero-order, saturated). Km is the substrate concentration at half-maximal rate — a measure of enzyme-substrate affinity. Lower Km = higher affinity.');
 }
 
 function hillCalc(){
@@ -1037,20 +1038,20 @@ function hillCalc(){
     {label:'Hill coefficient n',val:fmtN(n),unit:'',cls:n>1?'warn':''},
     {label:'Cooperativity',val:n>1?'Positive (sigmoid)':n<1?'Negative':'Hyperbolic (MM)',unit:''},
     {label:'EC50 K',val:fmtN(K),unit:'(same as [S])'},
-  ]);
+  ],'n=1: Michaelis-Menten (no cooperativity). n>1: positive cooperativity (sigmoid curve, e.g. haemoglobin-O₂ n≈2.7). n<1: negative cooperativity (rare). EC50 = K is the concentration at half-maximal response.');
 }
 
 function cdtCalc(){
   const N0=v('cdt-N0'),N=v('cdt-N'),t=v('cdt-t');
   if(N0<=0||N<=N0||t<=0) return errOut('cdt-out','N > N₀ and t > 0 required.');
   const td=t*Math.log(2)/Math.log(N/N0);
-  showOut('cdt-out',[{label:'Doubling time td',val:fmtN(td),unit:'(same time unit)',cls:'good'},{label:'Doublings',val:fmtN(Math.log2(N/N0)),unit:''}]);
+  showOut('cdt-out',[{label:'Doubling time td',val:fmtN(td),unit:'(same time unit)',cls:'good'},{label:'Doublings',val:fmtN(Math.log2(N/N0)),unit:''}],'Exponential doubling assumes constant growth rate — valid in log-phase culture only. Typical doubling times: E. coli 20 min; mammalian cells 18–24 h; tumour cells 1–5 days. Growth rate slows as nutrients deplete or inhibitory metabolites accumulate.');
 }
 function cdtPredCalc(){
   const N0=v('cdtp-N0'),td=v('cdtp-td'),t=v('cdtp-t');
   if(N0<=0||td<=0||t<=0) return errOut('cdtp-out','All values must be positive.');
   const N=N0*Math.pow(2,t/td);
-  showOut('cdtp-out',[{label:'Cell count N(t)',val:fmtN(N),unit:'',cls:'good'},{label:'Doublings',val:fmtN(t/td),unit:''}]);
+  showOut('cdtp-out',[{label:'Cell count N(t)',val:fmtN(N),unit:'',cls:'good'},{label:'Doublings',val:fmtN(t/td),unit:''}],'Exponential growth assumes constant doubling time — valid in log phase. Large predicted counts should be cross-checked: >10⁹ cells/mL is beyond typical culture capacity. Account for cell death rate in long-term predictions.');
 }
 
 function pkCalc(){
@@ -1065,7 +1066,7 @@ function pkCalc(){
     {label:'t½',val:fmtN(t12),unit:'(same time unit)'},
     {label:'AUC (0→t)',val:fmtN(AUCt),unit:''},
     {label:'AUC (0→∞)',val:fmtN(AUCinf),unit:''},
-  ]);
+  ],'One-compartment model assumes instantaneous distribution. ke=ln2/t½. At 4–5×t½ steady state is reached with repeated dosing. Volume of distribution Vd=Dose/C₀. AUC is proportional to total drug exposure.');
 }
 
 function doseCalc(){
@@ -1077,7 +1078,7 @@ function doseCalc(){
     {label:'Loading dose LD',val:fmtN(LD),unit:'(same mass unit as Ct×Vd)',cls:'good'},
     {label:'Maintenance dose MD',val:isFinite(MD)&&MD>0?fmtN(MD):'— (enter CL and τ)',unit:''},
     {label:'CL·τ/F',val:CL>0?fmtN(CL*tau/F):'—',unit:''},
-  ]);
+  ],'Loading dose rapidly achieves target concentration. Maintenance dose replaces drug eliminated per dosing interval. Steady state (4–5×t½): average C = F×Dose/(ke×Vd×τ). Monitor therapeutic index — narrow for drugs like digoxin and warfarin.');
 }
 
 /* ── FEA TOOLS ── */
@@ -1097,7 +1098,7 @@ function gciCalc(){
     {label:'GCI₂₁ (fine grid)',val:fmtN(GCI21*100),unit:'%'},
     {label:'GCI₃₂ (medium grid)',val:fmtN(GCI32*100),unit:'%'},
     {label:'Asymptotic range check',val:Math.abs(asym-1)<0.25?'Yes — in asymptotic range':'No — refine further',unit:'',cls:Math.abs(asym-1)<0.25?'good':'warn'},
-  ],'Roache GCI method. Fs = 1.25 safety factor for 3-grid studies.');
+  ],'GCI<1%: grid-independent (excellent). GCI 1–5%: acceptable for most engineering. GCI>5%: refine mesh. If GCI₂₁>>GCI₃₂, solution not in asymptotic range — use a finer grid and recheck. Report all three values in CFD publications.');
 }
 
 function arqCalc(){
@@ -1109,7 +1110,7 @@ function arqCalc(){
     {label:'Aspect ratio',val:fmtN(AR),unit:'',cls:AR<3?'good':AR<5?'warn':'bad'},
     {label:'Quality',val:AR<3?'Good':AR<5?'Acceptable — monitor':'Poor — consider remeshing',unit:''},
     {label:'Max / Min length',val:`${fmtN(Math.max(...sides))} / ${fmtN(Math.min(...sides))}`,unit:''},
-  ]);
+  ],'AR<3: excellent element quality. AR<5: acceptable for most solvers. AR>10: accuracy may degrade — recheck mesh in critical flow regions. High AR is acceptable for boundary layer elements when aligned with the flow (thin but long cells).');
 }
 
 function exptsCalc(){
@@ -1119,12 +1120,12 @@ function exptsCalc(){
     if(L<=0||E<=0||rho<=0) return errOut('expts-out','All values must be positive.');
     const c=Math.sqrt(E/rho);
     const dt=L/c;
-    showOut('expts-out',[{label:'Wave speed c',val:fmtN(c),unit:'m/s',cls:'good'},{label:'Critical Δt',val:fmtN(dt*1e6),unit:'μs'},{label:'Recommended Δt',val:fmtN(dt*0.9e6),unit:'μs (0.9 × critical)'}]);
+    showOut('expts-out',[{label:'Wave speed c',val:fmtN(c),unit:'m/s',cls:'good'},{label:'Critical Δt',val:fmtN(dt*1e6),unit:'μs'},{label:'Recommended Δt',val:fmtN(dt*0.9e6),unit:'μs (0.9 × critical)'}],'Use Δt_stable/2 to add a safety margin against numerical instability. Smaller time steps increase cost proportionally. Implicit schemes allow larger Δt but require a matrix solve each step.');
   } else {
     const L=v('expts-dx')*su('expts-dx-u'),u=v('expts-u')*su('expts-u-u');
     if(L<=0||u<=0) return errOut('expts-out','Δx and u must be positive.');
     const dt=L/u;
-    showOut('expts-out',[{label:'Max stable Δt (CFL=1)',val:fmtN(dt*1e6),unit:'μs',cls:'good'},{label:'Recommended (CFL=0.8)',val:fmtN(dt*0.8e6),unit:'μs'}]);
+    showOut('expts-out',[{label:'Max stable Δt (CFL=1)',val:fmtN(dt*1e6),unit:'μs',cls:'good'},{label:'Recommended (CFL=0.8)',val:fmtN(dt*0.8e6),unit:'μs'}],'CFL>1 for explicit schemes causes numerical instability (solution diverges). Use recommended Δt (CFL=0.8) for a safety margin. Implicit schemes tolerate CFL>1 but accuracy suffers at large values.');
   }
 }
 
@@ -1141,7 +1142,7 @@ function mpfCalc(){
     {label:'Γ (participation factor)',val:fmtN(gamma),unit:'',cls:'good'},
     {label:'Effective mass',val:fmtN(Meff),unit:'kg'},
     {label:'Effective mass fraction',val:fmtN(Meff/Mtot*100),unit:'%'},
-  ],'For the first mode. Sum effective mass fractions across all modes to verify ≥90% total mass captured.');
+  ],'Sum of all modal effective masses should equal total structural mass (mass conservation check). Modes with effective mass fraction>1% are seismically significant. Per ASCE 7: capture sufficient modes to reach 90% cumulative mass participation.');
 }
 
 /* ── AEROSPACE ── */
@@ -1155,7 +1156,7 @@ function ldCalc(){
     {label:'Lift L',val:fmtN(L),unit:'N',cls:'good'},
     {label:'Drag D',val:fmtN(D),unit:'N'},
     {label:'L/D ratio',val:CD>0?fmtN(CL/CD):'—',unit:''},
-  ]);
+  ],'L/D is aerodynamic efficiency. Typical cruise L/D: commercial aircraft 15–20; glider 40+; helicopter 4–8. For level flight: L=W (weight). Induced drag dominates at low speed; form/wave drag at high speed.');
 }
 
 function stallCalc(){
@@ -1166,7 +1167,7 @@ function stallCalc(){
     {label:'Stall speed Vs',val:fmtN(Vs),unit:'m/s',cls:'good'},
     {label:'Stall speed',val:fmtN(Vs*1.944),unit:'knots'},
     {label:'Wing loading W/S',val:fmtN(W/S),unit:'N/m²'},
-  ]);
+  ],'Stall speed is the minimum safe airspeed — fly slower and the wing stalls. CLmax: clean wing 1.2–1.5; full flaps 2.5–3.5. Stall speed increases with altitude (lower ρ) and bank angle (factor √(1/cosφ)).');
 }
 
 function rktCalc(){
@@ -1180,7 +1181,7 @@ function rktCalc(){
     {label:'ΔV',val:fmtN(dV/1000),unit:'km/s'},
     {label:'Mass ratio m₀/mf',val:fmtN(mr),unit:''},
     {label:'Propellant fraction',val:fmtN(pf*100),unit:'%'},
-  ]);
+  ],'Mass ratio m₀/mf must be >e^(ΔV/v_e). For LEO (ΔV≈9.4 km/s) with Isp=450 s: mass ratio≈8.6 — over 87% of launch mass is propellant. Multiple stages overcome the tyranny of the rocket equation for high ΔV missions.');
 }
 
 function orbCalc(){
@@ -1197,7 +1198,7 @@ function orbCalc(){
     {label:'Orbital period T',val:fmtN(T/60),unit:'min',cls:'good'},
     {label:'Circular velocity',val:fmtN(vc),unit:'m/s'},
     {label:'Escape velocity',val:fmtN(ve),unit:'m/s'},
-  ]);
+  ],'LEO (~400 km): v≈7.67 km/s, T≈92 min. GEO (35786 km): v≈3.07 km/s, T≈24 h. Escape velocity = √2 × circular velocity at any orbit. Elliptical transfer: place apogee burn at perigee for maximum efficiency.');
 }
 
 function hohCalc(){
@@ -1213,7 +1214,7 @@ function hohCalc(){
     {label:'Δv₂',val:fmtN(dv2),unit:'m/s'},
     {label:'Total ΔV',val:fmtN(Math.abs(dv1)+Math.abs(dv2)),unit:'m/s'},
     {label:'Transfer time',val:fmtN(ttrans/3600),unit:'hours'},
-  ]);
+  ],'Hohmann is the most propellant-efficient 2-burn transfer between circular coplanar orbits. For transfers >√2 times r₁, bi-elliptic transfer may be more efficient. Every m/s of ΔV significantly drives launch vehicle sizing and cost.');
 }
 
 /* ── ACOUSTICS & OPTICS ── */
@@ -1228,7 +1229,7 @@ function splCalc(){
     {label:'SPL',val:fmtN(spl),unit:'dB',cls:spl>85?'warn':'good'},
     {label:'Reference',val:mode==='P'?'20 μPa (acoustic)':'10⁻¹² W/m²',unit:''},
     {label:'Interpretation',val:interp,unit:''},
-  ]);
+  ],'0 dBSPL: threshold of hearing. 40 dB: quiet room. 70 dB: normal conversation. 85 dB: OSHA 8-h limit. 120 dB: pain threshold. 140+ dB: immediate hearing damage. Every 10 dB = 10× intensity, ≈2× perceived loudness.');
 }
 
 function rtCalc(){
@@ -1241,7 +1242,7 @@ function rtCalc(){
     {label:'RT60',val:fmtN(RT),unit:'s',cls:RT<2?'good':'warn'},
     {label:'Total absorption A',val:fmtN(A),unit:'m² sabins'},
     {label:'Guidance',val:RT<0.5?'Very dry':RT<1.5?'Good for speech':RT<2.5?'Music/lecture hall':'Reverberant — add absorbers',unit:''},
-  ]);
+  ],'Sabine formula most accurate for large rooms with distributed, low absorption. Good speech intelligibility: RT60<0.5 s. Music: 1–2.5 s. Too-long RT60 reduces speech clarity (low STI). For high absorption (>20% of surface), use Eyring formula.');
 }
 
 function lensCalc(){
@@ -1250,7 +1251,7 @@ function lensCalc(){
     const n=v('lens-n'),R1=v('lens-R1')*su('lens-R1-u'),R2=v('lens-R2')*su('lens-R2-u');
     if(n<=1) return errOut('lens-out','Refractive index must be > 1.');
     const f=1/((n-1)*(1/R1-1/R2));
-    showOut('lens-out',[{label:'Focal length f',val:fmtN(f*1000),unit:'mm',cls:'good'},{label:'Power',val:fmtN(1/f),unit:'diopters'}]);
+    showOut('lens-out',[{label:'Focal length f',val:fmtN(f*1000),unit:'mm',cls:'good'},{label:'Power',val:fmtN(1/f),unit:'diopters'}],'f>0: converging (convex) lens. f<0: diverging (concave) lens. Lensmaker equation requires both radii of curvature for full optical design.');
   } else {
     const f=v('lens-f2')*su('lens-f2-u'),do_=v('lens-do')*su('lens-do-u');
     if(f===0||do_===0) return errOut('lens-out','f and object distance required.');
@@ -1260,7 +1261,7 @@ function lensCalc(){
       {label:'Image distance di',val:fmtN(di*1000),unit:'mm',cls:'good'},
       {label:'Magnification m',val:fmtN(m),unit:''},
       {label:'Image type',val:di>0?'Real (same side as refracted light)':'Virtual',unit:''},
-    ]);
+    ],'Real image (di>0): inverted. Virtual image (di<0): upright. |m|>1: image larger than object. Lateral magnification m = −di/u. For cameras, di is the sensor-to-lens distance — sets minimum body depth.');
   }
 }
 
@@ -1273,7 +1274,7 @@ function opresCalc(){
     {label:'NA',val:fmtN(NA),unit:'',cls:'good'},
     {label:'Rayleigh limit',val:fmtN(rayleigh*1e9),unit:'nm'},
     {label:'Abbe diffraction limit',val:isFinite(abbe)?fmtN(abbe*1e9):'— (enter NA)',unit:'nm'},
-  ]);
+  ],'Rayleigh criterion: two points just resolved when first diffraction minimum of one falls on first maximum of other. Abbe limit applies to incoherent imaging (bright-field microscopy). Super-resolution (STED, STORM) can break the Abbe limit. NA>1 requires immersion medium.');
 }
 
 /* ── LAB & RESEARCH TOOLS ── */
@@ -1289,7 +1290,7 @@ function dilCalc(){
     {label:label,val:fmtN(result),unit:'',cls:'good'},
     {label:'Dilution factor',val:fmtN(C1/(mode==='C2'?result:C2)),unit:'×'},
     {label:'Prep',val:prep||'',unit:''},
-  ]);
+  ],'C₁V₁=C₂V₂ assumes ideal mixing (no volume change). Always add concentrated reagent to solvent (not the reverse) — exothermic mixing can cause spattering. Serial dilutions: repeat for very low concentrations (e.g. 10× each step).');
 }
 
 function molCalc(){
@@ -1298,10 +1299,10 @@ function molCalc(){
   if(MW<=0||V<=0) return errOut('mol-out','MW and V must be positive.');
   if(mode==='m2M'){
     const m=v('mol-m');const n=m/MW;const M=n/V;
-    showOut('mol-out',[{label:'Moles n',val:fmtN(n),unit:'mol',cls:'good'},{label:'Molarity M',val:fmtN(M),unit:'mol/L'},{label:'Concentration',val:fmtN(M*1000),unit:'mmol/L'}]);
+    showOut('mol-out',[{label:'Moles n',val:fmtN(n),unit:'mol',cls:'good'},{label:'Molarity M',val:fmtN(M),unit:'mol/L'},{label:'Concentration',val:fmtN(M*1000),unit:'mmol/L'}],'Molarity M = n/V(L). Osmolarity = Σ(M×i) where i is particles per formula unit (NaCl: i=2). Physiological osmolarity ≈285 mOsm/kg. 0.9% NaCl = 154 mmol/L = 308 mOsm/L (isotonic).');
   } else {
     const M=v('mol-M');const n=M*V;const m=n*MW;
-    showOut('mol-out',[{label:'Moles n',val:fmtN(n),unit:'mol',cls:'good'},{label:'Mass m',val:fmtN(m),unit:'g'},{label:'Molarity check',val:fmtN(M),unit:'mol/L'}]);
+    showOut('mol-out',[{label:'Moles n',val:fmtN(n),unit:'mol',cls:'good'},{label:'Mass m',val:fmtN(m),unit:'g'},{label:'Molarity check',val:fmtN(M),unit:'mol/L'}],'Molarity M = n/V(L). Osmolarity = Σ(M×i) where i is particles per formula unit (NaCl: i=2). Physiological osmolarity ≈285 mOsm/kg. 0.9% NaCl = 154 mmol/L = 308 mOsm/L (isotonic).');
   }
 }
 
@@ -1321,7 +1322,7 @@ function pcrCalc(){
     {label:'Tm (Wallace rule)',val:fmtN(Tm_wallace),unit:'°C',cls:'good'},
     {label:'Tm (nearest-neighbor est.)',val:fmtN(Tm_nn),unit:'°C'},
     {label:'Annealing temp',val:fmtN(Tm_nn-5),unit:'°C (Tm − 5)'},
-  ]);
+  ],'Wallace rule (2°C/AT + 4°C/GC) is accurate only for short primers (<14 nt). Nearest-neighbour method is better for longer primers. Anneal at Tm−5°C to Tm−2°C. Mismatches lower Tm by ~1–2°C per mismatch. GC% 40–60% is optimal for specificity.');
 }
 
 function scbCalc(){
@@ -1333,7 +1334,7 @@ function scbCalc(){
     {label:'nm per pixel',val:fmtN(nmPerPx),unit:'nm/px',cls:'good'},
     {label:'Scale bar length',val:fmtN(barLen),unit:'nm'},
     {label:'Scale bar length',val:fmtN(barLen/1000),unit:'μm'},
-  ]);
+  ],'Calibrate nm/px with a calibration grid or stage micrometer at the same magnification used for imaging — do not rely on manufacturer spec alone. Scale bars must be visible and accurate in publications for reproducibility.');
 }
 
 function hidxCalc(){
@@ -1349,7 +1350,7 @@ function hidxCalc(){
     {label:'Total citations',val:total,unit:''},
     {label:'Mean citations/paper',val:fmtN(total/cites.length),unit:''},
     {label:'Papers',val:cites.length,unit:''},
-  ]);
+  ],'h-index is field-dependent — compare only within the same discipline. i10>0 means at least 10 papers with ≥10 citations each. High h requires sustained productivity AND impact. Self-citation inflation is detectable via citation network analysis.');
 }
 
 function dpiCalc(){
@@ -1362,7 +1363,7 @@ function dpiCalc(){
     {label:'Total megapixels',val:fmtN(px_w*px_h/1e6),unit:'MP'},
     {label:'Uncompressed size (RGB)',val:fmtN(bytes/1e6),unit:'MB'},
     {label:'JPEG est. (~10:1)',val:fmtN(bytes/10/1e6),unit:'MB'},
-  ]);
+  ],'Journal figures: 300 DPI minimum (raster). Line art: 600–1200 DPI. Screen display: 72–96 PPI. A4 at 300 DPI: 2480×3508 px. Oversized uncompressed images slow LaTeX/Word compilation significantly.');
 }
 
 /* ── STATISTICAL POWER ── */
@@ -1380,7 +1381,7 @@ function powerCalc(){
     {label:'Type II error β',val:fmtN((1-power)*100),unit:'%'},
     {label:'n for 80% power',val:test==='two'?`${nFor80} per group`:nFor80,unit:'',cls:'good'},
     {label:'Effect size',val:d<0.2?'Negligible':d<0.5?'Small':d<0.8?'Medium':'Large',unit:`(d=${fmtN(d)})`},
-  ]);
+  ],'Power<0.8 (β>0.2): underpowered study — high risk of missing a real effect (Type II error). Power>0.9 preferred for clinical/regulatory studies. Increasing n, effect size, or α all raise power. Two-tailed tests require larger n than one-tailed.');
 }
 
 /* ── ONE-WAY ANOVA ── */
@@ -1405,7 +1406,7 @@ function anovaCalc(){
     {label:'Significant (α=0.05)?',val:p<0.05?'Yes — reject H₀ (groups differ)':'No — fail to reject H₀',unit:''},
     {label:'η² (effect size)',val:fmtN(eta2),unit:'',cls:eta2>0.14?'warn':eta2>0.06?'':''},
     {label:'N total / groups',val:`${N} / ${k}`,unit:''},
-  ]);
+  ],'p<0.05: at least one group mean is significantly different (reject H₀). F=1 means between-group variance = within-group variance (no effect). η²: 0.01 small, 0.06 medium, 0.14 large. Run post-hoc Tukey test to identify which specific groups differ.');
 }
 
 /* ── CORONARY FLOW RESERVE & FFR ── */
@@ -1419,7 +1420,7 @@ function cfrCalc(){
       {label:'CFR',val:fmtN(CFR),unit:'',cls:CFR>=2.5?'good':CFR>=2.0?'warn':'bad'},
       {label:'Clinical threshold',val:'≥ 2.5 normal · 2.0–2.5 borderline · < 2.0 impaired',unit:''},
       {label:'Assessment',val:CFR>=2.5?'Normal — adequate reserve':CFR>=2.0?'Borderline':'Impaired — reduced microvascular reserve',unit:'',cls:CFR>=2.5?'good':CFR>=2.0?'warn':'bad'},
-    ]);
+    ],'CFR<2.0: significant microvascular dysfunction — consider therapy. CFR is reduced by both epicardial stenosis and microvascular disease; cannot distinguish the two without FFR.');
   } else {
     const Pd=v('cfr-Pd'),Pa=v('cfr-Pa');
     if(Pa<=0||Pd<=0||Pd>Pa) return errOut('cfr-out','0 < Pd ≤ Pa required.');
@@ -1428,7 +1429,7 @@ function cfrCalc(){
       {label:'FFR (Pd/Pa)',val:fmtN(FFR),unit:'',cls:FFR>0.80?'good':'warn'},
       {label:'Ischaemia threshold',val:'FFR ≤ 0.80 → revascularise',unit:''},
       {label:'Recommendation',val:FFR<=0.80?'Revascularisation indicated (FFR ≤ 0.80)':'Defer PCI — FFR > 0.80',unit:'',cls:FFR<=0.80?'warn':'good'},
-    ]);
+    ],'FFR≤0.80: haemodynamically significant stenosis — revascularisation (PCI/CABG) recommended (FAME trial evidence). FFR>0.80: defer intervention. FFR is measured under maximal hyperaemia (adenosine).');
   }
 }
 
@@ -1443,7 +1444,7 @@ function hhCalc(){
       {label:'pH',val:fmtN(pH),unit:'',cls:'good'},
       {label:'Buffer range',val:`${fmtN(pKa-1)} – ${fmtN(pKa+1)}`,unit:'(pKa ± 1)'},
       {label:'Buffering capacity',val:ratio>=0.1&&ratio<=10?'Effective (ratio within 10:1)':'Weak — near capacity limit',unit:''},
-    ]);
+    ],'Buffer is most effective within ±1 pH unit of pKa. At pH=pKa: 50% acid/50% conjugate base. Bicarbonate buffer (pKa=6.1) works at blood pH 7.4 due to respiratory CO₂/HCO₃⁻ equilibrium. Phosphate buffer (pKa=7.2) suits intracellular pH.');
   } else {
     const pKa=v('hh-pKa2'),pH=v('hh-pH');
     const ratio=Math.pow(10,pH-pKa);
@@ -1451,6 +1452,6 @@ function hhCalc(){
       {label:'[A⁻]/[HA] ratio needed',val:fmtN(ratio),unit:'',cls:'good'},
       {label:'% conjugate base [A⁻]',val:fmtN(ratio/(1+ratio)*100),unit:'%'},
       {label:'% weak acid [HA]',val:fmtN(1/(1+ratio)*100),unit:'%'},
-    ]);
+    ],'Use this ratio to prepare the buffer by mixing acid and conjugate base in the correct proportion. Effective buffering requires both components present — ratio >10:1 or <1:10 gives poor buffering capacity.');
   }
 }
