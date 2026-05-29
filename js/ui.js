@@ -355,6 +355,34 @@ function initResizeReflow() {
   document.addEventListener('DOMContentLoaded', applyPrefs);
 })();
 
+/* ── Tooltip toggle ─────────────────────────────────────────── */
+/*
+ * Tooltips are native browser title="" attributes on .input-label
+ * elements. Toggling off moves title → data-tip (so nothing shows
+ * on hover) and back on restores data-tip → title.
+ * State is persisted in localStorage; default is ON.
+ */
+function setTooltips(on) {
+  document.querySelectorAll('.input-label[title], .input-label[data-tip]').forEach(el => {
+    if (on) {
+      if (el.dataset.tip) { el.title = el.dataset.tip; delete el.dataset.tip; }
+    } else {
+      if (el.title) { el.dataset.tip = el.title; el.removeAttribute('title'); }
+    }
+  });
+  const chk   = document.getElementById('tt-chk');
+  const state = document.getElementById('tt-state');
+  if (chk)   chk.checked     = on;
+  if (state) state.textContent = on ? 'On' : 'Off';
+  try { localStorage.setItem('tooltips_on', on ? '1' : '0'); } catch (e) {}
+}
+
+function initTooltipToggle() {
+  const saved = (() => { try { return localStorage.getItem('tooltips_on'); } catch (e) { return null; } })();
+  /* Default ON — only turn off if explicitly saved as '0'. */
+  setTooltips(saved !== '0');
+}
+
 /* ── Page initialisation ───────────────────────────────────── */
 /* buildConverters() runs immediately (scripts are at end of body). */
 buildConverters();
@@ -366,4 +394,5 @@ window.addEventListener('load', () => {
   initResizeReflow();
   buildSearchIndex();
   fitFormulas();
+  initTooltipToggle();
 });

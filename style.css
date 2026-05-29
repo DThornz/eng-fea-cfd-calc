@@ -438,6 +438,35 @@ body.dark-mode .nav{background:rgba(6,14,28,.96)!important;border-color:#1c3050!
 #card-search::-webkit-search-cancel-button{cursor:pointer}
 .search-count{font-size:.7em;color:var(--teal);white-space:nowrap;font-family:var(--mono)}
 
+/* ── Tooltip toggle pill ── */
+.tt-toggle{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+.tt-toggle input{position:absolute;opacity:0;width:0;height:0}
+.tt-track{
+  position:relative;display:inline-block;
+  width:32px;height:18px;border-radius:9px;
+  background:var(--border);border:1px solid var(--border);
+  transition:background .2s,border-color .2s;flex-shrink:0;
+}
+.tt-toggle input:checked ~ .tt-track{
+  background:rgba(45,212,191,.18);border-color:rgba(45,212,191,.45);
+}
+.tt-thumb{
+  position:absolute;top:2px;left:2px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--muted);transition:transform .2s,background .2s;
+}
+.tt-toggle input:checked ~ .tt-track .tt-thumb{
+  transform:translateX(14px);background:var(--teal);
+}
+.tt-state{font-size:.72em;font-family:var(--mono);color:var(--muted);min-width:1.8em;transition:color .2s}
+.tt-toggle input:checked ~ .tt-state{color:var(--teal)}
+
+/* ── Dark mode — Tooltip toggle ── */
+body.dark-mode .tt-track{background:#0f1f38!important;border-color:#1c3050!important}
+body.dark-mode .tt-toggle input:checked ~ .tt-track{background:rgba(45,212,191,.1)!important;border-color:#1a8a7d!important}
+body.dark-mode .tt-thumb{background:#3d5470!important}
+body.dark-mode .tt-toggle input:checked ~ .tt-track .tt-thumb{background:#2dd4bf!important}
+
 /* ── Dark mode — Toolbar ── */
 body.dark-mode .toolbar{background:#0a1628!important;border-color:#1c3050!important}
 body.dark-mode .usb-btn{background:#0f1f38!important;border-color:#1c3050!important;color:#7a90ae!important}

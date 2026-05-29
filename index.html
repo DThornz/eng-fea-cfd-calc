@@ -153,6 +153,14 @@
     </div>
     <span class="usb-hint" id="usb-hint">m · kg · N · Pa</span>
   </div>
+  <div class="toolbar-group">
+    <span class="toolbar-label">Tooltips</span>
+    <label class="tt-toggle" title="Show or hide input field hints on hover">
+      <input type="checkbox" id="tt-chk" checked onchange="setTooltips(this.checked)">
+      <span class="tt-track"><span class="tt-thumb"></span></span>
+      <span class="tt-state" id="tt-state">On</span>
+    </label>
+  </div>
   <div class="toolbar-search">
     <svg class="search-ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
     <input type="search" id="card-search" placeholder="Search calculators…" oninput="searchCards(this.value)" autocomplete="off">
