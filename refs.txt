@@ -132,9 +132,12 @@ SECTION: PIPE & CHANNEL FLOW  [Internal Flow]  (#pipe-flow)
   Subtitle: Q = πR⁴ΔP / (8μL) — assumes Re < 2300
   Function(s): setTab, hpCalc
   References:
-    [1] Batchelor, G.K. (1967). An Introduction to Fluid Dynamics. Cambridge
-        University Press.
-    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+    [1] Hagen, G.H.L. (1839). Über die Bewegung des Wassers in engen zylindrischen
+        Röhren. Poggendorffs Annalen der Physik und Chemie, 46, 423–442.
+    [2] Poiseuille, J.L.M. (1840). Recherches expérimentales sur le mouvement des
+        liquides dans les tubes de très-petits diamètres. Comptes Rendus de
+        l'Académie des Sciences, 11, 961–967.
+    [3] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
 
   Card: Darcy-Weisbach Pressure Drop
   Subtitle: ΔP = f·(L/D)·(ρU²/2) with Moody friction factor
@@ -206,21 +209,19 @@ SECTION: PULSATILE FLOW & WALL METRICS  [Biomedical CFD]  (#pulsatile)
   Subtitle: Laminar: τ_w = 4μQ/(πR³) or from ΔP
   Function(s): setTab, wssCalc
   References:
-    [1] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
-        Flow in Arteries (6th ed.). Hodder Arnold.
-    [2] Womersley, J.R. (1955). Method for the calculation of velocity, rate of
-        flow and viscous drag in arteries when the pressure gradient is known.
-        Journal of Physiology, 127(3), 553–563.
+    [1] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+    [2] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+        (2nd ed.). Wiley.
 
   Card: Oscillatory Shear Index (OSI)
   Subtitle: Quantifies WSS directionality over a cardiac cycle
   Function(s): osiCalc
   References:
-    [1] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+    [1] Ku, D.N., Giddens, D.P., Zarins, C.K. & Glagov, S. (1985). Pulsatile flow
+        and atherosclerosis in the human carotid bifurcation. Arteriosclerosis,
+        5(3), 293–302.
+    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
         Flow in Arteries (6th ed.). Hodder Arnold.
-    [2] Womersley, J.R. (1955). Method for the calculation of velocity, rate of
-        flow and viscous drag in arteries when the pressure gradient is known.
-        Journal of Physiology, 127(3), 553–563.
 
 ================================================================================
 SECTION: POROUS MEDIA FLOW  [Biomedical CFD]  (#porous)
@@ -310,37 +311,41 @@ SECTION: GEOMETRY  [All Engineers]  (#geometry)
   Subtitle: Area, perimeter, centroid, second moment of area
   Function(s): setTab, gCircle, gRect, gTriangle, gEllipse, gAnnulus
   References:
-    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
-    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
-        National Bureau of Standards Applied Mathematics Series 55. U.S.
-        Government Printing Office.
+    [1] Beer, F.P. & Johnston, E.R. (2013). Mechanics of Materials (6th ed.).
+        McGraw-Hill.
+    [2] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+    [3] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
 
   Card: 3D Shape Properties
   Subtitle: Volume, surface area, centroid height
   Function(s): setTab, gSphere, gCyl, gCone, gBox, gTorus
   References:
-    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
-    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
-        National Bureau of Standards Applied Mathematics Series 55. U.S.
-        Government Printing Office.
+    [1] Beer, F.P. & Johnston, E.R. (2013). Mechanics of Materials (6th ed.).
+        McGraw-Hill.
+    [2] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+    [3] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
 
   Card: Triangle Solver Auto-solve — Law of Cosines / Sines
   Subtitle: Enter any 3 known values (side or angle) — all others computed
   Function(s): triSolve
   References:
-    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
-    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
-        National Bureau of Standards Applied Mathematics Series 55. U.S.
-        Government Printing Office.
+    [1] Beer, F.P. & Johnston, E.R. (2013). Mechanics of Materials (6th ed.).
+        McGraw-Hill.
+    [2] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+    [3] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
 
   Card: Coordinate Geometry
   Subtitle: Distance, midpoint, line equations, angle between lines, circle equation
   Function(s): setTab, coordPts, lineEq, circEq
   References:
-    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
-    [2] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
-        National Bureau of Standards Applied Mathematics Series 55. U.S.
-        Government Printing Office.
+    [1] Beer, F.P. & Johnston, E.R. (2013). Mechanics of Materials (6th ed.).
+        McGraw-Hill.
+    [2] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+        Stress and Strain (8th ed.). McGraw-Hill.
+    [3] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
 
 ================================================================================
 SECTION: ∫ CALCULUS TOOLS  [All Engineers]  (#calculus)
@@ -395,6 +400,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Pressure
   Subtitle: Base unit: Pa
@@ -402,6 +410,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Dynamic Viscosity
   Subtitle: Base unit: Pa·s
@@ -409,6 +420,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Kinematic Viscosity
   Subtitle: Base unit: m²/s
@@ -416,6 +430,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Velocity
   Subtitle: Base unit: m/s
@@ -423,6 +440,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Length
   Subtitle: Base unit: m
@@ -430,6 +450,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Force
   Subtitle: Base unit: N
@@ -437,6 +460,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Density
   Subtitle: Base unit: kg/m³
@@ -444,6 +470,9 @@ SECTION: ALL UNIT CONVERTERS  [Unit Converters]  (#units)
   References:
     [1] BIPM (2019). The International System of Units (SI) (9th ed.). Bureau
         International des Poids et Mesures.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
 ================================================================================
 SECTION: ️ HEAT TRANSFER  [MME / ChE / EE]  (#heat-transfer)
@@ -558,8 +587,10 @@ SECTION: MATERIAL & FRACTURE MECHANICS  [MME / Civil / Aerospace]  (#fracture)
   References:
     [1] Basquin, O.H. (1910). The exponential law of endurance tests. Proceedings
         of the American Society for Testing Materials, 10, 625–630.
-    [2] Goodman, J. (1899). Mechanics Applied to Engineering. Longmans, Green and
-        Co.
+    [2] Suresh, S. (1998). Fatigue of Materials (2nd ed.). Cambridge University
+        Press.
+    [3] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
+        Design (11th ed.). McGraw-Hill.
 
   Card: Torsion of Circular Shaft
   Subtitle: Shear stress, angle of twist, polar moment of inertia
@@ -669,8 +700,8 @@ SECTION: BIOMEDICAL ENGINEERING  [BME / Clinical]  (#biomedical)
   Subtitle: Exponential growth — doubling time or cell count
   Function(s): setTab, cdtCalc, cdtPredCalc
   References:
-    [1] Guyton, A.C. & Hall, J.E. (2015). Textbook of Medical Physiology (13th
-        ed.). Elsevier/Saunders.
+    [1] Freshney, R.I. (2016). Culture of Animal Cells: A Manual of Basic
+        Technique and Specialized Applications (7th ed.). Wiley-Blackwell.
 
   Card: One-Compartment PK Model
   Subtitle: IV bolus: concentration-time, AUC, half-life
@@ -822,7 +853,9 @@ SECTION: STATISTICS & DATA  [Statistics]  (#statistics)
   Subtitle: Binary prediction probability from log-odds
   Function(s): logfCalc
   References:
-    [1] Casella, G. & Berger, R.L. (2002). Statistical Inference (2nd ed.).
+    [1] Hosmer, D.W., Lemeshow, S. & Sturdivant, R.X. (2013). Applied Logistic
+        Regression (3rd ed.). Wiley.
+    [2] Casella, G. & Berger, R.L. (2002). Statistical Inference (2nd ed.).
         Duxbury Press.
 
   Card: Statistical Power
@@ -1319,10 +1352,13 @@ SECTION: LAB & RESEARCH  [Lab / Research]  (#lab-tools)
   Subtitle: Wallace rule and nearest-neighbor estimate
   Function(s): pcrCalc
   References:
-    [1] Wallace, R.B. et al. (1979). Hybridization of synthetic
+    [1] SantaLucia, J. Jr. (1998). A unified view of polymer, dumbbell, and
+        oligonucleotide DNA nearest-neighbor thermodynamics. Proceedings of the
+        National Academy of Sciences, 95(4), 1460–1465.
+    [2] Wallace, R.B. et al. (1979). Hybridization of synthetic
         oligodeoxyribonucleotides to phi chi 174 DNA: the effect of single base
         pair mismatch. Nucleic Acids Research, 6(11), 3543–3557.
-    [2] Rychlik, W., Spencer, W.J. & Rhoads, R.E. (1990). Optimization of the
+    [3] Rychlik, W., Spencer, W.J. & Rhoads, R.E. (1990). Optimization of the
         annealing temperature for DNA amplification in vitro. Nucleic Acids
         Research, 18(21), 6409–6412.
 
@@ -1345,8 +1381,9 @@ SECTION: LAB & RESEARCH  [Lab / Research]  (#lab-tools)
   Subtitle: Pixel dimensions and file size estimate
   Function(s): dpiCalc
   References:
-    [1] Skoog, D.A., West, D.M., Holler, F.J. & Crouch, S.R. (2014). Fundamentals
-        of Analytical Chemistry (9th ed.). Brooks/Cole.
+    [1] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+        System of Units (SI). NIST Special Publication 811. National Institute of
+        Standards and Technology.
 
   Card: Henderson-Hasselbalch
   Subtitle: Buffer pH from weak acid/conjugate base ratio

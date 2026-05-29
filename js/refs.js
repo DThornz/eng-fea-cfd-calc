@@ -34,6 +34,9 @@ const _R = {
   darcy_1856:    'Darcy, H. (1856). Les Fontaines Publiques de la Ville de Dijon. Dalmont, Paris.',
   kozeny_carman: 'Kozeny, J. (1927). Über kapillare Leitung des Wassers im Boden. Sitzungsberichte der Akademie der Wissenschaften in Wien, 136, 271–306. / Carman, P.C. (1937). Fluid flow through granular beds. Transactions of the Institution of Chemical Engineers, 15, 150–166.',
   forchheimer:   'Forchheimer, P. (1901). Wasserbewegung durch Boden. Zeitschrift des Vereines Deutscher Ingenieure, 45, 1781–1788.',
+  hagen_1839:    'Hagen, G.H.L. (1839). Über die Bewegung des Wassers in engen zylindrischen Röhren. Poggendorffs Annalen der Physik und Chemie, 46, 423–442.',
+  poiseuille_1840:'Poiseuille, J.L.M. (1840). Recherches expérimentales sur le mouvement des liquides dans les tubes de très-petits diamètres. Comptes Rendus de l\'Académie des Sciences, 11, 961–967.',
+  ku_osi_1985:   'Ku, D.N., Giddens, D.P., Zarins, C.K. & Glagov, S. (1985). Pulsatile flow and atherosclerosis in the human carotid bifurcation. Arteriosclerosis, 5(3), 293–302.',
   manning_1891:  'Manning, R. (1891). On the flow of water in open channels and pipes. Transactions of the Institution of Civil Engineers of Ireland, 20, 161–207.',
   blasius_1908:  'Blasius, H. (1908). Grenzschichten in Flüssigkeiten mit kleiner Reibung. Zeitschrift für Mathematik und Physik, 56, 1–37.',
 
@@ -46,6 +49,7 @@ const _R = {
   anderson_fracture:  'Anderson, T.L. (2017). Fracture Mechanics: Fundamentals and Applications (4th ed.). CRC Press.',
   basquin_1910:       'Basquin, O.H. (1910). The exponential law of endurance tests. Proceedings of the American Society for Testing Materials, 10, 625–630.',
   goodman_1899:       'Goodman, J. (1899). Mechanics Applied to Engineering. Longmans, Green and Co.',
+  suresh_fatigue:     'Suresh, S. (1998). Fatigue of Materials (2nd ed.). Cambridge University Press.',
   shigley:            'Budynas, R.G. & Nisbett, J.K. (2020). Shigley\'s Mechanical Engineering Design (11th ed.). McGraw-Hill.',
   hertz_1882:         'Hertz, H. (1882). Über die Berührung fester elastischer Körper. Journal für die reine und angewandte Mathematik, 92, 156–171.',
   johnson_contact:    'Johnson, K.L. (1985). Contact Mechanics. Cambridge University Press.',
@@ -143,11 +147,16 @@ const _R = {
   abbe_1873:     'Abbe, E. (1873). Beiträge zur Theorie des Mikroskops und der mikroskopischen Wahrnehmung. Archiv für Mikroskopische Anatomie, 9, 413–468.',
 
   /* ── Laboratory & research ──────────────────────────────── */
-  skoog:         'Skoog, D.A., West, D.M., Holler, F.J. & Crouch, S.R. (2014). Fundamentals of Analytical Chemistry (9th ed.). Brooks/Cole.',
-  wallace_pcr:   'Wallace, R.B. et al. (1979). Hybridization of synthetic oligodeoxyribonucleotides to phi chi 174 DNA: the effect of single base pair mismatch. Nucleic Acids Research, 6(11), 3543–3557.',
-  rychlik_pcr:   'Rychlik, W., Spencer, W.J. & Rhoads, R.E. (1990). Optimization of the annealing temperature for DNA amplification in vitro. Nucleic Acids Research, 18(21), 6409–6412.',
-  hirsch_2005:   'Hirsch, J.E. (2005). An index to quantify an individual\'s scientific research output. Proceedings of the National Academy of Sciences, 102(46), 16569–16572.',
-  williams_tem:  'Williams, D.B. & Carter, C.B. (2009). Transmission Electron Microscopy: A Textbook for Materials Science (2nd ed.). Springer.',
+  skoog:          'Skoog, D.A., West, D.M., Holler, F.J. & Crouch, S.R. (2014). Fundamentals of Analytical Chemistry (9th ed.). Brooks/Cole.',
+  wallace_pcr:    'Wallace, R.B. et al. (1979). Hybridization of synthetic oligodeoxyribonucleotides to phi chi 174 DNA: the effect of single base pair mismatch. Nucleic Acids Research, 6(11), 3543–3557.',
+  rychlik_pcr:    'Rychlik, W., Spencer, W.J. & Rhoads, R.E. (1990). Optimization of the annealing temperature for DNA amplification in vitro. Nucleic Acids Research, 18(21), 6409–6412.',
+  santalucia_1998:'SantaLucia, J. Jr. (1998). A unified view of polymer, dumbbell, and oligonucleotide DNA nearest-neighbor thermodynamics. Proceedings of the National Academy of Sciences, 95(4), 1460–1465.',
+  freshney:       'Freshney, R.I. (2016). Culture of Animal Cells: A Manual of Basic Technique and Specialized Applications (7th ed.). Wiley-Blackwell.',
+  hosmer:         'Hosmer, D.W., Lemeshow, S. & Sturdivant, R.X. (2013). Applied Logistic Regression (3rd ed.). Wiley.',
+  nist_sp811:     'Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International System of Units (SI). NIST Special Publication 811. National Institute of Standards and Technology.',
+  hirsch_2005:    'Hirsch, J.E. (2005). An index to quantify an individual\'s scientific research output. Proceedings of the National Academy of Sciences, 102(46), 16569–16572.',
+  williams_tem:   'Williams, D.B. & Carter, C.B. (2009). Transmission Electron Microscopy: A Textbook for Materials Science (2nd ed.). Springer.',
+  beer_johnston:  'Beer, F.P. & Johnston, E.R. (2013). Mechanics of Materials (6th ed.). McGraw-Hill.',
 };
 
 /* ================================================================
@@ -177,7 +186,7 @@ const CALC_REFS = {
   'leCalc':      [_R.schlichting, _R.white_fm],
   'boundary-layer': [_R.schlichting],
 
-  'hpCalc':      [_R.batchelor, _R.white_fm],
+  'hpCalc':      [_R.hagen_1839, _R.poiseuille_1840, _R.white_fm],
   'dwCalc':      [_R.moody_1944, _R.colebrook_1939],
   'dhCalc':      [_R.white_fm, _R.incropera],
   'pipe-flow':   [_R.white_fm, _R.batchelor],
@@ -188,8 +197,8 @@ const CALC_REFS = {
   'non-newt':    [_R.cho_kensey, _R.carreau_1972],
 
   'woCalc':      [_R.womersley_1955, _R.nichols_blood],
-  'wssCalc':     [_R.nichols_blood, _R.womersley_1955],
-  'osiCalc':     [_R.nichols_blood, _R.womersley_1955],
+  'wssCalc':     [_R.white_fm, _R.bird_transport],
+  'osiCalc':     [_R.ku_osi_1985, _R.nichols_blood],
   'pulsatile':   [_R.womersley_1955, _R.nichols_blood],
 
   'pmCalc':      [_R.darcy_1856, _R.kozeny_carman],
@@ -239,7 +248,7 @@ const CALC_REFS = {
 
   /* ── Advanced mechanics ────────────────────────────────── */
   'fracCalc':       [_R.irwin_1957, _R.anderson_fracture],
-  'fatCalc':        [_R.basquin_1910, _R.goodman_1899],
+  'fatCalc':        [_R.basquin_1910, _R.suresh_fatigue, _R.shigley],
   'torCalcSolid':   [_R.timoshenko_elast, _R.roark],
   'torCalcHollow':  [_R.timoshenko_elast, _R.roark],
   'pvCalcLame':     [_R.timoshenko_elast],
@@ -269,8 +278,8 @@ const CALC_REFS = {
   'pwvCalc':        [_R.korteweg_1878, _R.nichols_blood],
   'mmCalc':         [_R.michaelis_1913],
   'hillCalc':       [_R.hill_1910],
-  'cdtCalc':        [_R.guyton_hall],
-  'cdtPredCalc':    [_R.guyton_hall],
+  'cdtCalc':        [_R.freshney],
+  'cdtPredCalc':    [_R.freshney],
   'pkCalc':         [_R.rowland_pk],
   'doseCalc':       [_R.rowland_pk],
   'cfrCalc':        [_R.pijls_1996, _R.nichols_blood],
@@ -295,7 +304,7 @@ const CALC_REFS = {
   'civil':          [_R.manning_1891, _R.darcy_1856],
 
   /* ── Geometry ──────────────────────────────────────────── */
-  'geometry':       [_R.kreyszig, _R.abramowitz],
+  'geometry':       [_R.beer_johnston, _R.roark, _R.kreyszig],
 
   /* ── Calculus ──────────────────────────────────────────── */
   'numDiff':        [_R.press_nr, _R.abramowitz],
@@ -307,7 +316,7 @@ const CALC_REFS = {
   'calculus':       [_R.press_nr, _R.kreyszig],
 
   /* ── Unit converters ───────────────────────────────────── */
-  'units':          ['BIPM (2019). The International System of Units (SI) (9th ed.). Bureau International des Poids et Mesures.'],
+  'units':          ['BIPM (2019). The International System of Units (SI) (9th ed.). Bureau International des Poids et Mesures.', _R.nist_sp811],
 
   /* ── Mathematics & numerical ───────────────────────────── */
   'qdCalc':         [_R.abramowitz],
@@ -323,7 +332,7 @@ const CALC_REFS = {
   'cohCalc':        [_R.cohen_1988],
   'chiCalc':        [_R.pearson_1900, _R.fisher_1925],
   'rmseCalc':       [_R.willmott_2005],
-  'logfCalc':       [_R.casella],
+  'logfCalc':       [_R.hosmer, _R.casella],
   'powerCalc':      [_R.cohen_1988],
   'anovaCalc':      [_R.fisher_1925, _R.casella],
   'statistics':     [_R.casella, _R.fisher_1925],
@@ -404,10 +413,10 @@ const CALC_REFS = {
   /* ── Lab & research ─────────────────────────────────────── */
   'dilCalc':        [_R.skoog],
   'molCalc':        [_R.skoog],
-  'pcrCalc':        [_R.wallace_pcr, _R.rychlik_pcr],
+  'pcrCalc':        [_R.santalucia_1998, _R.wallace_pcr, _R.rychlik_pcr],
   'scbCalc':        [_R.williams_tem],
   'hidxCalc':       [_R.hirsch_2005],
-  'dpiCalc':        [_R.skoog],
+  'dpiCalc':        [_R.nist_sp811],
   'lab-tools':      [_R.skoog],
 };
 
