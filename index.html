@@ -3252,8 +3252,21 @@
 </main>
 </div><!-- /layout -->
 
-<script src="script.js"></script>
-<script src="calc-ext.js"></script>
+<!-- ── Core utilities (must load first) ── -->
+<script src="js/utils.js"></script>
+<!-- ── UI framework: converters, search, card controls, init ── -->
+<script src="js/ui.js"></script>
+<!-- ── Calculator modules (order does not matter) ── -->
+<script src="js/calcs-fluid.js"></script>
+<script src="js/calcs-solid.js"></script>
+<script src="js/calcs-heat.js"></script>
+<script src="js/calcs-compressible.js"></script>
+<script src="js/calcs-electrical.js"></script>
+<script src="js/calcs-biomedical.js"></script>
+<script src="js/calcs-materials.js"></script>
+<script src="js/calcs-math.js"></script>
+<script src="js/calcs-geo.js"></script>
+<script src="js/calcs-misc.js"></script>
 
 <button class="acc-btn" id="acc-btn" onclick="accToggle()" title="Display Settings" aria-label="Display Settings">⚙</button>
 <div class="acc-panel" id="acc-panel">
