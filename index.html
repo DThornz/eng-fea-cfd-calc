@@ -59,6 +59,7 @@
 
   <div class="nav-section-label">Thermodynamics</div>
   <button class="nav-item" onclick="scrollToSection('heat-transfer')"><span class="nav-icon">🌡️</span> Heat Transfer <span class="nav-count">4</span></button>
+  <button class="nav-item" onclick="scrollToSection('hvac')"><span class="nav-icon">❄️</span> Psychrometrics / HVAC <span class="nav-count">2</span></button>
 
   <div class="nav-section-label">Advanced Mechanics</div>
   <button class="nav-item" onclick="scrollToSection('fracture')"><span class="nav-icon">🔧</span> Fracture & Fatigue <span class="nav-count">4</span></button>
@@ -1457,6 +1458,335 @@
         <div class="input-row"><div class="input-label" title="Heat exchanger configuration. Counter-flow is most efficient for given NTU; parallel-flow is less efficient but limits exit temperature. Phase-change (condenser/boiler) use C_r=0.">HX type</div><div class="input-wrap"><select class="field" id="entu-type" onchange="entuCalc()" style="padding:6px 8px;font-size:.82em"><option value="counter">Counter-flow</option><option value="parallel">Parallel-flow</option><option value="shell1">Shell-and-tube (1 shell pass)</option></select><select class="unit-sel" style="visibility:hidden"></select></div></div>
         <button class="btn-calc" onclick="entuCalc()">Calculate</button>
         <div class="output" id="entu-out"><div class="output-header">Results</div><div class="output-body" id="entu-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     HVAC / PSYCHROMETRICS
+════════════════════════════════════════════════════════ -->
+<div class="section" id="hvac">
+  <div class="section-header">
+    <div class="section-tag">HVAC · Thermodynamics · Environmental</div>
+    <div class="section-title"><span class="ico">❄️</span> Psychrometrics &amp; Moist Air</div>
+    <div class="section-desc">Compute all thermodynamic properties of moist air from any two independent state variables plus barometric pressure. Based on ASHRAE Fundamentals equations. Outputs cover the full psychrometric chart in a single calculation.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid">
+
+    <!-- Card 1: Psychrometric State -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🌡️</div>
+        <div>
+          <div class="card-title">Psychrometric State Calculator</div>
+          <div class="card-subtitle">All moist-air properties from two independent inputs + pressure</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$h = 1.006\,T + W(2501 + 1.86\,T) \quad W = 0.62198\,\frac{P_w}{P - P_w}$$</div>
+
+        <!-- Pressure -->
+        <div class="input-group-label">Barometric Pressure</div>
+        <div class="input-row">
+          <div class="input-label" title="Absolute barometric pressure at the site. Standard sea level: 101.325 kPa. Use 89.9 kPa at ~1000 m altitude. Pressure affects the humidity ratio and specific volume — lower pressure means air holds more moisture per unit mass.">Pressure P</div>
+          <div class="input-wrap">
+            <input class="field" id="psy-P" type="number" value="101.325" step="0.1">
+            <select class="unit-sel" id="psy-P-u">
+              <option value="1">kPa</option>
+              <option value="101.325">atm</option>
+              <option value="6.89476">psi</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row" style="margin-bottom:4px">
+          <div class="input-label" title="Altitude above sea level. Converted to pressure using the ISA model: P = 101.325×(1−2.2577×10⁻⁵×z)^5.2559. Useful when you know the site elevation but not the barometric pressure.">Or altitude</div>
+          <div class="input-wrap">
+            <input class="field" id="psy-alt" type="number" placeholder="m (overrides P)" step="10">
+            <select class="unit-sel" id="psy-alt-u">
+              <option value="1">m</option>
+              <option value="0.3048">ft</option>
+            </select>
+          </div>
+        </div>
+        <button class="usb-btn" style="margin-bottom:12px;font-size:.72em" onclick="psyAltToP()">↳ Convert altitude → P</button>
+
+        <!-- Input mode tabs -->
+        <div class="input-group-label">Input Pair</div>
+        <div class="tabs" id="psy-tabs">
+          <button class="tab active" onclick="setTab('psy','rh')">DBT + RH</button>
+          <button class="tab" onclick="setTab('psy','wb')">DBT + WBT</button>
+          <button class="tab" onclick="setTab('psy','dp')">DBT + DPT</button>
+          <button class="tab" onclick="setTab('psy','w')">DBT + W</button>
+          <button class="tab" onclick="setTab('psy','enth')">DBT + h</button>
+        </div>
+
+        <!-- DBT + RH -->
+        <div id="psy-rh" class="tab-panel active">
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature — the ordinary air temperature measured by a thermometer shielded from radiation. The fundamental psychrometric axis. Range for HVAC comfort: 18–26 °C.">Dry-bulb temp DBT</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-rh-T" type="number" value="25" step="0.5">
+              <select class="unit-sel" id="psy-rh-T-u">
+                <option value="C">°C</option>
+                <option value="F">°F</option>
+                <option value="K">K</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Relative humidity — ratio of actual vapour pressure to saturation vapour pressure at the same temperature. 100% = saturated (fog/mist threshold). ASHRAE comfort: 30–60%. Values above 70% promote mould growth.">Relative humidity RH</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-rh-RH" type="number" value="50" min="0" max="100" step="1">
+              <select class="unit-sel" style="visibility:hidden"></select>
+              <span style="font-size:.8em;color:var(--muted)">%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DBT + WBT -->
+        <div id="psy-wb" class="tab-panel">
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature — ordinary thermometer reading, unaffected by moisture.">Dry-bulb temp DBT</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-wb-T" type="number" value="25" step="0.5">
+              <select class="unit-sel" id="psy-wb-T-u">
+                <option value="C">°C</option>
+                <option value="F">°F</option>
+                <option value="K">K</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Wet-bulb temperature — reading of a thermometer whose bulb is covered with a wet wick in a moving airstream. Must be ≤ DBT. Equal to DBT only at 100% RH. Used in cooling tower analysis and sling psychrometer measurements.">Wet-bulb temp WBT</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-wb-WB" type="number" value="18" step="0.5">
+              <select class="unit-sel" id="psy-wb-WB-u">
+                <option value="C">°C</option>
+                <option value="F">°F</option>
+                <option value="K">K</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- DBT + DPT -->
+        <div id="psy-dp" class="tab-panel">
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature — ordinary thermometer reading.">Dry-bulb temp DBT</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-dp-T" type="number" value="25" step="0.5">
+              <select class="unit-sel" id="psy-dp-T-u">
+                <option value="C">°C</option>
+                <option value="F">°F</option>
+                <option value="K">K</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Dew-point temperature — the temperature to which air must be cooled (at constant pressure and humidity ratio) for condensation to begin. Condensation will form on any surface at or below this temperature. Must be ≤ DBT.">Dew-point temp DPT</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-dp-DP" type="number" value="14" step="0.5">
+              <select class="unit-sel" id="psy-dp-DP-u">
+                <option value="C">°C</option>
+                <option value="F">°F</option>
+                <option value="K">K</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- DBT + W -->
+        <div id="psy-w" class="tab-panel">
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature — ordinary thermometer reading.">Dry-bulb temp DBT</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-w-T" type="number" value="25" step="0.5">
+              <select class="unit-sel" id="psy-w-T-u">
+                <option value="C">°C</option>
+                <option value="F">°F</option>
+                <option value="K">K</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Humidity ratio W — kilograms of water vapour per kilogram of dry air. Also called specific humidity or mixing ratio. Typical outdoor air: 5–20 g/kg. ASHRAE comfort: 4–12 g/kg. Enter as g/kg.">Humidity ratio W</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-w-W" type="number" value="10" step="0.1" min="0">
+              <select class="unit-sel" style="visibility:hidden"></select>
+              <span style="font-size:.8em;color:var(--muted)">g/kg</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DBT + h -->
+        <div id="psy-enth" class="tab-panel">
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature — ordinary thermometer reading.">Dry-bulb temp DBT</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-e-T" type="number" value="25" step="0.5">
+              <select class="unit-sel" id="psy-e-T-u">
+                <option value="C">°C</option>
+                <option value="F">°F</option>
+                <option value="K">K</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Specific enthalpy h — total energy content of the moist air (sensible + latent) per kg of dry air. Typical range: 20–100 kJ/kg. At 25°C, 50% RH: ~50 kJ/kg. Used for calculating heating and cooling coil loads.">Enthalpy h</div>
+            <div class="input-wrap">
+              <input class="field" id="psy-e-h" type="number" value="50" step="0.5">
+              <select class="unit-sel" style="visibility:hidden"></select>
+              <span style="font-size:.8em;color:var(--muted)">kJ/kg</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-calc" onclick="psyCalc()">Calculate Moist Air Properties</button>
+        <div class="output" id="psy-out">
+          <div class="output-header">Psychrometric State</div>
+          <div class="output-body" id="psy-out-body"></div>
+        </div>
+        <div id="psy-summary" style="display:none;margin-top:10px;padding:10px 14px;background:var(--teal-glow);border:1px solid rgba(45,212,191,.2);border-radius:7px;font-size:.8em;line-height:1.6;color:var(--muted)"></div>
+      </div>
+    </div>
+
+    <!-- Card 2: HVAC Process Analysis -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">⚙️</div>
+        <div>
+          <div class="card-title">HVAC Process Analysis</div>
+          <div class="card-subtitle">Sensible / latent loads for heating, cooling, humidification and air mixing</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="tabs" id="proc-tabs">
+          <button class="tab active" onclick="setTab('proc','heat')">Heating</button>
+          <button class="tab" onclick="setTab('proc','cool')">Cooling</button>
+          <button class="tab" onclick="setTab('proc','humid')">Humidify</button>
+          <button class="tab" onclick="setTab('proc','mix')">Mixing</button>
+        </div>
+
+        <!-- Heating -->
+        <div id="proc-heat" class="tab-panel active">
+          <div class="input-group-label">Initial Air State</div>
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature of the air entering the heating coil or furnace.">Inlet DBT T₁</div>
+            <div class="input-wrap"><input class="field" id="ph-T1" type="number" value="10" step="0.5"><select class="unit-sel" id="ph-T1-u"><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Relative humidity of the incoming air.">Inlet RH</div>
+            <div class="input-wrap"><input class="field" id="ph-RH1" type="number" value="80" min="0" max="100"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">%</span></div>
+          </div>
+          <div class="input-group-label">Process</div>
+          <div class="input-row">
+            <div class="input-label" title="Target supply air temperature after the heating coil. Humidity ratio stays constant during sensible heating.">Target DBT T₂</div>
+            <div class="input-wrap"><input class="field" id="ph-T2" type="number" value="22" step="0.5"><select class="unit-sel" id="ph-T2-u"><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Mass flow rate of dry air through the system. Typical VAV system: 0.1–10 kg/s per zone. 1 kg/s ≈ 3000 m³/h (standard density).">Air flow ṁ</div>
+            <div class="input-wrap"><input class="field" id="ph-mdot" type="number" value="1" step="0.1" min="0"><select class="unit-sel" id="ph-mdot-u"><option value="1">kg/s</option><option value="0.2778">kg/h ÷1000</option></select><span style="font-size:.8em;color:var(--muted)">kg/s</span></div>
+          </div>
+          <button class="btn-calc" onclick="psyHeatCalc()">Calculate Heating Load</button>
+          <div class="output" id="ph-out"><div class="output-header">Heating Result</div><div class="output-body" id="ph-out-body"></div></div>
+        </div>
+
+        <!-- Cooling -->
+        <div id="proc-cool" class="tab-panel">
+          <div class="input-group-label">Initial Air State</div>
+          <div class="input-row">
+            <div class="input-label" title="Hot/humid inlet air dry-bulb temperature entering the cooling coil.">Inlet DBT T₁</div>
+            <div class="input-wrap"><input class="field" id="pc-T1" type="number" value="35" step="0.5"><select class="unit-sel" id="pc-T1-u"><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Relative humidity of the inlet air. High RH means high latent load — more energy needed to remove moisture.">Inlet RH</div>
+            <div class="input-wrap"><input class="field" id="pc-RH1" type="number" value="70" min="0" max="100"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">%</span></div>
+          </div>
+          <div class="input-group-label">Process</div>
+          <div class="input-row">
+            <div class="input-label" title="Supply air temperature leaving the cooling coil. If below the inlet dew point, dehumidification also occurs — the coil must remove both sensible and latent heat.">Target DBT T₂</div>
+            <div class="input-wrap"><input class="field" id="pc-T2" type="number" value="14" step="0.5"><select class="unit-sel" id="pc-T2-u"><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Mass flow rate of dry air. Determines the total cooling load in kW.">Air flow ṁ</div>
+            <div class="input-wrap"><input class="field" id="pc-mdot" type="number" value="1" step="0.1" min="0"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">kg/s</span></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Barometric pressure. Affects dew point calculation.">Pressure P</div>
+            <div class="input-wrap"><input class="field" id="pc-P" type="number" value="101.325" step="0.1"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">kPa</span></div>
+          </div>
+          <button class="btn-calc" onclick="psyCoolCalc()">Calculate Cooling Load</button>
+          <div class="output" id="pc-out"><div class="output-header">Cooling Result</div><div class="output-body" id="pc-out-body"></div></div>
+        </div>
+
+        <!-- Humidification -->
+        <div id="proc-humid" class="tab-panel">
+          <div class="input-group-label">Initial Air State</div>
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature of the air to be humidified. During adiabatic (steam) humidification, DBT stays approximately constant.">DBT T</div>
+            <div class="input-wrap"><input class="field" id="pu-T" type="number" value="20" step="0.5"><select class="unit-sel" id="pu-T-u"><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Starting relative humidity of the air.">Initial RH₁</div>
+            <div class="input-wrap"><input class="field" id="pu-RH1" type="number" value="30" min="0" max="100"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">%</span></div>
+          </div>
+          <div class="input-group-label">Target</div>
+          <div class="input-row">
+            <div class="input-label" title="Target relative humidity. ASHRAE comfort: 30–60%. Higher values risk condensation on cold surfaces.">Target RH₂</div>
+            <div class="input-wrap"><input class="field" id="pu-RH2" type="number" value="50" min="0" max="100"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">%</span></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Mass flow rate of dry air to be treated. Determines water addition rate in kg/s.">Air flow ṁ</div>
+            <div class="input-wrap"><input class="field" id="pu-mdot" type="number" value="1" step="0.1" min="0"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">kg/s</span></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Barometric pressure at site.">Pressure P</div>
+            <div class="input-wrap"><input class="field" id="pu-P" type="number" value="101.325" step="0.1"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">kPa</span></div>
+          </div>
+          <button class="btn-calc" onclick="psyHumidCalc()">Calculate Humidification</button>
+          <div class="output" id="pu-out"><div class="output-header">Humidification Result</div><div class="output-body" id="pu-out-body"></div></div>
+        </div>
+
+        <!-- Air Mixing -->
+        <div id="proc-mix" class="tab-panel">
+          <div class="input-group-label">Stream 1</div>
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature of stream 1.">DBT T₁</div>
+            <div class="input-wrap"><input class="field" id="amx-T1" type="number" value="35" step="0.5"><select class="unit-sel" id="amx-T1-u"><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Relative humidity of stream 1.">RH₁</div>
+            <div class="input-wrap"><input class="field" id="amx-RH1" type="number" value="60" min="0" max="100"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">%</span></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Mass flow rate of dry air in stream 1.">Flow ṁ₁</div>
+            <div class="input-wrap"><input class="field" id="amx-m1" type="number" value="2" step="0.1" min="0"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">kg/s</span></div>
+          </div>
+          <div class="input-group-label">Stream 2</div>
+          <div class="input-row">
+            <div class="input-label" title="Dry-bulb temperature of stream 2.">DBT T₂</div>
+            <div class="input-wrap"><input class="field" id="amx-T2" type="number" value="15" step="0.5"><select class="unit-sel" id="amx-T2-u"><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Relative humidity of stream 2.">RH₂</div>
+            <div class="input-wrap"><input class="field" id="amx-RH2" type="number" value="90" min="0" max="100"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">%</span></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Mass flow rate of dry air in stream 2.">Flow ṁ₂</div>
+            <div class="input-wrap"><input class="field" id="amx-m2" type="number" value="1" step="0.1" min="0"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">kg/s</span></div>
+          </div>
+          <div class="input-row">
+            <div class="input-label" title="Barometric pressure. Needed to determine RH of mixed stream.">Pressure P</div>
+            <div class="input-wrap"><input class="field" id="amx-P" type="number" value="101.325" step="0.1"><select class="unit-sel" style="visibility:hidden"></select><span style="font-size:.8em;color:var(--muted)">kPa</span></div>
+          </div>
+          <button class="btn-calc" onclick="psyMixCalc()">Calculate Mixed State</button>
+          <div class="output" id="amx-out"><div class="output-header">Mixed Air State</div><div class="output-body" id="amx-out-body"></div></div>
+        </div>
+
       </div>
     </div>
 
