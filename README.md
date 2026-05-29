@@ -1,6 +1,6 @@
 # eng-fea-cfd-calc
 
-**Engineering FEA / CFD Calculator Hub** — 170+ client-side engineering calculators across 26 disciplines.
+**Engineering FEA / CFD Calculator Hub** — 172+ client-side engineering calculators across 27 disciplines.
 
 Part of the [A. Mirza academic tools portfolio](https://dthornz.github.io/website-cv-tools/).
 
@@ -24,6 +24,9 @@ Isotropic elastic constants (E, ν, G, K, λ) · Von Mises + Tresca + safety fac
 
 ### Thermodynamics
 Fourier conduction / thermal resistance · Forced convection — Nusselt / h · Stefan-Boltzmann radiation · Fin efficiency · Biot number · Fourier number · Lumped capacitance transient · LMTD heat exchanger · ε-NTU method
+
+### Psychrometrics & HVAC
+Full moist-air state from any two independent inputs (DBT+RH · DBT+WBT · DBT+DPT · DBT+W · DBT+h) · Altitude → pressure (ISA model) · Outputs: WBT, DPT, RH, W, Pv, Psat, h, v, ρ, degree of saturation, moisture content · ASHRAE comfort zone assessment · Human-readable air-state summary · HVAC process analysis: sensible heating (Q, outlet RH) · cooling with dehumidification (total/sensible/latent load, SHR, condensate rate) · humidification (water flow rate, latent load) · two-stream air mixing (mixed state, condensation risk)
 
 ### Advanced Mechanics
 Stress intensity factor — Mode I · Fatigue life — Basquin S-N · Torsion of circular shaft · Thick-wall pressure vessel & column buckling
