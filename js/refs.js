@@ -43,10 +43,13 @@ const _R = {
   poiseuille_1840:'Poiseuille, J.L.M. (1840). Recherches expérimentales sur le mouvement des liquides dans les tubes de très-petits diamètres. Comptes Rendus de l\'Académie des Sciences, 11, 961–967.',
   ku_osi_1985:   'Ku, D.N., Giddens, D.P., Zarins, C.K. & Glagov, S. (1985). Pulsatile flow and atherosclerosis in the human carotid bifurcation. Arteriosclerosis, 5(3), 293–302.',
   manning_1891:  'Manning, R. (1891). On the flow of water in open channels and pipes. Transactions of the Institution of Civil Engineers of Ireland, 20, 161–207.',
+  chow_1959:     'Chow, V.T. (1959). Open Channel Hydraulics. McGraw-Hill.',
   blasius_1908:  'Blasius, H. (1908). Grenzschichten in Flüssigkeiten mit kleiner Reibung. Zeitschrift für Mathematik und Physik, 56, 1–37.',
   ferziger_peric:'Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods for Fluid Dynamics (4th ed.). Springer.',
   karassik:      'Karassik, I.J., Messina, J.P., Cooper, P. & Heald, C.C. (2008). Pump Handbook (4th ed.). McGraw-Hill.',
   brennen_cav:   'Brennen, C.E. (2014). Cavitation and Bubble Dynamics. Cambridge University Press.',
+  launder_spalding: 'Launder, B.E. & Spalding, D.B. (1974). The numerical computation of turbulent flows. Computer Methods in Applied Mechanics and Engineering, 3(2), 269–289.',
+  russo_basse:   'Russo, G. & Basse, N.T. (2016). Scaling of turbulence intensity for low-speed flow in smooth pipes. Flow Measurement and Instrumentation, 52, 101–114.',
   ostwald:       'Ostwald, W. (1925). Ueber die Geschwindigkeitsfunktion der Viskosität disperser Systeme. Kolloid-Zeitschrift, 36(3), 157–167. / de Waele, A. (1923). Viscometry and plastometry. Oil and Colour Chemists\' Association Journal, 6, 33–69.',
 
   /* ── Solid mechanics / structural ──────────────────────── */
@@ -102,7 +105,7 @@ const _R = {
 
   /* ── Biomedical engineering ─────────────────────────────── */
   guyton_hall:   'Guyton, A.C. & Hall, J.E. (2015). Textbook of Medical Physiology (13th ed.). Elsevier/Saunders.',
-  nernst_1888:   'Nernst, W. (1888). Zur Kinetik der in Lösung befindlichen Körper. Zeitschrift für Physikalische Chemie, 2(9), 613–637.',
+  nernst_1889:   'Nernst, W. (1889). Die elektromotorische Wirksamkeit der Ionen. Zeitschrift für Physikalische Chemie, 4, 129–181.',
   goldman_1943:  'Goldman, D.E. (1943). Potential, impedance, and rectification in membranes. Journal of General Physiology, 27(1), 37–60.',
   hodgkin_katz:  'Hodgkin, A.L. & Katz, B. (1949). The effect of sodium ions on the electrical activity of the giant axon of the squid. Journal of Physiology, 108(1), 37–77.',
   frank_1899:    'Frank, O. (1899). Die Grundform des arteriellen Pulses. Zeitschrift für Biologie, 37, 483–526.',
@@ -195,7 +198,7 @@ const CALC_REFS = {
 
   /* ── Fluid mechanics ───────────────────────────────────── */
   'ypCalc':      [_R.schlichting, _R.white_fm, _R.pope_turb],
-  'ysCalc':      [_R.menter_sst, _R.wilcox, _R.pope_turb],
+  'ysCalc':      [_R.launder_spalding, _R.wilcox, _R.pope_turb],
   'yplus':       [_R.schlichting, _R.white_fm],     // section fallback
 
   'reCalc':      [_R.reynolds_1883, _R.white_fm],
@@ -206,7 +209,7 @@ const CALC_REFS = {
   'reynolds':    [_R.white_fm, _R.schlichting],
 
   'tbCalc':      [_R.wilcox, _R.menter_sst],         // ω formula from SST — Menter is correct here
-  'tiCalc':      [_R.pope_turb, _R.wilcox, _R.ferziger_peric],   // I = 0.16·Re^(-1/8) empirical pipe-flow correlation
+  'tiCalc':      [_R.russo_basse, _R.pope_turb, _R.wilcox],       // I = 0.16·Re^(-1/8) empirical pipe-flow correlation
   'lsCalc':      [_R.wilcox, _R.versteeg, _R.ferziger_peric],
   'turbulence':  [_R.wilcox, _R.versteeg, _R.ferziger_peric],
 
@@ -300,7 +303,7 @@ const CALC_REFS = {
   /* ── Biomedical engineering ────────────────────────────── */
   'coCalc':         [_R.guyton_hall, _R.nichols_blood],
   'poisCalc':       [_R.batchelor, _R.white_fm],
-  'nernstCalc':     [_R.nernst_1888, _R.guyton_hall],
+  'nernstCalc':     [_R.nernst_1889, _R.guyton_hall],
   'goldmanCalc':    [_R.goldman_1943, _R.hodgkin_katz],
   'wkCalc':         [_R.frank_1899, _R.westerhof_2009, _R.nichols_blood],
   'pwvCalc':        [_R.moens_1878, _R.korteweg_1878, _R.nichols_blood],
@@ -326,10 +329,10 @@ const CALC_REFS = {
   'control-sys':    [_R.franklin],
 
   /* ── Civil / geotechnical ──────────────────────────────── */
-  'mannRect':       [_R.manning_1891],
-  'mannCirc':       [_R.manning_1891],
+  'mannRect':       [_R.manning_1891, _R.chow_1959],
+  'mannCirc':       [_R.manning_1891, _R.chow_1959],
   'darcyCalc':      [_R.darcy_1856],
-  'civil':          [_R.manning_1891, _R.darcy_1856],
+  'civil':          [_R.manning_1891, _R.chow_1959, _R.darcy_1856],
 
   /* ── Geometry ──────────────────────────────────────────── */
   'geometry':       [_R.bronshtein, _R.kreyszig],
@@ -337,7 +340,7 @@ const CALC_REFS = {
   /* ── Calculus ──────────────────────────────────────────── */
   'numDiff':        [_R.burden_faires, _R.press_nr],
   'numInt':         [_R.burden_faires, _R.press_nr],
-  'taylorCalc':     [_R.abramowitz, _R.press_nr],
+  'taylorCalc':     [_R.abramowitz, _R.kreyszig, _R.press_nr],
   'vcGrad':         [_R.kreyszig, _R.arfken],
   'vcDiv':          [_R.kreyszig, _R.arfken],
   'vcCurl':         [_R.kreyszig, _R.arfken],

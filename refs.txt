@@ -24,8 +24,9 @@ SECTION: Y+ ESTIMATION  [Mesh Sizing]  (#yplus)
   Subtitle: Wall-distance scaling when pressure gradient dominates over friction
   Function(s): ysCalc
   References:
-    [1] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
-        engineering applications. AIAA Journal, 32(8), 1598–1605.
+    [1] Launder, B.E. & Spalding, D.B. (1974). The numerical computation of
+        turbulent flows. Computer Methods in Applied Mechanics and Engineering,
+        3(2), 269–289.
     [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
     [3] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
@@ -90,11 +91,12 @@ SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#t
   Subtitle: From Reynolds number (pipe / free-stream)
   Function(s): tiCalc
   References:
-    [1] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
-    [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+    [1] Russo, G. & Basse, N.T. (2016). Scaling of turbulence intensity for
+        low-speed flow in smooth pipes. Flow Measurement and Instrumentation,
+        52, 101–114.
+    [2] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
+    [3] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
-    [3] Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods
-        for Fluid Dynamics (4th ed.). Springer.
 
   Card: Turbulent Length Scale Estimate
   Subtitle: From geometry type and characteristic dimension
@@ -398,7 +400,8 @@ SECTION: ∫ CALCULUS TOOLS  [All Engineers]  (#calculus)
     [1] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
         National Bureau of Standards Applied Mathematics Series 55. U.S.
         Government Printing Office.
-    [2] Press, W.H., Teukolsky, S.A., Vetterling, W.T. & Flannery, B.P. (2007).
+    [2] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+    [3] Press, W.H., Teukolsky, S.A., Vetterling, W.T. & Flannery, B.P. (2007).
         Numerical Recipes: The Art of Scientific Computing (3rd ed.). Cambridge
         University Press.
 
@@ -692,8 +695,8 @@ SECTION: BIOMEDICAL ENGINEERING  [BME / Clinical]  (#biomedical)
   Subtitle: Equilibrium potential, Goldman membrane voltage
   Function(s): setTab, nernstCalc, goldmanCalc
   References:
-    [1] Nernst, W. (1888). Zur Kinetik der in Lösung befindlichen Körper.
-        Zeitschrift für Physikalische Chemie, 2(9), 613–637.
+    [1] Nernst, W. (1889). Die elektromotorische Wirksamkeit der Ionen.
+        Zeitschrift für Physikalische Chemie, 4, 129–181.
     [2] Guyton, A.C. & Hall, J.E. (2015). Textbook of Medical Physiology (13th
         ed.). Elsevier/Saunders.
 
@@ -795,6 +798,7 @@ SECTION: ️ CIVIL & GEOTECHNICAL  [Civil / Environmental]  (#civil)
     [1] Manning, R. (1891). On the flow of water in open channels and pipes.
         Transactions of the Institution of Civil Engineers of Ireland, 20,
         161–207.
+    [2] Chow, V.T. (1959). Open Channel Hydraulics. McGraw-Hill.
 
   Card: Darcy's Law — Groundwater Seepage
   Subtitle: Flow through porous media and soil permeability
