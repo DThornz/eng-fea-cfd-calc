@@ -151,7 +151,7 @@ const _R = {
 
   /* ── Laboratory & research ──────────────────────────────── */
   skoog:          'Skoog, D.A., West, D.M., Holler, F.J. & Crouch, S.R. (2014). Fundamentals of Analytical Chemistry (9th ed.). Brooks/Cole.',
-  wallace_pcr:    'Wallace, R.B. et al. (1979). Hybridization of synthetic oligodeoxyribonucleotides to phi chi 174 DNA: the effect of single base pair mismatch. Nucleic Acids Research, 6(11), 3543–3557.',
+  wallace_pcr:    'Wallace, R.B. et al. (1979). Hybridization of synthetic oligodeoxyribonucleotides to φX174 DNA: the effect of single base pair mismatch. Nucleic Acids Research, 6(11), 3543–3557.',
   rychlik_pcr:    'Rychlik, W., Spencer, W.J. & Rhoads, R.E. (1990). Optimization of the annealing temperature for DNA amplification in vitro. Nucleic Acids Research, 18(21), 6409–6412.',
   santalucia_1998:'SantaLucia, J. Jr. (1998). A unified view of polymer, dumbbell, and oligonucleotide DNA nearest-neighbor thermodynamics. Proceedings of the National Academy of Sciences, 95(4), 1460–1465.',
   freshney:       'Freshney, R.I. (2016). Culture of Animal Cells: A Manual of Basic Technique and Specialized Applications (7th ed.). Wiley-Blackwell.',
@@ -159,6 +159,9 @@ const _R = {
   nist_sp811:     'Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International System of Units (SI). NIST Special Publication 811. National Institute of Standards and Technology.',
   gonzalez_dip:   'Gonzalez, R.C. & Woods, R.E. (2018). Digital Image Processing (4th ed.). Pearson.',
   hibbeler_dyn:   'Hibbeler, R.C. (2016). Engineering Mechanics: Dynamics (14th ed.). Pearson.',
+  iso_281:        'ISO 281:2007. Rolling bearings — Dynamic load ratings and rating life. International Organization for Standardization.',
+  asme_bpvc_viii: 'American Society of Mechanical Engineers (2023). ASME Boiler and Pressure Vessel Code, Section VIII: Rules for Construction of Pressure Vessels. ASME.',
+  merrill_1969:   'Merrill, E.W. (1969). Rheology of blood. Physiological Reviews, 49(4), 863–888.',
   hirsch_2005:    'Hirsch, J.E. (2005). An index to quantify an individual\'s scientific research output. Proceedings of the National Academy of Sciences, 102(46), 16569–16572.',
   williams_tem:   'Williams, D.B. & Carter, C.B. (2009). Transmission Electron Microscopy: A Textbook for Materials Science (2nd ed.). Springer.',
   beer_johnston:  'Beer, F.P. & Johnston, E.R. (2013). Mechanics of Materials (6th ed.). McGraw-Hill.',
@@ -198,7 +201,7 @@ const CALC_REFS = {
 
   'plCalc':      [_R.cho_kensey, _R.carreau_1972],
   'caCalc':      [_R.cho_kensey, _R.carreau_1972, _R.johnston_2004],
-  'nvCalc':      [_R.cho_kensey, _R.bird_transport],
+  'nvCalc':      [_R.merrill_1969, _R.cho_kensey, _R.bird_transport],
   'non-newt':    [_R.cho_kensey, _R.carreau_1972],
 
   'woCalc':      [_R.womersley_1955, _R.nichols_blood],
@@ -215,7 +218,7 @@ const CALC_REFS = {
   'elastic':     [_R.timoshenko_elast],
 
   'vmCalc':      [_R.von_mises_1913, _R.timoshenko_elast],
-  'pvCalc':      [_R.timoshenko_elast, _R.roark],
+  'pvCalc':      [_R.timoshenko_elast, _R.asme_bpvc_viii, _R.roark],
   'stress':      [_R.timoshenko_elast],
 
   'bmCalc':      [_R.roark, _R.timoshenko_elast],
@@ -256,7 +259,7 @@ const CALC_REFS = {
   'fatCalc':        [_R.basquin_1910, _R.suresh_fatigue, _R.shigley],
   'torCalcSolid':   [_R.timoshenko_elast, _R.roark],
   'torCalcHollow':  [_R.timoshenko_elast, _R.roark],
-  'pvCalcLame':     [_R.timoshenko_elast],
+  'pvCalcLame':     [_R.timoshenko_elast, _R.asme_bpvc_viii],
   'buckleCalc':     [_R.timoshenko_stab, _R.roark],
   'fracture':       [_R.anderson_fracture, _R.timoshenko_elast],
 
@@ -352,7 +355,7 @@ const CALC_REFS = {
 
   /* ── Mechanical design ──────────────────────────────────── */
   'grCalc':         [_R.shigley],
-  'brgCalc':        [_R.shigley],
+  'brgCalc':        [_R.iso_281, _R.shigley],
   'boltCalc':       [_R.shigley],
   'sprCalc':        [_R.shigley],
   'htzCalc':        [_R.hertz_1882, _R.johnson_contact],

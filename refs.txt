@@ -188,10 +188,12 @@ SECTION: NON-NEWTONIAN VISCOSITY MODELS  [Biomedical CFD]  (#non-newt)
   Subtitle: Identifies regions where non-Newtonian models are needed
   Function(s): nvCalc
   References:
-    [1] Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of
+    [1] Merrill, E.W. (1969). Rheology of blood. Physiological Reviews, 49(4),
+        863–888.
+    [2] Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of
         blood on flows in a diseased arterial vessel. Biorheology, 28(3–4),
         241–262.
-    [2] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+    [3] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
         (2nd ed.). Wiley.
 
 ================================================================================
@@ -281,7 +283,10 @@ SECTION: ⚡ STRESS ANALYSIS & FAILURE CRITERIA  [Structural FEA]  (#stress)
   References:
     [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
         McGraw-Hill.
-    [2] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+    [2] American Society of Mechanical Engineers (2023). ASME Boiler and Pressure
+        Vessel Code, Section VIII: Rules for Construction of Pressure Vessels.
+        ASME.
+    [3] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
         Stress and Strain (8th ed.). McGraw-Hill.
 
 ================================================================================
@@ -610,6 +615,9 @@ SECTION: MATERIAL & FRACTURE MECHANICS  [MME / Civil / Aerospace]  (#fracture)
   References:
     [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
         McGraw-Hill.
+    [2] American Society of Mechanical Engineers (2023). ASME Boiler and Pressure
+        Vessel Code, Section VIII: Rules for Construction of Pressure Vessels.
+        ASME.
 
 ================================================================================
 SECTION: ⚡ ELECTRICAL ENGINEERING  [EE / BME]  (#electrical)
@@ -943,7 +951,9 @@ SECTION: ⚙ MECHANICAL DESIGN  [Mechanical Design]  (#mech-design)
   Subtitle: ISO 281 basic rating life
   Function(s): brgCalc
   References:
-    [1] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
+    [1] ISO 281:2007. Rolling bearings — Dynamic load ratings and rating life.
+        International Organization for Standardization.
+    [2] Budynas, R.G. & Nisbett, J.K. (2020). Shigley's Mechanical Engineering
         Design (11th ed.). McGraw-Hill.
 
   Card: Bolt Preload
@@ -1366,8 +1376,8 @@ SECTION: LAB & RESEARCH  [Lab / Research]  (#lab-tools)
         oligonucleotide DNA nearest-neighbor thermodynamics. Proceedings of the
         National Academy of Sciences, 95(4), 1460–1465.
     [2] Wallace, R.B. et al. (1979). Hybridization of synthetic
-        oligodeoxyribonucleotides to phi chi 174 DNA: the effect of single base
-        pair mismatch. Nucleic Acids Research, 6(11), 3543–3557.
+        oligodeoxyribonucleotides to φX174 DNA: the effect of single base pair
+        mismatch. Nucleic Acids Research, 6(11), 3543–3557.
     [3] Rychlik, W., Spencer, W.J. & Rhoads, R.E. (1990). Optimization of the
         annealing temperature for DNA amplification in vitro. Nucleic Acids
         Research, 18(21), 6409–6412.
