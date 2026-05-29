@@ -19,6 +19,8 @@ const _R = {
   schlichting:   'Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.). Springer-Verlag.',
   menter_sst:    'Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for engineering applications. AIAA Journal, 32(8), 1598–1605.',
   wilcox:        'Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW Industries.',
+  pope_turb:     'Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.',
+  versteeg:      'Versteeg, H.K. & Malalasekera, W. (2007). An Introduction to Computational Fluid Dynamics: The Finite Volume Method (2nd ed.). Pearson Education.',
   white_fm:      'White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.',
   batchelor:     'Batchelor, G.K. (1967). An Introduction to Fluid Dynamics. Cambridge University Press.',
   reynolds_1883: 'Reynolds, O. (1883). An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous. Philosophical Transactions of the Royal Society of London, 174, 935–982.',
@@ -61,6 +63,9 @@ const _R = {
   larson_miller: 'Larson, F.R. & Miller, J. (1952). A time-temperature relationship for rupture and creep stresses. Transactions of the ASME, 74, 765–771.',
   norton_creep:  'Norton, F.H. (1929). Creep of Steel at High Temperatures. McGraw-Hill.',
   voigt_reuss:   'Voigt, W. (1889). Über die Beziehung zwischen den beiden Elasticitätsconstanten isotroper Körper. Annalen der Physik, 274(12), 573–587. / Reuss, A. (1929). Berechnung der Fließgrenze von Mischkristallen. Zeitschrift für angewandte Mathematik und Mechanik, 9(1), 49–58.',
+  jones_comp:    'Jones, R.M. (1999). Mechanics of Composite Materials (2nd ed.). Taylor & Francis.',
+  shah_london:   'Shah, R.K. & London, A.L. (1978). Laminar Flow Forced Convection in Ducts. Supplement 1 to Advances in Heat Transfer. Academic Press.',
+  golub_vl:      'Golub, G.H. & Van Loan, C.F. (2013). Matrix Computations (4th ed.). Johns Hopkins University Press.',
   timoshenko_bimetal: 'Timoshenko, S.P. (1925). Analysis of bi-metal thermostats. Journal of the Optical Society of America, 11(3), 233–255.',
 
   /* ── Thermodynamics / heat transfer ─────────────────────── */
@@ -85,6 +90,7 @@ const _R = {
   /* ── Electrical engineering ─────────────────────────────── */
   ohm_1827:      'Ohm, G.S. (1827). Die galvanische Kette, mathematisch bearbeitet. T.H. Riemann, Berlin.',
   nilsson:       'Nilsson, J.W. & Riedel, S.A. (2014). Electric Circuits (10th ed.). Pearson.',
+  sedra_smith:   'Sedra, A.S. & Smith, K.C. (2014). Microelectronic Circuits (7th ed.). Oxford University Press.',
   horowitz:      'Horowitz, P. & Hill, W. (2015). The Art of Electronics (3rd ed.). Cambridge University Press.',
 
   /* ── Biomedical engineering ─────────────────────────────── */
@@ -94,7 +100,9 @@ const _R = {
   hodgkin_katz:  'Hodgkin, A.L. & Katz, B. (1949). The effect of sodium ions on the electrical activity of the giant axon of the squid. Journal of Physiology, 108(1), 37–77.',
   frank_1899:    'Frank, O. (1899). Die Grundform des arteriellen Pulses. Zeitschrift für Biologie, 37, 483–526.',
   westerhof_2009:'Westerhof, N., Lankhaar, J.W. & Westerhof, B.E. (2009). The arterial Windkessel. Medical & Biological Engineering & Computing, 47(2), 131–141.',
+  moens_1878:    'Moens, A.I. (1878). Die Pulskurve. E.J. Brill, Leiden.',
   korteweg_1878: 'Korteweg, D.J. (1878). Ueber die Fortpflanzungsgeschwindigkeit des Schalles in elastischen Röhren. Annalen der Physik und Chemie, Neue Folge, 5, 525–542.',
+  stokes_1851:   'Stokes, G.G. (1851). On the effect of the internal friction of fluids on the motion of pendulums. Transactions of the Cambridge Philosophical Society, 9, 8–106.',
   michaelis_1913:'Michaelis, L. & Menten, M.L. (1913). Die Kinetik der Invertinwirkung. Biochemische Zeitschrift, 49, 333–369.',
   hill_1910:     'Hill, A.V. (1910). The possible effects of the aggregation of the molecules of haemoglobin on its dissociation curves. Journal of Physiology, 40(Supplement), iv–vii.',
   rowland_pk:    'Rowland, M. & Tozer, T.N. (2011). Clinical Pharmacokinetics and Pharmacodynamics (4th ed.). Lippincott Williams & Wilkins.',
@@ -174,9 +182,9 @@ const _R = {
 const CALC_REFS = {
 
   /* ── Fluid mechanics ───────────────────────────────────── */
-  'ypCalc':      [_R.schlichting, _R.menter_sst],
-  'ysCalc':      [_R.schlichting, _R.menter_sst],
-  'yplus':       [_R.schlichting, _R.menter_sst],   // section fallback
+  'ypCalc':      [_R.schlichting, _R.white_fm, _R.pope_turb],
+  'ysCalc':      [_R.schlichting, _R.white_fm],
+  'yplus':       [_R.schlichting, _R.white_fm],     // section fallback
 
   'reCalc':      [_R.reynolds_1883, _R.white_fm],
   'maCalc':      [_R.anderson_comp, _R.shapiro],
@@ -185,10 +193,10 @@ const CALC_REFS = {
   'stCalc':      [_R.white_fm],
   'reynolds':    [_R.white_fm, _R.schlichting],
 
-  'tbCalc':      [_R.wilcox, _R.menter_sst],
-  'tiCalc':      [_R.wilcox, _R.menter_sst],
-  'lsCalc':      [_R.wilcox, _R.menter_sst],
-  'turbulence':  [_R.wilcox, _R.menter_sst],
+  'tbCalc':      [_R.wilcox, _R.menter_sst],         // ω formula from SST — Menter is correct here
+  'tiCalc':      [_R.wilcox, _R.versteeg],           // I = 0.16·Re^(-1/8) from CFD practice, not Menter
+  'lsCalc':      [_R.wilcox, _R.versteeg],
+  'turbulence':  [_R.wilcox, _R.versteeg],
 
   'blCalc':      [_R.schlichting, _R.blasius_1908],
   'leCalc':      [_R.schlichting, _R.white_fm],
@@ -196,7 +204,7 @@ const CALC_REFS = {
 
   'hpCalc':      [_R.hagen_1839, _R.poiseuille_1840, _R.white_fm],
   'dwCalc':      [_R.moody_1944, _R.colebrook_1939],
-  'dhCalc':      [_R.white_fm, _R.incropera],
+  'dhCalc':      [_R.white_fm, _R.shah_london, _R.incropera],
   'pipe-flow':   [_R.white_fm, _R.batchelor],
 
   'plCalc':      [_R.cho_kensey, _R.carreau_1972],
@@ -272,10 +280,10 @@ const CALC_REFS = {
   'dbCalc':         [_R.nilsson],
   'dbmCalc':        [_R.nilsson],
   'dbmRevCalc':     [_R.nilsson],
-  'opampInv':       [_R.horowitz],
-  'opampNoninv':    [_R.horowitz],
-  'opampDiff':      [_R.horowitz],
-  'electrical':     [_R.nilsson],
+  'opampInv':       [_R.sedra_smith, _R.horowitz],
+  'opampNoninv':    [_R.sedra_smith, _R.horowitz],
+  'opampDiff':      [_R.sedra_smith, _R.horowitz],
+  'electrical':     [_R.nilsson, _R.sedra_smith],
 
   /* ── Biomedical engineering ────────────────────────────── */
   'coCalc':         [_R.guyton_hall, _R.nichols_blood],
@@ -283,7 +291,7 @@ const CALC_REFS = {
   'nernstCalc':     [_R.nernst_1888, _R.guyton_hall],
   'goldmanCalc':    [_R.goldman_1943, _R.hodgkin_katz],
   'wkCalc':         [_R.frank_1899, _R.westerhof_2009, _R.nichols_blood],
-  'pwvCalc':        [_R.korteweg_1878, _R.nichols_blood],
+  'pwvCalc':        [_R.moens_1878, _R.korteweg_1878, _R.nichols_blood],
   'mmCalc':         [_R.michaelis_1913],
   'hillCalc':       [_R.hill_1910],
   'cdtCalc':        [_R.freshney],
@@ -329,7 +337,7 @@ const CALC_REFS = {
   /* ── Mathematics & numerical ───────────────────────────── */
   'qdCalc':         [_R.abramowitz],
   'sleCalc':        [_R.strang],
-  'matCalc':        [_R.strang],
+  'matCalc':        [_R.strang, _R.golub_vl],
   'errpCalc':       [_R.taylor_error],
   'mcuCalc':        [_R.metropolis],
   'math-tools':     [_R.abramowitz, _R.press_nr],
@@ -363,7 +371,7 @@ const CALC_REFS = {
   'mech-design':    [_R.shigley],
 
   /* ── Materials engineering ──────────────────────────────── */
-  'romCalc':        [_R.voigt_reuss],
+  'romCalc':        [_R.voigt_reuss, _R.jones_comp],
   'temCalc':        [_R.timoshenko_bimetal, _R.timoshenko_elast],
   'crpCalc':        [_R.norton_creep],
   'lmpCalc':        [_R.larson_miller],
@@ -380,7 +388,7 @@ const CALC_REFS = {
   'rayCalc':        [_R.shapiro],
   'pmpCalc':        [_R.white_fm],
   'cavCalc':        [_R.white_fm],
-  'stkCalc':        [_R.batchelor],
+  'stkCalc':        [_R.stokes_1851, _R.batchelor],
   'dim3Calc':       [_R.white_fm],
   'compressible-flow': [_R.shapiro, _R.anderson_comp],
 

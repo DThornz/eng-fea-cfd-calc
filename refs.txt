@@ -17,8 +17,8 @@ SECTION: Y+ ESTIMATION  [Mesh Sizing]  (#yplus)
   References:
     [1] Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.).
         Springer-Verlag.
-    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
-        engineering applications. AIAA Journal, 32(8), 1598–1605.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+    [3] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
 
   Card: Y* — Pressure-Velocity Wall Unit
   Subtitle: Wall-distance scaling when pressure gradient dominates over friction
@@ -26,8 +26,7 @@ SECTION: Y+ ESTIMATION  [Mesh Sizing]  (#yplus)
   References:
     [1] Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.).
         Springer-Verlag.
-    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
-        engineering applications. AIAA Journal, 32(8), 1598–1605.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
 
 ================================================================================
 SECTION: DIMENSIONLESS NUMBERS  [Flow Classification]  (#reynolds)
@@ -91,8 +90,8 @@ SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#t
   References:
     [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
-    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
-        engineering applications. AIAA Journal, 32(8), 1598–1605.
+    [2] Versteeg, H.K. & Malalasekera, W. (2007). An Introduction to Computational
+        Fluid Dynamics: The Finite Volume Method (2nd ed.). Pearson Education.
 
   Card: Turbulent Length Scale Estimate
   Subtitle: From geometry type and characteristic dimension
@@ -100,8 +99,8 @@ SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#t
   References:
     [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
-    [2] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
-        engineering applications. AIAA Journal, 32(8), 1598–1605.
+    [2] Versteeg, H.K. & Malalasekera, W. (2007). An Introduction to Computational
+        Fluid Dynamics: The Finite Volume Method (2nd ed.). Pearson Education.
 
 ================================================================================
 SECTION: BOUNDARY LAYER THICKNESS  [Boundary Layer]  (#boundary-layer)
@@ -154,7 +153,9 @@ SECTION: PIPE & CHANNEL FLOW  [Internal Flow]  (#pipe-flow)
   Function(s): setTab, dhCalc
   References:
     [1] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
-    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+    [2] Shah, R.K. & London, A.L. (1978). Laminar Flow Forced Convection in Ducts.
+        Supplement 1 to Advances in Heat Transfer. Academic Press.
+    [3] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
         Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
 
 ================================================================================
@@ -629,6 +630,8 @@ SECTION: ⚡ ELECTRICAL ENGINEERING  [EE / BME]  (#electrical)
   References:
     [1] Nilsson, J.W. & Riedel, S.A. (2014). Electric Circuits (10th ed.).
         Pearson.
+    [2] Sedra, A.S. & Smith, K.C. (2014). Microelectronic Circuits (7th ed.).
+        Oxford University Press.
 
   Card: RC / RL / RLC Circuits
   Subtitle: Time constants, cutoff frequency, resonance, Q-factor
@@ -648,7 +651,9 @@ SECTION: ⚡ ELECTRICAL ENGINEERING  [EE / BME]  (#electrical)
   Subtitle: Inverting, non-inverting, difference, integrator, differentiator
   Function(s): setTab, opampInv, opampNoninv, opampDiff
   References:
-    [1] Horowitz, P. & Hill, W. (2015). The Art of Electronics (3rd ed.).
+    [1] Sedra, A.S. & Smith, K.C. (2014). Microelectronic Circuits (7th ed.).
+        Oxford University Press.
+    [2] Horowitz, P. & Hill, W. (2015). The Art of Electronics (3rd ed.).
         Cambridge University Press.
 
 ================================================================================
@@ -688,10 +693,11 @@ SECTION: BIOMEDICAL ENGINEERING  [BME / Clinical]  (#biomedical)
   Subtitle: Moens-Korteweg — arterial stiffness index
   Function(s): pwvCalc
   References:
-    [1] Korteweg, D.J. (1878). Ueber die Fortpflanzungsgeschwindigkeit des
+    [1] Moens, A.I. (1878). Die Pulskurve. E.J. Brill, Leiden.
+    [2] Korteweg, D.J. (1878). Ueber die Fortpflanzungsgeschwindigkeit des
         Schalles in elastischen Röhren. Annalen der Physik und Chemie, Neue Folge,
         5, 525–542.
-    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+    [3] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
         Flow in Arteries (6th ed.). Hodder Arnold.
 
   Card: Michaelis-Menten Kinetics
@@ -803,6 +809,8 @@ SECTION: ∑ MATH & NUMERICAL  [Mathematics]  (#math-tools)
   References:
     [1] Strang, G. (2016). Introduction to Linear Algebra (5th ed.).
         Wellesley-Cambridge Press.
+    [2] Golub, G.H. & Van Loan, C.F. (2013). Matrix Computations (4th ed.). Johns
+        Hopkins University Press.
 
   Card: Error Propagation
   Subtitle: Analytical uncertainty for basic operations
@@ -998,6 +1006,8 @@ SECTION: MATERIALS ENGINEERING  [Materials]  (#materials-eng)
         573–587. / Reuss, A. (1929). Berechnung der Fließgrenze von
         Mischkristallen. Zeitschrift für angewandte Mathematik und Mechanik, 9(1),
         49–58.
+    [2] Jones, R.M. (1999). Mechanics of Composite Materials (2nd ed.). Taylor &
+        Francis.
 
   Card: Thermal Mismatch Stress
   Subtitle: Stress from CTE difference (constrained bimaterial)
@@ -1089,7 +1099,10 @@ SECTION: COMPRESSIBLE FLOW  [Compressible / CFD]  (#compressible-flow)
   Subtitle: Terminal velocity of a sphere in viscous fluid
   Function(s): stkCalc
   References:
-    [1] Batchelor, G.K. (1967). An Introduction to Fluid Dynamics. Cambridge
+    [1] Stokes, G.G. (1851). On the effect of the internal friction of fluids on
+        the motion of pendulums. Transactions of the Cambridge Philosophical
+        Society, 9, 8–106.
+    [2] Batchelor, G.K. (1967). An Introduction to Fluid Dynamics. Cambridge
         University Press.
 
   Card: Droplet & Surface Tension Numbers
@@ -1134,7 +1147,7 @@ SECTION: ⬡ MASS TRANSFER  [Mass Transfer]  (#mass-transfer)
         Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
 
   Card: Sherwood Number
-  Subtitle: Convective mass transfer coefficient (Dittus-Boelter)
+  Subtitle: Convective mass-transfer coefficient from Re and Sc (Chilton-Colburn analogy)
   Function(s): shCalc
   References:
     [1] Chilton, T.H. & Colburn, A.P. (1934). Mass transfer (absorption)
@@ -1203,7 +1216,7 @@ SECTION: ⚗ CHEMICAL ENGINEERING  [Chemical Eng.]  (#chem-eng)
         Chemical Engineering Thermodynamics (7th ed.). McGraw-Hill.
 
   Card: Antoine Vapor Pressure
-  Subtitle: Clausius-Clapeyron approximation for common solvents
+  Subtitle: Empirical vapor-pressure correlation for common fluids
   Function(s): antCalc
   References:
     [1] Antoine, C. (1888). Tensions des vapeurs; nouvelle relation entre les
