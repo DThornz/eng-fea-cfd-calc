@@ -24,9 +24,11 @@ SECTION: Y+ ESTIMATION  [Mesh Sizing]  (#yplus)
   Subtitle: Wall-distance scaling when pressure gradient dominates over friction
   Function(s): ysCalc
   References:
-    [1] Schlichting, H. & Gersten, K. (2000). Boundary-Layer Theory (8th ed.).
-        Springer-Verlag.
-    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
+    [1] Launder, B.E. & Spalding, D.B. (1974). The numerical computation of
+        turbulent flows. Computer Methods in Applied Mechanics and Engineering,
+        3(2), 269–289.
+    [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+        Industries.
     [3] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
 
 ================================================================================
@@ -89,10 +91,11 @@ SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#t
   Subtitle: From Reynolds number (pipe / free-stream)
   Function(s): tiCalc
   References:
-    [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+    [1] Russo, G. & Basse, N.T. (2016). Scaling of turbulence intensity for
+        low-speed flow in smooth pipes. Flow Measurement and Instrumentation,
+        52, 101–114.
+    [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
-    [2] Versteeg, H.K. & Malalasekera, W. (2007). An Introduction to Computational
-        Fluid Dynamics: The Finite Volume Method (2nd ed.). Pearson Education.
     [3] Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods
         for Fluid Dynamics (4th ed.). Springer.
 
@@ -100,10 +103,10 @@ SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#t
   Subtitle: From geometry type and characteristic dimension
   Function(s): lsCalc
   References:
-    [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+    [1] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
+    [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
-    [2] Versteeg, H.K. & Malalasekera, W. (2007). An Introduction to Computational
-        Fluid Dynamics: The Finite Volume Method (2nd ed.). Pearson Education.
     [3] Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods
         for Fluid Dynamics (4th ed.). Springer.
 
@@ -171,10 +174,14 @@ SECTION: NON-NEWTONIAN VISCOSITY MODELS  [Biomedical CFD]  (#non-newt)
   Subtitle: μ_eff = K·γ̇ⁿ⁻¹
   Function(s): plCalc
   References:
-    [1] Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of
+    [1] Ostwald, W. (1925). Ueber die Geschwindigkeitsfunktion der Viskosität
+        disperser Systeme. Kolloid-Zeitschrift, 36(3), 157–167. / de Waele, A.
+        (1923). Viscometry and plastometry. Oil and Colour Chemists' Association
+        Journal, 6, 33–69.
+    [2] Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of
         blood on flows in a diseased arterial vessel. Biorheology, 28(3–4),
         241–262.
-    [2] Carreau, P.J. (1972). Rheological equations from molecular network
+    [3] Carreau, P.J. (1972). Rheological equations from molecular network
         theories. Transactions of the Society of Rheology, 16(1), 99–127.
 
   Card: Carreau Model (Blood Default)
@@ -231,7 +238,10 @@ SECTION: PULSATILE FLOW & WALL METRICS  [Biomedical CFD]  (#pulsatile)
     [1] Ku, D.N., Giddens, D.P., Zarins, C.K. & Glagov, S. (1985). Pulsatile flow
         and atherosclerosis in the human carotid bifurcation. Arteriosclerosis,
         5(3), 293–302.
-    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+    [2] He, X. & Ku, D.N. (1996). Pulsatile flow in the human left coronary artery
+        bifurcation: Average conditions. Journal of Biomechanical Engineering,
+        118(1), 74–82.
+    [3] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
         Flow in Arteries (6th ed.). Hodder Arnold.
 
 ================================================================================
@@ -287,12 +297,15 @@ SECTION: ⚡ STRESS ANALYSIS & FAILURE CRITERIA  [Structural FEA]  (#stress)
   Subtitle: Lamé equations for thick/thin-walled vessels
   Function(s): pvCalc
   References:
-    [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+    [1] Lamé, G. & Clapeyron, B.P.E. (1833). Mémoire sur l'équilibre intérieur
+        des corps solides homogènes. Mémoires présentés par divers savants à
+        l'Académie Royale des Sciences, 4, 465–562.
+    [2] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
         McGraw-Hill.
-    [2] American Society of Mechanical Engineers (2023). ASME Boiler and Pressure
+    [3] American Society of Mechanical Engineers (2023). ASME Boiler and Pressure
         Vessel Code, Section VIII: Rules for Construction of Pressure Vessels.
         ASME.
-    [3] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
+    [4] Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark's Formulas for
         Stress and Strain (8th ed.). McGraw-Hill.
 
 ================================================================================
@@ -366,9 +379,6 @@ SECTION: ∫ CALCULUS TOOLS  [All Engineers]  (#calculus)
     [2] Press, W.H., Teukolsky, S.A., Vetterling, W.T. & Flannery, B.P. (2007).
         Numerical Recipes: The Art of Scientific Computing (3rd ed.). Cambridge
         University Press.
-    [3] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
-        National Bureau of Standards Applied Mathematics Series 55. U.S.
-        Government Printing Office.
 
   Card: Numerical Integration
   Subtitle: Trapezoidal rule, Simpson's 1/3, Simpson's 3/8 — up to 9 equally-spaced points
@@ -379,9 +389,6 @@ SECTION: ∫ CALCULUS TOOLS  [All Engineers]  (#calculus)
     [2] Press, W.H., Teukolsky, S.A., Vetterling, W.T. & Flannery, B.P. (2007).
         Numerical Recipes: The Art of Scientific Computing (3rd ed.). Cambridge
         University Press.
-    [3] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
-        National Bureau of Standards Applied Mathematics Series 55. U.S.
-        Government Printing Office.
 
   Card: Taylor Series Approximation
   Subtitle: sin, cos, eˣ, ln(1+x), (1+x)ⁿ — value and error estimate
@@ -617,9 +624,12 @@ SECTION: MATERIAL & FRACTURE MECHANICS  [MME / Civil / Aerospace]  (#fracture)
   Subtitle: Lamé hoop/radial stress; Euler critical load
   Function(s): setTab, pvCalcLame, buckleCalc
   References:
-    [1] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
+    [1] Lamé, G. & Clapeyron, B.P.E. (1833). Mémoire sur l'équilibre intérieur
+        des corps solides homogènes. Mémoires présentés par divers savants à
+        l'Académie Royale des Sciences, 4, 465–562.
+    [2] Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.).
         McGraw-Hill.
-    [2] American Society of Mechanical Engineers (2023). ASME Boiler and Pressure
+    [3] American Society of Mechanical Engineers (2023). ASME Boiler and Pressure
         Vessel Code, Section VIII: Rules for Construction of Pressure Vessels.
         ASME.
 
@@ -766,7 +776,7 @@ SECTION: ️ DYNAMICS & CONTROL  [MME / EE / Aerospace]  (#dynamics)
   References:
     [1] Hibbeler, R.C. (2016). Engineering Mechanics: Dynamics (14th ed.).
         Pearson.
-    [2] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+    [2] White, F.M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill Education.
 
 ================================================================================
 SECTION: ️ CIVIL & GEOTECHNICAL  [Civil / Environmental]  (#civil)
@@ -826,8 +836,8 @@ SECTION: ∑ MATH & NUMERICAL  [Mathematics]  (#math-tools)
   Subtitle: Propagation via random sampling
   Function(s): mcuCalc
   References:
-    [1] Metropolis, N. & Ulam, S. (1949). The Monte Carlo method. Journal of the
-        American Statistical Association, 44(247), 335–341.
+    [1] Rubinstein, R.Y. & Kroese, D.P. (2016). Simulation and the Monte Carlo
+        Method (3rd ed.). Wiley.
     [2] Fishman, G.S. (1996). Monte Carlo: Concepts, Algorithms, and Applications.
         Springer.
 

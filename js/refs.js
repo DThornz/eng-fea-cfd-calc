@@ -46,10 +46,14 @@ const _R = {
   ferziger_peric:'Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods for Fluid Dynamics (4th ed.). Springer.',
   karassik:      'Karassik, I.J., Messina, J.P., Cooper, P. & Heald, C.C. (2008). Pump Handbook (4th ed.). McGraw-Hill.',
   brennen_cav:   'Brennen, C.E. (2014). Cavitation and Bubble Dynamics. Cambridge University Press.',
+  launder_spalding: 'Launder, B.E. & Spalding, D.B. (1974). The numerical computation of turbulent flows. Computer Methods in Applied Mechanics and Engineering, 3(2), 269–289.',
+  russo_basse:   'Russo, G. & Basse, N.T. (2016). Scaling of turbulence intensity for low-speed flow in smooth pipes. Flow Measurement and Instrumentation, 52, 101–114.',
+  ostwald:       'Ostwald, W. (1925). Ueber die Geschwindigkeitsfunktion der Viskosität disperser Systeme. Kolloid-Zeitschrift, 36(3), 157–167. / de Waele, A. (1923). Viscometry and plastometry. Oil and Colour Chemists\' Association Journal, 6, 33–69.',
 
   /* ── Solid mechanics / structural ──────────────────────── */
   timoshenko_elast:   'Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.). McGraw-Hill.',
   timoshenko_stab:    'Timoshenko, S.P. & Gere, J.M. (1961). Theory of Elastic Stability (2nd ed.). McGraw-Hill.',
+  lame_1833:          'Lamé, G. & Clapeyron, B.P.E. (1833). Mémoire sur l\'équilibre intérieur des corps solides homogènes. Mémoires présentés par divers savants à l\'Académie Royale des Sciences, 4, 465–562.',
   roark:              'Young, W.C., Budynas, R.G. & Sadegh, A.M. (2011). Roark\'s Formulas for Stress and Strain (8th ed.). McGraw-Hill.',
   von_mises_1913:     'von Mises, R. (1913). Mechanik der festen Körper im plastisch-deformablen Zustand. Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse, 1913, 582–592.',
   irwin_1957:         'Irwin, G.R. (1957). Analysis of stresses and strains near the end of a crack traversing a plate. Journal of Applied Mechanics, 24, 361–364.',
@@ -110,6 +114,7 @@ const _R = {
   hill_1910:     'Hill, A.V. (1910). The possible effects of the aggregation of the molecules of haemoglobin on its dissociation curves. Journal of Physiology, 40(Supplement), iv–vii.',
   rowland_pk:    'Rowland, M. & Tozer, T.N. (2011). Clinical Pharmacokinetics and Pharmacodynamics (4th ed.). Lippincott Williams & Wilkins.',
   pijls_1996:    'Pijls, N.H.J., De Bruyne, B. et al. (1996). Measurement of fractional flow reserve to assess the functional severity of coronary-artery stenoses. New England Journal of Medicine, 334(26), 1703–1708.',
+  he_ku_1996:    'He, X. & Ku, D.N. (1996). Pulsatile flow in the human left coronary artery bifurcation: Average conditions. Journal of Biomechanical Engineering, 118(1), 74–82.',
   henderson_1908:'Henderson, L.J. (1908). Concerning the relationship between the strength of acids and their capacity to preserve neutrality. American Journal of Physiology, 21(2), 173–179.',
   hasselbalch:   'Hasselbalch, K.A. (1917). Die Berechnung der Wasserstoffzahl des Blutes aus der freien und gebundenen Kohlensäure desselben. Biochemische Zeitschrift, 78, 112–144.',
 
@@ -125,7 +130,6 @@ const _R = {
   abramowitz:    'Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions. National Bureau of Standards Applied Mathematics Series 55. U.S. Government Printing Office.',
   strang:        'Strang, G. (2016). Introduction to Linear Algebra (5th ed.). Wellesley-Cambridge Press.',
   taylor_error:  'Taylor, J.R. (1997). An Introduction to Error Analysis (2nd ed.). University Science Books.',
-  metropolis:    'Metropolis, N. & Ulam, S. (1949). The Monte Carlo method. Journal of the American Statistical Association, 44(247), 335–341.',
   kreyszig:      'Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.',
   bronshtein:    'Bronshtein, I.N., Semendyayev, K.A., Musiol, G. & Mühlig, H. (2015). Handbook of Mathematics (5th ed.). Springer.',
   burden_faires: 'Burden, R.L. & Faires, J.D. (2011). Numerical Analysis (9th ed.). Brooks/Cole.',
@@ -139,6 +143,7 @@ const _R = {
   willmott_2005: 'Willmott, C.J. & Matsuura, K. (2005). Advantages of the mean absolute error (MAE) over the root mean square error (RMSE) in assessing average model performance. Climate Research, 30(1), 79–82.',
   james_isl:     'James, G., Witten, D., Hastie, T. & Tibshirani, R. (2013). An Introduction to Statistical Learning. Springer.',
   fishman:       'Fishman, G.S. (1996). Monte Carlo: Concepts, Algorithms, and Applications. Springer.',
+  rubinstein_kroese: 'Rubinstein, R.Y. & Kroese, D.P. (2016). Simulation and the Monte Carlo Method (3rd ed.). Wiley.',
 
   /* ── Signal processing ──────────────────────────────────── */
   cooley_tukey:  'Cooley, J.W. & Tukey, J.W. (1965). An algorithm for the machine calculation of complex Fourier series. Mathematics of Computation, 19(90), 297–301.',
@@ -190,7 +195,7 @@ const CALC_REFS = {
 
   /* ── Fluid mechanics ───────────────────────────────────── */
   'ypCalc':      [_R.schlichting, _R.white_fm, _R.pope_turb],
-  'ysCalc':      [_R.schlichting, _R.white_fm, _R.pope_turb],
+  'ysCalc':      [_R.launder_spalding, _R.wilcox, _R.pope_turb],
   'yplus':       [_R.schlichting, _R.white_fm],     // section fallback
 
   'reCalc':      [_R.reynolds_1883, _R.white_fm],
@@ -201,9 +206,9 @@ const CALC_REFS = {
   'reynolds':    [_R.white_fm, _R.schlichting],
 
   'tbCalc':      [_R.wilcox, _R.menter_sst],         // ω formula from SST — Menter is correct here
-  'tiCalc':      [_R.wilcox, _R.versteeg, _R.ferziger_peric], // I = 0.16·Re^(-1/8) from CFD practice, not Menter
-  'lsCalc':      [_R.wilcox, _R.versteeg, _R.ferziger_peric],
-  'turbulence':  [_R.wilcox, _R.versteeg],
+  'tiCalc':      [_R.russo_basse, _R.wilcox, _R.ferziger_peric], // I = 0.16·Re^(-1/8) empirical pipe-flow correlation
+  'lsCalc':      [_R.menter_sst, _R.wilcox, _R.ferziger_peric],
+  'turbulence':  [_R.wilcox, _R.versteeg, _R.ferziger_peric],
 
   'blCalc':      [_R.schlichting, _R.blasius_1908],
   'leCalc':      [_R.schlichting, _R.white_fm],
@@ -214,14 +219,14 @@ const CALC_REFS = {
   'dhCalc':      [_R.white_fm, _R.shah_london, _R.incropera],
   'pipe-flow':   [_R.white_fm, _R.batchelor],
 
-  'plCalc':      [_R.cho_kensey, _R.carreau_1972],
+  'plCalc':      [_R.ostwald, _R.cho_kensey, _R.carreau_1972],
   'caCalc':      [_R.cho_kensey, _R.carreau_1972, _R.johnston_2004],
   'nvCalc':      [_R.merrill_1969, _R.cho_kensey, _R.bird_transport],
   'non-newt':    [_R.cho_kensey, _R.carreau_1972],
 
   'woCalc':      [_R.womersley_1955, _R.nichols_blood],
   'wssCalc':     [_R.white_fm, _R.bird_transport],
-  'osiCalc':     [_R.ku_osi_1985, _R.nichols_blood],
+  'osiCalc':     [_R.ku_osi_1985, _R.he_ku_1996, _R.nichols_blood],
   'pulsatile':   [_R.womersley_1955, _R.nichols_blood],
 
   'pmCalc':      [_R.darcy_1856, _R.kozeny_carman],
@@ -233,7 +238,7 @@ const CALC_REFS = {
   'elastic':     [_R.timoshenko_elast],
 
   'vmCalc':      [_R.von_mises_1913, _R.timoshenko_elast],
-  'pvCalc':      [_R.timoshenko_elast, _R.asme_bpvc_viii, _R.roark],
+  'pvCalc':      [_R.lame_1833, _R.timoshenko_elast, _R.asme_bpvc_viii, _R.roark],
   'stress':      [_R.timoshenko_elast],
 
   'bmCalc':      [_R.roark, _R.timoshenko_elast],
@@ -274,7 +279,7 @@ const CALC_REFS = {
   'fatCalc':        [_R.basquin_1910, _R.suresh_fatigue, _R.shigley],
   'torCalcSolid':   [_R.timoshenko_elast, _R.roark],
   'torCalcHollow':  [_R.timoshenko_elast, _R.roark],
-  'pvCalcLame':     [_R.timoshenko_elast, _R.asme_bpvc_viii],
+  'pvCalcLame':     [_R.lame_1833, _R.timoshenko_elast, _R.asme_bpvc_viii],
   'buckleCalc':     [_R.timoshenko_stab, _R.roark],
   'fracture':       [_R.anderson_fracture, _R.timoshenko_elast],
 
@@ -311,7 +316,7 @@ const CALC_REFS = {
 
   /* ── Dynamics & control ────────────────────────────────── */
   'msdCalc':        [_R.thomson_vib],
-  'projCalc':       [_R.hibbeler_dyn, _R.kreyszig],
+  'projCalc':       [_R.hibbeler_dyn, _R.white_fm],
   'dynamics':       [_R.thomson_vib],
 
   'pidCalc':        [_R.ziegler_1942, _R.tyreus_1992],
@@ -330,8 +335,8 @@ const CALC_REFS = {
   'geometry':       [_R.bronshtein, _R.kreyszig],
 
   /* ── Calculus ──────────────────────────────────────────── */
-  'numDiff':        [_R.burden_faires, _R.press_nr, _R.abramowitz],
-  'numInt':         [_R.burden_faires, _R.press_nr, _R.abramowitz],
+  'numDiff':        [_R.burden_faires, _R.press_nr],
+  'numInt':         [_R.burden_faires, _R.press_nr],
   'taylorCalc':     [_R.abramowitz, _R.press_nr],
   'vcGrad':         [_R.kreyszig, _R.arfken],
   'vcDiv':          [_R.kreyszig, _R.arfken],
@@ -346,7 +351,7 @@ const CALC_REFS = {
   'sleCalc':        [_R.strang],
   'matCalc':        [_R.strang, _R.golub_vl],
   'errpCalc':       [_R.taylor_error],
-  'mcuCalc':        [_R.metropolis, _R.fishman],
+  'mcuCalc':        [_R.rubinstein_kroese, _R.fishman],
   'math-tools':     [_R.abramowitz, _R.press_nr],
 
   /* ── Statistics ─────────────────────────────────────────── */
