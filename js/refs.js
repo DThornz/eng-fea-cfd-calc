@@ -30,6 +30,8 @@ const _R = {
   nichols_blood: 'Nichols, W.W., O\'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald\'s Blood Flow in Arteries (6th ed.). Hodder Arnold.',
   cho_kensey:    'Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of blood on flows in a diseased arterial vessel. Biorheology, 28(3–4), 241–262.',
   carreau_1972:  'Carreau, P.J. (1972). Rheological equations from molecular network theories. Transactions of the Society of Rheology, 16(1), 99–127.',
+  johnston_2004: 'Johnston, B.M., Johnston, P.R., Corney, S. & Kilpatrick, D. (2004). Non-Newtonian blood flow in human right coronary arteries: Steady state simulations. Journal of Biomechanics, 37(5), 709–720.',
+  chilton_1934:  'Chilton, T.H. & Colburn, A.P. (1934). Mass transfer (absorption) coefficients prediction from data on heat transfer and fluid friction. Industrial & Engineering Chemistry, 26(11), 1183–1187.',
   ergun_1952:    'Ergun, S. (1952). Fluid flow through packed columns. Chemical Engineering Progress, 48(2), 89–94.',
   darcy_1856:    'Darcy, H. (1856). Les Fontaines Publiques de la Ville de Dijon. Dalmont, Paris.',
   kozeny_carman: 'Kozeny, J. (1927). Über kapillare Leitung des Wassers im Boden. Sitzungsberichte der Akademie der Wissenschaften in Wien, 136, 271–306. / Carman, P.C. (1937). Fluid flow through granular beds. Transactions of the Institution of Chemical Engineers, 15, 150–166.',
@@ -90,6 +92,7 @@ const _R = {
   nernst_1888:   'Nernst, W. (1888). Zur Kinetik der in Lösung befindlichen Körper. Zeitschrift für Physikalische Chemie, 2(9), 613–637.',
   goldman_1943:  'Goldman, D.E. (1943). Potential, impedance, and rectification in membranes. Journal of General Physiology, 27(1), 37–60.',
   hodgkin_katz:  'Hodgkin, A.L. & Katz, B. (1949). The effect of sodium ions on the electrical activity of the giant axon of the squid. Journal of Physiology, 108(1), 37–77.',
+  frank_1899:    'Frank, O. (1899). Die Grundform des arteriellen Pulses. Zeitschrift für Biologie, 37, 483–526.',
   westerhof_2009:'Westerhof, N., Lankhaar, J.W. & Westerhof, B.E. (2009). The arterial Windkessel. Medical & Biological Engineering & Computing, 47(2), 131–141.',
   korteweg_1878: 'Korteweg, D.J. (1878). Ueber die Fortpflanzungsgeschwindigkeit des Schalles in elastischen Röhren. Annalen der Physik und Chemie, Neue Folge, 5, 525–542.',
   michaelis_1913:'Michaelis, L. & Menten, M.L. (1913). Die Kinetik der Invertinwirkung. Biochemische Zeitschrift, 49, 333–369.',
@@ -154,6 +157,8 @@ const _R = {
   freshney:       'Freshney, R.I. (2016). Culture of Animal Cells: A Manual of Basic Technique and Specialized Applications (7th ed.). Wiley-Blackwell.',
   hosmer:         'Hosmer, D.W., Lemeshow, S. & Sturdivant, R.X. (2013). Applied Logistic Regression (3rd ed.). Wiley.',
   nist_sp811:     'Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International System of Units (SI). NIST Special Publication 811. National Institute of Standards and Technology.',
+  gonzalez_dip:   'Gonzalez, R.C. & Woods, R.E. (2018). Digital Image Processing (4th ed.). Pearson.',
+  hibbeler_dyn:   'Hibbeler, R.C. (2016). Engineering Mechanics: Dynamics (14th ed.). Pearson.',
   hirsch_2005:    'Hirsch, J.E. (2005). An index to quantify an individual\'s scientific research output. Proceedings of the National Academy of Sciences, 102(46), 16569–16572.',
   williams_tem:   'Williams, D.B. & Carter, C.B. (2009). Transmission Electron Microscopy: A Textbook for Materials Science (2nd ed.). Springer.',
   beer_johnston:  'Beer, F.P. & Johnston, E.R. (2013). Mechanics of Materials (6th ed.). McGraw-Hill.',
@@ -192,7 +197,7 @@ const CALC_REFS = {
   'pipe-flow':   [_R.white_fm, _R.batchelor],
 
   'plCalc':      [_R.cho_kensey, _R.carreau_1972],
-  'caCalc':      [_R.cho_kensey, _R.carreau_1972],
+  'caCalc':      [_R.cho_kensey, _R.carreau_1972, _R.johnston_2004],
   'nvCalc':      [_R.cho_kensey, _R.bird_transport],
   'non-newt':    [_R.cho_kensey, _R.carreau_1972],
 
@@ -234,7 +239,7 @@ const CALC_REFS = {
   'entuCalc':       [_R.incropera],
   'fickCalc':       [_R.fick_1855, _R.bird_transport],
   'scCalc':         [_R.bird_transport, _R.incropera],
-  'shCalc':         [_R.incropera, _R.bird_transport],
+  'shCalc':         [_R.chilton_1934, _R.incropera, _R.bird_transport],
   'mflxCalc':       [_R.bird_transport, _R.incropera],
   'heat-transfer':  [_R.incropera],
 
@@ -274,7 +279,7 @@ const CALC_REFS = {
   'poisCalc':       [_R.batchelor, _R.white_fm],
   'nernstCalc':     [_R.nernst_1888, _R.guyton_hall],
   'goldmanCalc':    [_R.goldman_1943, _R.hodgkin_katz],
-  'wkCalc':         [_R.westerhof_2009, _R.nichols_blood],
+  'wkCalc':         [_R.frank_1899, _R.westerhof_2009, _R.nichols_blood],
   'pwvCalc':        [_R.korteweg_1878, _R.nichols_blood],
   'mmCalc':         [_R.michaelis_1913],
   'hillCalc':       [_R.hill_1910],
@@ -288,7 +293,7 @@ const CALC_REFS = {
 
   /* ── Dynamics & control ────────────────────────────────── */
   'msdCalc':        [_R.thomson_vib],
-  'projCalc':       [_R.kreyszig],
+  'projCalc':       [_R.hibbeler_dyn, _R.kreyszig],
   'dynamics':       [_R.thomson_vib],
 
   'pidCalc':        [_R.ziegler_1942, _R.tyreus_1992],
@@ -416,7 +421,7 @@ const CALC_REFS = {
   'pcrCalc':        [_R.santalucia_1998, _R.wallace_pcr, _R.rychlik_pcr],
   'scbCalc':        [_R.williams_tem],
   'hidxCalc':       [_R.hirsch_2005],
-  'dpiCalc':        [_R.nist_sp811],
+  'dpiCalc':        [_R.gonzalez_dip, _R.nist_sp811],
   'lab-tools':      [_R.skoog],
 };
 

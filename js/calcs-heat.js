@@ -280,8 +280,8 @@ function shCalc() {
   showOut('sh-out', [
     { label: 'Sherwood number Sh',  val: fmtN(Sh), unit: '', cls: 'good' },
     { label: 'Mass transfer coeff hm', val: fmtN(hm), unit: 'm/s' },
-    { label: 'Analogy note', val: 'Dittus-Boelter analogy (turbulent pipe)', unit: '' },
-  ], 'Sh↔Nu, Sc↔Pr. Use h_m to find molar flux: J = h_m × ΔC. Applies to membrane and electrode systems.');
+    { label: 'Analogy note', val: 'Chilton-Colburn analogy (turbulent pipe)', unit: '' },
+  ], 'Chilton-Colburn analogy: Sh = 0.023·Re⁰·⁸·Sc^(1/3) — mirrors the Dittus-Boelter heat transfer form with Sc replacing Pr. Use h_m to find molar flux: J = h_m × ΔC. Applies to membrane, electrode, and dissolution systems in turbulent pipe flow.');
 }
 
 /* ── Membrane flux (diffusive + filtration) ─────────────────── */

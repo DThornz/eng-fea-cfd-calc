@@ -180,6 +180,9 @@ SECTION: NON-NEWTONIAN VISCOSITY MODELS  [Biomedical CFD]  (#non-newt)
         241–262.
     [2] Carreau, P.J. (1972). Rheological equations from molecular network
         theories. Transactions of the Society of Rheology, 16(1), 99–127.
+    [3] Johnston, B.M., Johnston, P.R., Corney, S. & Kilpatrick, D. (2004).
+        Non-Newtonian blood flow in human right coronary arteries: Steady state
+        simulations. Journal of Biomechanics, 37(5), 709–720.
 
   Card: Newtonian Validity Check
   Subtitle: Identifies regions where non-Newtonian models are needed
@@ -666,9 +669,11 @@ SECTION: BIOMEDICAL ENGINEERING  [BME / Clinical]  (#biomedical)
   Subtitle: Arterial compliance, peripheral resistance, pressure waveform
   Function(s): wkCalc
   References:
-    [1] Westerhof, N., Lankhaar, J.W. & Westerhof, B.E. (2009). The arterial
+    [1] Frank, O. (1899). Die Grundform des arteriellen Pulses. Zeitschrift für
+        Biologie, 37, 483–526.
+    [2] Westerhof, N., Lankhaar, J.W. & Westerhof, B.E. (2009). The arterial
         Windkessel. Medical & Biological Engineering & Computing, 47(2), 131–141.
-    [2] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
+    [3] Nichols, W.W., O'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald's Blood
         Flow in Arteries (6th ed.). Hodder Arnold.
 
   Card: Pulse Wave Velocity
@@ -742,7 +747,9 @@ SECTION: ️ DYNAMICS & CONTROL  [MME / EE / Aerospace]  (#dynamics)
   Subtitle: Range, max height, time of flight — vacuum and with drag
   Function(s): projCalc
   References:
-    [1] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
+    [1] Hibbeler, R.C. (2016). Engineering Mechanics: Dynamics (14th ed.).
+        Pearson.
+    [2] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
 
 ================================================================================
 SECTION: ️ CIVIL & GEOTECHNICAL  [Civil / Environmental]  (#civil)
@@ -1120,9 +1127,12 @@ SECTION: ⬡ MASS TRANSFER  [Mass Transfer]  (#mass-transfer)
   Subtitle: Convective mass transfer coefficient (Dittus-Boelter)
   Function(s): shCalc
   References:
-    [1] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+    [1] Chilton, T.H. & Colburn, A.P. (1934). Mass transfer (absorption)
+        coefficients prediction from data on heat transfer and fluid friction.
+        Industrial & Engineering Chemistry, 26(11), 1183–1187.
+    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
         Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
-    [2] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
+    [3] Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena
         (2nd ed.). Wiley.
 
   Card: Membrane Flux
@@ -1381,7 +1391,9 @@ SECTION: LAB & RESEARCH  [Lab / Research]  (#lab-tools)
   Subtitle: Pixel dimensions and file size estimate
   Function(s): dpiCalc
   References:
-    [1] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
+    [1] Gonzalez, R.C. & Woods, R.E. (2018). Digital Image Processing (4th ed.).
+        Pearson.
+    [2] Thompson, A. & Taylor, B.N. (2008). Guide for the Use of the International
         System of Units (SI). NIST Special Publication 811. National Institute of
         Standards and Technology.
 
