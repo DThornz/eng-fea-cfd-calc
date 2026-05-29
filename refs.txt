@@ -24,9 +24,8 @@ SECTION: Y+ ESTIMATION  [Mesh Sizing]  (#yplus)
   Subtitle: Wall-distance scaling when pressure gradient dominates over friction
   Function(s): ysCalc
   References:
-    [1] Launder, B.E. & Spalding, D.B. (1974). The numerical computation of
-        turbulent flows. Computer Methods in Applied Mechanics and Engineering,
-        3(2), 269–289.
+    [1] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
     [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
     [3] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
@@ -91,9 +90,7 @@ SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#t
   Subtitle: From Reynolds number (pipe / free-stream)
   Function(s): tiCalc
   References:
-    [1] Russo, G. & Basse, N.T. (2016). Scaling of turbulence intensity for
-        low-speed flow in smooth pipes. Flow Measurement and Instrumentation,
-        52, 101–114.
+    [1] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
     [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
     [3] Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods
@@ -103,10 +100,11 @@ SECTION: TURBULENCE PROPERTIES & BOUNDARY CONDITIONS  [Turbulence Modeling]  (#t
   Subtitle: From geometry type and characteristic dimension
   Function(s): lsCalc
   References:
-    [1] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
-        engineering applications. AIAA Journal, 32(8), 1598–1605.
-    [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
+    [1] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
+    [2] Versteeg, H.K. & Malalasekera, W. (2007). An Introduction to
+        Computational Fluid Dynamics: The Finite Volume Method (2nd ed.).
+        Pearson Education.
     [3] Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods
         for Fluid Dynamics (4th ed.). Springer.
 
@@ -150,9 +148,12 @@ SECTION: PIPE & CHANNEL FLOW  [Internal Flow]  (#pipe-flow)
   Subtitle: ΔP = f·(L/D)·(ρU²/2) with Moody friction factor
   Function(s): dwCalc
   References:
-    [1] Moody, L.F. (1944). Friction factors for pipe flow. Transactions of the
+    [1] Weisbach, J. (1845). Lehrbuch der Ingenieur- und Maschinen-Mechanik.
+        Friedrich Vieweg und Sohn, Braunschweig. / Darcy, H. (1857). Recherches
+        hydrauliques. Imprimerie Impériale, Paris.
+    [2] Moody, L.F. (1944). Friction factors for pipe flow. Transactions of the
         ASME, 66, 671–684.
-    [2] Colebrook, C.F. (1939). Turbulent flow in pipes, with particular reference
+    [3] Colebrook, C.F. (1939). Turbulent flow in pipes, with particular reference
         to the transition region between smooth and rough pipe laws. Journal of
         the Institution of Civil Engineers, 11(4), 133–156.
 
@@ -513,7 +514,10 @@ SECTION: ️ HEAT TRANSFER  [MME / ChE / EE]  (#heat-transfer)
     [1] Dittus, F.W. & Boelter, L.M.K. (1930). Heat transfer in automobile
         radiators of the tubular type. Publications in Engineering, University of
         California, Berkeley, 2(13), 443–461.
-    [2] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
+    [2] Churchill, S.W. & Bernstein, M. (1977). A correlating equation for forced
+        convection from gases and liquids to a circular cylinder in crossflow.
+        Journal of Heat Transfer, 99(2), 300–306.
+    [3] Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011).
         Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.
 
   Card: Thermal Radiation — Stefan-Boltzmann
@@ -659,6 +663,8 @@ SECTION: ⚡ ELECTRICAL ENGINEERING  [EE / BME]  (#electrical)
   References:
     [1] Nilsson, J.W. & Riedel, S.A. (2014). Electric Circuits (10th ed.).
         Pearson.
+    [2] Horowitz, P. & Hill, W. (2015). The Art of Electronics (3rd ed.).
+        Cambridge University Press.
 
   Card: Op-Amp Configurations
   Subtitle: Inverting, non-inverting, difference, integrator, differentiator
@@ -805,9 +811,9 @@ SECTION: ∑ MATH & NUMERICAL  [Mathematics]  (#math-tools)
   Subtitle: Roots, discriminant, vertex of ax²+bx+c=0
   Function(s): qdCalc
   References:
-    [1] Abramowitz, M. & Stegun, I.A. (1964). Handbook of Mathematical Functions.
-        National Bureau of Standards Applied Mathematics Series 55. U.S.
-        Government Printing Office.
+    [1] Bronshtein, I.N., Semendyayev, K.A., Musiol, G. & Mühlig, H. (2015).
+        Handbook of Mathematics (5th ed.). Springer.
+    [2] Kreyszig, E. (2011). Advanced Engineering Mathematics (10th ed.). Wiley.
 
   Card: System of Linear Equations
   Subtitle: Cramer's rule — 2×2 or 3×3

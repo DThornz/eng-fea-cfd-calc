@@ -28,6 +28,7 @@ const _R = {
   bird_transport:'Bird, R.B., Stewart, W.E. & Lightfoot, E.N. (2002). Transport Phenomena (2nd ed.). Wiley.',
   moody_1944:    'Moody, L.F. (1944). Friction factors for pipe flow. Transactions of the ASME, 66, 671–684.',
   colebrook_1939:'Colebrook, C.F. (1939). Turbulent flow in pipes, with particular reference to the transition region between smooth and rough pipe laws. Journal of the Institution of Civil Engineers, 11(4), 133–156.',
+  weisbach_darcy:'Weisbach, J. (1845). Lehrbuch der Ingenieur- und Maschinen-Mechanik. Friedrich Vieweg und Sohn, Braunschweig. / Darcy, H. (1857). Recherches hydrauliques. Imprimerie Impériale, Paris.',
   womersley_1955:'Womersley, J.R. (1955). Method for the calculation of velocity, rate of flow and viscous drag in arteries when the pressure gradient is known. Journal of Physiology, 127(3), 553–563.',
   nichols_blood: 'Nichols, W.W., O\'Rourke, M.F. & Vlachopoulos, C. (2011). McDonald\'s Blood Flow in Arteries (6th ed.). Hodder Arnold.',
   cho_kensey:    'Cho, Y.I. & Kensey, K.R. (1991). Effects of the non-Newtonian viscosity of blood on flows in a diseased arterial vessel. Biorheology, 28(3–4), 241–262.',
@@ -46,8 +47,6 @@ const _R = {
   ferziger_peric:'Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods for Fluid Dynamics (4th ed.). Springer.',
   karassik:      'Karassik, I.J., Messina, J.P., Cooper, P. & Heald, C.C. (2008). Pump Handbook (4th ed.). McGraw-Hill.',
   brennen_cav:   'Brennen, C.E. (2014). Cavitation and Bubble Dynamics. Cambridge University Press.',
-  launder_spalding: 'Launder, B.E. & Spalding, D.B. (1974). The numerical computation of turbulent flows. Computer Methods in Applied Mechanics and Engineering, 3(2), 269–289.',
-  russo_basse:   'Russo, G. & Basse, N.T. (2016). Scaling of turbulence intensity for low-speed flow in smooth pipes. Flow Measurement and Instrumentation, 52, 101–114.',
   ostwald:       'Ostwald, W. (1925). Ueber die Geschwindigkeitsfunktion der Viskosität disperser Systeme. Kolloid-Zeitschrift, 36(3), 157–167. / de Waele, A. (1923). Viscometry and plastometry. Oil and Colour Chemists\' Association Journal, 6, 33–69.',
 
   /* ── Solid mechanics / structural ──────────────────────── */
@@ -78,8 +77,9 @@ const _R = {
   /* ── Thermodynamics / heat transfer ─────────────────────── */
   incropera:     'Incropera, F.P., Dewitt, D.P., Bergman, T.L. & Lavine, A.S. (2011). Fundamentals of Heat and Mass Transfer (7th ed.). Wiley.',
   fourier_1822:  'Fourier, J.B.J. (1822). Théorie Analytique de la Chaleur. Firmin Didot, Paris.',
-  dittus_1930:   'Dittus, F.W. & Boelter, L.M.K. (1930). Heat transfer in automobile radiators of the tubular type. Publications in Engineering, University of California, Berkeley, 2(13), 443–461.',
-  ashrae_2021:   'ASHRAE (2021). 2021 ASHRAE Handbook—Fundamentals. American Society of Heating, Refrigerating and Air-Conditioning Engineers.',
+  dittus_1930:        'Dittus, F.W. & Boelter, L.M.K. (1930). Heat transfer in automobile radiators of the tubular type. Publications in Engineering, University of California, Berkeley, 2(13), 443–461.',
+  churchill_bernstein:'Churchill, S.W. & Bernstein, M. (1977). A correlating equation for forced convection from gases and liquids to a circular cylinder in crossflow. Journal of Heat Transfer, 99(2), 300–306.',
+  ashrae_2021:        'ASHRAE (2021). 2021 ASHRAE Handbook—Fundamentals. American Society of Heating, Refrigerating and Air-Conditioning Engineers.',
   cengel_thermo: 'Çengel, Y.A. & Boles, M.A. (2019). Thermodynamics: An Engineering Approach (9th ed.). McGraw-Hill.',
 
   /* ── Compressible flow ──────────────────────────────────── */
@@ -195,7 +195,7 @@ const CALC_REFS = {
 
   /* ── Fluid mechanics ───────────────────────────────────── */
   'ypCalc':      [_R.schlichting, _R.white_fm, _R.pope_turb],
-  'ysCalc':      [_R.launder_spalding, _R.wilcox, _R.pope_turb],
+  'ysCalc':      [_R.menter_sst, _R.wilcox, _R.pope_turb],
   'yplus':       [_R.schlichting, _R.white_fm],     // section fallback
 
   'reCalc':      [_R.reynolds_1883, _R.white_fm],
@@ -206,8 +206,8 @@ const CALC_REFS = {
   'reynolds':    [_R.white_fm, _R.schlichting],
 
   'tbCalc':      [_R.wilcox, _R.menter_sst],         // ω formula from SST — Menter is correct here
-  'tiCalc':      [_R.russo_basse, _R.wilcox, _R.ferziger_peric], // I = 0.16·Re^(-1/8) empirical pipe-flow correlation
-  'lsCalc':      [_R.menter_sst, _R.wilcox, _R.ferziger_peric],
+  'tiCalc':      [_R.pope_turb, _R.wilcox, _R.ferziger_peric],   // I = 0.16·Re^(-1/8) empirical pipe-flow correlation
+  'lsCalc':      [_R.wilcox, _R.versteeg, _R.ferziger_peric],
   'turbulence':  [_R.wilcox, _R.versteeg, _R.ferziger_peric],
 
   'blCalc':      [_R.schlichting, _R.blasius_1908],
@@ -215,7 +215,7 @@ const CALC_REFS = {
   'boundary-layer': [_R.schlichting],
 
   'hpCalc':      [_R.hagen_1839, _R.poiseuille_1840, _R.white_fm],
-  'dwCalc':      [_R.moody_1944, _R.colebrook_1939],
+  'dwCalc':      [_R.weisbach_darcy, _R.moody_1944, _R.colebrook_1939],
   'dhCalc':      [_R.white_fm, _R.shah_london, _R.incropera],
   'pipe-flow':   [_R.white_fm, _R.batchelor],
 
@@ -250,7 +250,7 @@ const CALC_REFS = {
   'htCondFlat':     [_R.fourier_1822, _R.incropera],
   'htCondFlatAuto': [_R.fourier_1822, _R.incropera],
   'htCondCyl':      [_R.fourier_1822, _R.incropera],
-  'htConvPipe':     [_R.dittus_1930, _R.incropera],
+  'htConvPipe':     [_R.dittus_1930, _R.churchill_bernstein, _R.incropera],
   'htConvPlate':    [_R.incropera],
   'htRad':          [_R.incropera],
   'finCalc':        [_R.incropera],
@@ -289,9 +289,9 @@ const CALC_REFS = {
   'rcAutoCalc':     [_R.nilsson],
   'rlCalc':         [_R.nilsson],
   'rlcCalc':        [_R.nilsson],
-  'dbCalc':         [_R.nilsson],
-  'dbmCalc':        [_R.nilsson],
-  'dbmRevCalc':     [_R.nilsson],
+  'dbCalc':         [_R.nilsson, _R.horowitz],
+  'dbmCalc':        [_R.nilsson, _R.horowitz],
+  'dbmRevCalc':     [_R.nilsson, _R.horowitz],
   'opampInv':       [_R.sedra_smith, _R.horowitz],
   'opampNoninv':    [_R.sedra_smith, _R.horowitz],
   'opampDiff':      [_R.sedra_smith, _R.horowitz],
@@ -347,7 +347,7 @@ const CALC_REFS = {
   'units':          ['BIPM (2019). The International System of Units (SI) (9th ed.). Bureau International des Poids et Mesures.', _R.nist_sp811],
 
   /* ── Mathematics & numerical ───────────────────────────── */
-  'qdCalc':         [_R.abramowitz],
+  'qdCalc':         [_R.bronshtein, _R.kreyszig],
   'sleCalc':        [_R.strang],
   'matCalc':        [_R.strang, _R.golub_vl],
   'errpCalc':       [_R.taylor_error],
