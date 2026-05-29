@@ -383,6 +383,24 @@ function initTooltipToggle() {
   setTooltips(saved !== '0');
 }
 
+/* ── Sidebar nav counts ─────────────────────────────────────── */
+/*
+ * Counts the .card elements in every .section and writes the total
+ * into the matching .nav-count badge in the sidebar. Runs once on
+ * load so counts are always accurate even as cards are added.
+ */
+function updateNavCounts() {
+  document.querySelectorAll('.section[id]').forEach(sec => {
+    const count = sec.querySelectorAll('.card').length;
+    if (!count) return;
+    /* nav button has onclick="scrollToSection('id')" */
+    const btn = document.querySelector(`.nav-item[onclick*="'${sec.id}'"]`);
+    if (!btn) return;
+    const badge = btn.querySelector('.nav-count');
+    if (badge) badge.textContent = count;
+  });
+}
+
 /* ── Page initialisation ───────────────────────────────────── */
 /* buildConverters() runs immediately (scripts are at end of body). */
 buildConverters();
@@ -395,4 +413,5 @@ window.addEventListener('load', () => {
   buildSearchIndex();
   fitFormulas();
   initTooltipToggle();
+  updateNavCounts();
 });
