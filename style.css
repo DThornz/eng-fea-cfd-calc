@@ -596,6 +596,25 @@ body.dark-mode .proj-link{background:#0f1f38!important;border-color:#1c3050!impo
 body.dark-mode .proj-link:hover{border-color:#2dd4bf!important;color:#2dd4bf!important}
 body.dark-mode .page-hero,.dark-mode .projects-wrap{background:transparent!important}
 
+/* ── Tab switchers (mode selectors on multi-mode calculators) ── */
+body.dark-mode .tabs{background:#0f1f38!important;border-color:#1c3050!important}
+body.dark-mode .tab{color:#7a90ae!important;background:none!important}
+body.dark-mode .tab:not(.active):hover{color:#2dd4bf!important;background:rgba(45,212,191,.06)!important}
+body.dark-mode .tab.active{background:#2dd4bf!important;color:#06111f!important}
+
+/* ── Misc calculator UI fixes ── */
+/* Card restore button */
+body.dark-mode .card-restore{border-color:#1c3050!important;color:#3d5470!important}
+body.dark-mode .card-restore:hover{color:#2dd4bf!important;border-color:rgba(45,212,191,.35)!important}
+/* Output note (italic note below results) */
+body.dark-mode .out-note{color:#3d5470!important;border-color:#1c3050!important}
+/* Section description text */
+body.dark-mode .section-desc{color:#7a90ae!important}
+/* Divider line inside input groups */
+body.dark-mode .input-group-label{color:#2dd4bf!important;border-color:#1c3050!important}
+/* Error message */
+body.dark-mode .err-msg{color:#f87171!important}
+
 /* ── index landing cards ── */
 body.dark-mode .card-chips .chip{background:rgba(45,212,191,.1)!important;border-color:rgba(45,212,191,.2)!important;color:#2dd4bf!important}
 body.dark-mode .card::before{opacity:0}
