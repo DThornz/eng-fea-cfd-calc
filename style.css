@@ -513,6 +513,7 @@ body.dark-mode .page-eyebrow{color:#2dd4bf!important}
 
 /* ── Hero section ── */
 body.dark-mode .hero{border-color:#1c3050!important}
+body.dark-mode .hero-banner{background:linear-gradient(135deg,#0a1628 0%,#0f1f38 100%)!important;border-color:#1c3050!important}
 body.dark-mode .hero-title,
 body.dark-mode .page-title,
 body.dark-mode .hero-name,
