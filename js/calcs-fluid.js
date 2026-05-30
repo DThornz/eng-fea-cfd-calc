@@ -515,14 +515,21 @@ function ypaCalc() {
     const rpm   = v('ypa-rpm');
     const r_orb = v('ypa-rorb') * su('ypa-rorb-u');
     const D_v   = v('ypa-Dv')   * su('ypa-Dv-u');
+    const h0    = v('ypa-h0')   * su('ypa-h0-u');
+    const refl  = g('ypa-refl').value;
     if (!rpm || rpm <= 0 || !r_orb || r_orb <= 0 || !D_v || D_v <= 0)
       return errOut('ypa-out', 'RPM, orbital radius, and vessel diameter must be positive.');
+    if (refl === 'h0' && (!h0 || h0 <= 0))
+      return errOut('ypa-out', 'Fluid height h₀ must be positive when selected as reference length.');
     const omega = 2 * Math.PI * rpm / 60;
     U = omega * r_orb;
-    L = D_v;
+    L = refl === 'h0' ? h0 : D_v;
     const ReO = rho * U * L / mu;
     Cf = ReO < 5e5 ? 0.664 * Math.pow(ReO, -0.5) : 0.0592 * Math.pow(ReO, -0.2);
-    geomLabel = 'Orbital shaker (' + fmtN(rpm, 4) + ' RPM)';
+    const reflLabel = refl === 'h0'
+      ? 'h₀ = ' + fmtN(h0  * 1000, 4) + ' mm'
+      : 'D = '  + fmtN(D_v * 1000, 4) + ' mm';
+    geomLabel = 'Orbital shaker (' + fmtN(rpm, 4) + ' RPM, L_Re = ' + reflLabel + ')';
     charVelLabel = 'Orbital tip speed ω·r_orb';
 
   } else {
