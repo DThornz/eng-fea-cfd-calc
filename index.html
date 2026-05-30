@@ -41,7 +41,7 @@
 <!-- ─── SIDEBAR ─────────────────────────────────────────────── -->
 <nav class="sidebar">
   <div class="nav-section-label">Fluid Mechanics</div>
-  <button class="nav-item active" onclick="scrollToSection('yplus')"><span class="nav-icon">📐</span> Y+ / Y* Wall Units <span class="nav-count">2</span></button>
+  <button class="nav-item active" onclick="scrollToSection('yplus')"><span class="nav-icon">📐</span> Y+ / Y* Wall Units <span class="nav-count">3</span></button>
   <button class="nav-item" onclick="scrollToSection('reynolds')"><span class="nav-icon">🌀</span> Dimensionless Numbers <span class="nav-count">5</span></button>
   <button class="nav-item" onclick="scrollToSection('turbulence')"><span class="nav-icon">🌪</span> Turbulence BCs <span class="nav-count">3</span></button>
   <button class="nav-item" onclick="scrollToSection('boundary-layer')"><span class="nav-icon">📊</span> Boundary Layer <span class="nav-count">2</span></button>
@@ -176,7 +176,7 @@
   <div class="section-header">
     <div class="section-tag">Mesh Sizing</div>
     <div class="section-title"><span class="ico">📐</span> Y+ Estimation</div>
-    <div class="section-desc">Estimates the first-cell wall distance (Δy) needed to achieve a target y+ value, given flow conditions and geometry type.</div>
+    <div class="section-desc">Estimates the first-cell wall distance (Δy) needed to achieve a target y+, and verifies the y+ achieved by a given mesh — pipe, square channel, and orbital shaker geometries.</div>
     <div class="section-divider"></div>
   </div>
   <div class="calc-grid two">
@@ -275,6 +275,56 @@
         <div class="input-row"><div class="input-label" title="Dynamic viscosity μ of the fluid. Water at 20°C: 0.001 Pa·s; blood: 0.003–0.004 Pa·s; air at 20°C: 1.81×10⁻⁵ Pa·s.">Dyn. viscosity μ</div><div class="input-wrap"><input class="field" id="ys-mu" type="number" value="0.0035" min="0" step="0.0001" oninput="ysCalc()"><select class="unit-sel" id="ys-mu-u" onchange="ysCalc()"><option value="1">Pa·s</option><option value="0.001">mPa·s</option></select></div></div>
         <button class="btn-calc" onclick="ysCalc()">Calculate Y*</button>
         <div class="output" id="ys-out"><div class="output-header">Results</div><div class="output-body" id="ys-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Y+ Verification from mesh -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">✓y⁺</div>
+        <div><div class="card-title">Y+ Verification from Mesh</div>
+        <div class="card-subtitle">Given first layer height and flow conditions, computes achieved y+ — pipe, square channel, or orbital shaker</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$y^+ = \frac{u_\tau\,\Delta y_1}{\nu},\quad u_\tau = \sqrt{\tfrac{C_f}{2}}\,U,\quad \Delta y_n = \Delta y_1\cdot r^{n-1}$$</div>
+
+        <div class="tabs" id="ypa-tabs">
+          <button class="tab active" onclick="setTab('ypa','pipe')">Pipe</button>
+          <button class="tab" onclick="setTab('ypa','sqchan')">Sq. Channel</button>
+          <button class="tab" onclick="setTab('ypa','orb')">Orbital Shaker</button>
+        </div>
+
+        <div class="tab-panel active" id="ypa-pipe">
+          <p style="font-size:.77em;color:var(--muted);margin-bottom:10px">Cƒ = 0.079·Re⁻⁰·²⁵ (Blasius, turbulent pipe). Laminar (Re&lt;2300): Cƒ = 16/Re.</p>
+          <div class="input-row"><div class="input-label" title="Mean bulk velocity (Q/A). Blood in arteries: 0.1–1 m/s; water in pipes: 0.5–3 m/s; air ducts: 1–10 m/s.">Mean velocity U</div><div class="input-wrap"><input class="field" id="ypa-U" type="number" value="0.5" min="0"><select class="unit-sel" id="ypa-U-u" onchange="ypaCalc()"><option value="1">m/s</option><option value="0.01">cm/s</option><option value="0.001">mm/s</option><option value="0.3048">ft/s</option></select></div></div>
+          <div class="input-row"><div class="input-label" title="Internal diameter D of the pipe. Blood vessels: 0.5–30 mm; industrial pipes: 25–500 mm.">Inner diameter D</div><div class="input-wrap"><input class="field" id="ypa-D" type="number" value="5" min="0"><select class="unit-sel" id="ypa-D-u" onchange="ypaCalc()"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option><option value="0.0254">in</option></select></div></div>
+        </div>
+
+        <div class="tab-panel" id="ypa-sqchan">
+          <p style="font-size:.77em;color:var(--muted);margin-bottom:10px">D_h = 4WH/[2(W+H)]. Square (W=H): D_h = W. Cƒ = 0.079·Re_Dh⁻⁰·²⁵.</p>
+          <div class="input-row"><div class="input-label" title="Mean bulk velocity in the channel.">Mean velocity U</div><div class="input-wrap"><input class="field" id="ypa-U-sq" type="number" value="0.5" min="0"><select class="unit-sel" id="ypa-U-sq-u" onchange="ypaCalc()"><option value="1">m/s</option><option value="0.01">cm/s</option><option value="0.001">mm/s</option><option value="0.3048">ft/s</option></select></div></div>
+          <div class="input-row"><div class="input-label" title="Channel width W. Set W = H for a square cross-section.">Width W</div><div class="input-wrap"><input class="field" id="ypa-W" type="number" value="10" min="0"><select class="unit-sel" id="ypa-W-u" onchange="ypaCalc()"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+          <div class="input-row"><div class="input-label" title="Channel height H. Set H = W for a square cross-section.">Height H</div><div class="input-wrap"><input class="field" id="ypa-H" type="number" value="10" min="0"><select class="unit-sel" id="ypa-H-u" onchange="ypaCalc()"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+        </div>
+
+        <div class="tab-panel" id="ypa-orb">
+          <p style="font-size:.77em;color:var(--muted);margin-bottom:10px">U = ω·r_orb (orbital tip speed). Laminar Cƒ = 0.664·Re⁻⁰·⁵; turbulent Cƒ = 0.0592·Re⁻⁰·² (flat-plate approx.).</p>
+          <div class="input-row"><div class="input-label" title="Shaker rotational speed in RPM. Typical cell culture: 60–150 RPM.">Shaker speed (RPM)</div><div class="input-wrap"><input class="field" id="ypa-rpm" type="number" value="100" min="0"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+          <div class="input-row"><div class="input-label" title="Orbital radius (eccentricity) — half the orbital diameter. The platform center traces a circle of this radius. Typical lab-scale: 12.5–25 mm.">Orbital radius r_orb</div><div class="input-wrap"><input class="field" id="ypa-rorb" type="number" value="12.5" min="0"><select class="unit-sel" id="ypa-rorb-u" onchange="ypaCalc()"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+          <div class="input-row"><div class="input-label" title="Inner diameter of the well, flask, or vessel. 6-well plate: ~35 mm; 24-well: ~15 mm.">Vessel inner diameter D</div><div class="input-wrap"><input class="field" id="ypa-Dv" type="number" value="35" min="0"><select class="unit-sel" id="ypa-Dv-u" onchange="ypaCalc()"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+        </div>
+
+        <div class="input-row"><div class="input-label" title="Height of the first inflation (prism) layer from the wall. This is the Δy₁ in your mesher settings. Example from SST k-ω blood flow study: 0.05 mm → y⁺ ≈ 0.7.">First layer height Δy₁</div><div class="input-wrap"><input class="field" id="ypa-dy" type="number" value="0.05" min="0" step="0.01"><select class="unit-sel" id="ypa-dy-u" onchange="ypaCalc()"><option value="0.001">mm</option><option value="1">m</option><option value="1e-6">μm</option><option value="0.01">cm</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Expansion ratio between consecutive inflation layers. Each layer is this factor thicker than the previous. Typical: 1.1–1.3. The ratio 1.2 means each layer is 20% thicker.">Growth rate r</div><div class="input-wrap"><input class="field" id="ypa-gr" type="number" value="1.2" min="1" max="10" step="0.05"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label" title="Total number of prism/inflation layers. Typical: 3–8 for internal flow. Example: 3 layers with Δy₁=0.05 mm and r=1.2 gives a total inflation thickness of 0.182 mm.">Number of layers N</div><div class="input-wrap"><input class="field" id="ypa-N" type="number" value="3" min="1" max="50" step="1"><select class="unit-sel" style="visibility:hidden"></select></div></div>
+        <div class="input-row"><div class="input-label" title="Fluid density. Water: 998 kg/m³; blood: 1050–1060 kg/m³; air at STP: 1.225 kg/m³.">Density ρ</div><div class="input-wrap"><input class="field" id="ypa-rho" type="number" value="1060" min="0"><select class="unit-sel" id="ypa-rho-u" onchange="ypaCalc()"><option value="1">kg/m³</option><option value="1000">g/cm³</option><option value="16.018">lb/ft³</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Dynamic viscosity μ. Water at 20°C: 0.001 Pa·s; blood: 0.003–0.004 Pa·s; air at 20°C: 1.81×10⁻⁵ Pa·s.">Dyn. viscosity μ</div><div class="input-wrap"><input class="field" id="ypa-mu" type="number" value="0.0035" min="0" step="0.0001"><select class="unit-sel" id="ypa-mu-u" onchange="ypaCalc()"><option value="1">Pa·s</option><option value="0.001">mPa·s (cP)</option></select></div></div>
+
+        <button class="btn-calc" onclick="ypaCalc()">Verify Y+</button>
+        <div class="output" id="ypa-out">
+          <div class="output-header">Results</div>
+          <div class="output-body" id="ypa-out-body"></div>
+        </div>
       </div>
     </div>
   </div>

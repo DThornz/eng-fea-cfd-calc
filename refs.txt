@@ -4,7 +4,7 @@ All citations verified against publisher databases.
 Generated from: js/refs.js
 ================================================================================
 
-Total cards: 151  |  Cards with references: 151
+Total cards: 152  |  Cards with references: 152
 
 
 ================================================================================
@@ -30,6 +30,18 @@ SECTION: Y+ ESTIMATION  [Mesh Sizing]  (#yplus)
     [2] Wilcox, D.C. (2006). Turbulence Modeling for CFD (3rd ed.). DCW
         Industries.
     [3] Pope, S.B. (2000). Turbulent Flows. Cambridge University Press.
+
+  Card: Y+ Verification from Mesh
+  Subtitle: Given first layer height and flow conditions, computes achieved y+ — pipe, square channel, or orbital shaker
+  Function(s): ypaCalc
+  References:
+    [1] Menter, F.R. (1994). Two-equation eddy-viscosity turbulence models for
+        engineering applications. AIAA Journal, 32(8), 1598–1605.
+    [2] Launder, B.E. & Spalding, D.B. (1974). The numerical computation of
+        turbulent flows. Computer Methods in Applied Mechanics and Engineering,
+        3(2), 269–289.
+    [3] Ferziger, J.H., Perić, M. & Street, R.L. (2020). Computational Methods
+        for Fluid Dynamics (4th ed.). Springer.
 
 ================================================================================
 SECTION: DIMENSIONLESS NUMBERS  [Flow Classification]  (#reynolds)

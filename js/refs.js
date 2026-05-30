@@ -198,6 +198,7 @@ const CALC_REFS = {
   /* ── Fluid mechanics ───────────────────────────────────── */
   'ypCalc':      [_R.schlichting, _R.white_fm, _R.pope_turb],
   'ysCalc':      [_R.launder_spalding, _R.wilcox, _R.pope_turb],
+  'ypaCalc':     [_R.menter_sst, _R.launder_spalding, _R.ferziger_peric],
   'yplus':       [_R.schlichting, _R.white_fm],     // section fallback
 
   'reCalc':      [_R.reynolds_1883, _R.white_fm],

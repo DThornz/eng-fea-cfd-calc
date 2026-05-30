@@ -485,6 +485,96 @@ function fchCalc() {
   ], 'Ergun: β = 1.75(1−ε)/(ε³d_p). For slow biomedical filtration (μm/s–mm/s) the inertial term is typically < 1%.');
 }
 
+/* ── Y+ achieved from mesh parameters ────────────────────── */
+function ypaCalc() {
+  const dy1 = v('ypa-dy')  * su('ypa-dy-u');
+  const gr  = v('ypa-gr');
+  const N   = Math.max(1, Math.round(v('ypa-N')));
+  const rho = v('ypa-rho') * su('ypa-rho-u');
+  const mu  = v('ypa-mu')  * su('ypa-mu-u');
+  if (!dy1 || dy1 <= 0 || !rho || rho <= 0 || !mu || mu <= 0 || isNaN(gr) || gr < 1)
+    return errOut('ypa-out', 'All values must be positive; growth rate ≥ 1.');
+
+  const geomTab = document.querySelector('#ypa-tabs .tab.active')?.textContent?.trim() || 'Pipe';
+  const nu = mu / rho;
+  let U, L, Cf, geomLabel, charVelLabel;
+
+  if (geomTab.includes('Channel')) {
+    U = v('ypa-U-sq') * su('ypa-U-sq-u');
+    const W = v('ypa-W') * su('ypa-W-u');
+    const H = v('ypa-H') * su('ypa-H-u');
+    if (!U || U <= 0 || !W || W <= 0 || !H || H <= 0)
+      return errOut('ypa-out', 'Velocity, width, and height must be positive.');
+    L = 4 * W * H / (2 * (W + H));
+    const ReC = rho * U * L / mu;
+    Cf = ReC < 2300 ? 16 / ReC : 0.079 * Math.pow(ReC, -0.25);
+    geomLabel = 'Square/rect. channel (D_h = ' + fmtN(L * 1000, 4) + ' mm)';
+    charVelLabel = 'Mean velocity U';
+
+  } else if (geomTab.includes('Orbital')) {
+    const rpm   = v('ypa-rpm');
+    const r_orb = v('ypa-rorb') * su('ypa-rorb-u');
+    const D_v   = v('ypa-Dv')   * su('ypa-Dv-u');
+    if (!rpm || rpm <= 0 || !r_orb || r_orb <= 0 || !D_v || D_v <= 0)
+      return errOut('ypa-out', 'RPM, orbital radius, and vessel diameter must be positive.');
+    const omega = 2 * Math.PI * rpm / 60;
+    U = omega * r_orb;
+    L = D_v;
+    const ReO = rho * U * L / mu;
+    Cf = ReO < 5e5 ? 0.664 * Math.pow(ReO, -0.5) : 0.0592 * Math.pow(ReO, -0.2);
+    geomLabel = 'Orbital shaker (' + fmtN(rpm, 4) + ' RPM)';
+    charVelLabel = 'Orbital tip speed ω·r_orb';
+
+  } else {
+    U = v('ypa-U') * su('ypa-U-u');
+    L = v('ypa-D') * su('ypa-D-u');
+    if (!U || U <= 0 || !L || L <= 0)
+      return errOut('ypa-out', 'Velocity and diameter must be positive.');
+    const ReP = rho * U * L / mu;
+    Cf = ReP < 2300 ? 16 / ReP : 0.079 * Math.pow(ReP, -0.25);
+    geomLabel = 'Pipe (D = ' + fmtN(L * 1000, 4) + ' mm)';
+    charVelLabel = 'Mean velocity U';
+  }
+
+  const Re    = rho * U * L / mu;
+  const tau_w = Cf * 0.5 * rho * U * U;
+  const u_tau = Math.sqrt(tau_w / rho);
+  const yp    = u_tau * dy1 / nu;
+  const thick = Math.abs(gr - 1) < 1e-9 ? dy1 * N
+                                         : dy1 * (Math.pow(gr, N) - 1) / (gr - 1);
+  const ypOuter = u_tau * thick / nu;
+  const regime  = Re < 2300 ? 'Laminar' : Re < 4000 ? 'Transitional' : 'Turbulent';
+
+  let assessment, cls;
+  if (yp < 1) {
+    assessment = '✓ Resolved — viscous sublayer captured (y⁺ < 1)';
+    cls = 'good';
+  } else if (yp < 5) {
+    assessment = '⚠ Marginal (1 ≤ y⁺ < 5) — buffer layer partially unresolved';
+    cls = 'warn';
+  } else if (yp < 30) {
+    assessment = '✗ Buffer layer (5 ≤ y⁺ < 30) — SST k-ω requires y⁺ < 1';
+    cls = 'bad';
+  } else {
+    assessment = '⚠ Wall function regime (y⁺ ≥ 30) — use wall functions';
+    cls = 'warn';
+  }
+
+  showOut('ypa-out', [
+    { label: 'Geometry',                  val: geomLabel,             unit: '' },
+    { label: charVelLabel,                val: fmtN(U),               unit: 'm/s' },
+    { label: 'Reynolds number Re',        val: fmtN(Re, 5),           unit: '' },
+    { label: 'Flow regime',               val: regime,                unit: '', cls: Re > 4000 ? '' : Re > 2300 ? 'warn' : 'good' },
+    { label: 'Skin friction Cƒ',          val: fmtN(Cf),              unit: '' },
+    { label: 'Wall shear stress τ_w',     val: fmtN(tau_w),           unit: 'Pa' },
+    { label: 'Friction velocity u_τ',     val: fmtN(u_tau),           unit: 'm/s' },
+    { label: 'y⁺ — first layer',          val: fmtN(yp, 4),           unit: '',  cls },
+    { label: 'SST k-ω assessment',        val: assessment,            unit: '',  cls },
+    { label: 'Total inflation thickness', val: fmtN(thick * 1000, 4), unit: 'mm' },
+    { label: 'y⁺ — outer inflation edge', val: fmtN(ypOuter, 4),      unit: '' },
+  ], 'SST k-ω (Menter 1994): y⁺ < 1 resolves the viscous sublayer without wall functions. Avoid y⁺ = 5–30 (buffer layer). Wall functions require y⁺ = 30–300.');
+}
+
 /* ── y* (viscous/pressure-based wall unit) ─────────────────── */
 function ysCalc() {
   const y    = v('ys-y')   * su('ys-y-u');
