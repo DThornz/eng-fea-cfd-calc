@@ -46,6 +46,7 @@
   <button class="nav-item" onclick="scrollToSection('turbulence')"><span class="nav-icon">🌪</span> Turbulence BCs <span class="nav-count">3</span></button>
   <button class="nav-item" onclick="scrollToSection('boundary-layer')"><span class="nav-icon">📊</span> Boundary Layer <span class="nav-count">2</span></button>
   <button class="nav-item" onclick="scrollToSection('pipe-flow')"><span class="nav-icon">🔵</span> Pipe & Channel Flow <span class="nav-count">3</span></button>
+  <button class="nav-item" onclick="scrollToSection('capillary')"><span class="nav-icon">💧</span> Capillary & Wicking <span class="nav-count">2</span></button>
 
   <div class="nav-section-label">Biomedical CFD</div>
   <button class="nav-item" onclick="scrollToSection('non-newt')"><span class="nav-icon">🩸</span> Non-Newtonian Fluids <span class="nav-count">3</span></button>
@@ -610,6 +611,71 @@
         </div>
         <button class="btn-calc" onclick="dhCalc()">Calculate</button>
         <div class="output" id="dh-out"><div class="output-header">Results</div><div class="output-body" id="dh-out-body"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     §5b  CAPILLARY & WICKING FLOW
+════════════════════════════════════════════════════════ -->
+<div class="section" id="capillary">
+  <div class="section-header">
+    <div class="section-tag">Fluid Mechanics</div>
+    <div class="section-title"><span class="ico">💧</span> Capillary & Wicking Flow</div>
+    <div class="section-desc">Washburn–Lucas capillary penetration (wicking distance and fill time), Young–Laplace driving pressure, capillary rise, and the Bond number that decides whether surface tension or gravity governs filling. Sized for hydrophilic microchannel collectors (e.g. passive saliva uptake devices), lateral-flow assays, and porous wicks.</div>
+    <div class="section-divider"></div>
+  </div>
+  <div class="calc-grid two">
+
+    <!-- Washburn–Lucas wicking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">L</div>
+        <div><div class="card-title">Washburn–Lucas Capillary Wicking</div>
+        <div class="card-subtitle">Penetration distance vs time and pathway fill time for a wetting liquid</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$L^2=\frac{\gamma\, r\cos\theta}{2\mu}\,t\;\;(\text{tube}),\qquad L^2=\frac{\gamma\, b\cos\theta}{3\mu}\,t\;\;(\text{slit})$$</div>
+        <div class="tabs" id="wash-tabs">
+          <button class="tab active" onclick="setTab('wash','cyl')">Cylindrical channel</button>
+          <button class="tab" onclick="setTab('wash','slit')">Parallel-plate slit</button>
+        </div>
+        <div class="tab-panel active" id="wash-cyl">
+          <div class="input-row"><div class="input-label" title="Effective radius of the cylindrical capillary or microchannel. Hydrophilic microchannels: 20–500 μm. Smaller r gives higher capillary pressure but more viscous resistance.">Channel radius r</div><div class="input-wrap"><input class="field" id="wash-r" type="number" value="100"><select class="unit-sel" id="wash-r-u"><option value="1e-6">μm</option><option value="1e-3">mm</option><option value="1">m</option></select></div></div>
+        </div>
+        <div class="tab-panel" id="wash-slit">
+          <div class="input-row"><div class="input-label" title="Gap between the two parallel hydrophilic plates of the slit channel. The meniscus radius is b/(2cosθ); driving pressure is 2γcosθ/b.">Plate gap b</div><div class="input-wrap"><input class="field" id="wash-b" type="number" value="100"><select class="unit-sel" id="wash-b-u"><option value="1e-6">μm</option><option value="1e-3">mm</option><option value="1">m</option></select></div></div>
+        </div>
+        <div class="input-row"><div class="input-label" title="Liquid–air surface tension γ. Whole saliva: 0.053–0.060 N/m; water at 20°C: 0.072 N/m; plasma: ~0.058 N/m. Higher γ pulls the front faster.">Surface tension γ</div><div class="input-wrap"><input class="field" id="wash-gamma" type="number" value="0.058" step="0.001"><select class="unit-sel"><option value="1">N/m</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Equilibrium contact angle on the channel wall. Hydrophilic: 10–60° (plasma/O₂-treated polymer ~30–50°); θ ≥ 90° is non-wetting and will not wick. cosθ scales the driving pressure.">Contact angle θ</div><div class="input-wrap"><input class="field" id="wash-theta" type="number" value="40" min="0" max="180"><select class="unit-sel"><option value="1">deg</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Dynamic viscosity of the wicking liquid. Whole saliva is non-Newtonian, ~1–5 mPa·s; water at 37°C ~0.69 mPa·s. Higher μ slows the front (L ∝ 1/√μ).">Dyn. viscosity μ</div><div class="input-wrap"><input class="field" id="wash-mu" type="number" value="1.5" step="0.1"><select class="unit-sel" id="wash-mu-u"><option value="0.001">mPa·s (cP)</option><option value="1">Pa·s</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Time at which to evaluate the penetration distance and front velocity.">Evaluation time t</div><div class="input-wrap"><input class="field" id="wash-t" type="number" value="5" step="0.5"><select class="unit-sel" id="wash-t-u"><option value="1">s</option><option value="60">min</option><option value="0.001">ms</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Length of the internal channel/pathway the liquid must travel to fill the collector. The calculator reports the time to wick this far.">Pathway length to fill L</div><div class="input-wrap"><input class="field" id="wash-Lt" type="number" value="20" step="1"><select class="unit-sel" id="wash-Lt-u"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+        <button class="btn-calc" onclick="washCalc()">Calculate Wicking</button>
+        <div class="output" id="wash-out"><div class="output-header">Results</div><div class="output-body" id="wash-out-body"></div></div>
+      </div>
+    </div>
+
+    <!-- Young–Laplace pressure / rise / Bond number -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">ΔP</div>
+        <div><div class="card-title">Capillary Pressure, Rise &amp; Bond Number</div>
+        <div class="card-subtitle">Young–Laplace suction, max rise height, and gravity-vs-capillary dominance</div></div>
+      </div>
+      <div class="card-body">
+        <div class="formula-latex">$$\Delta P=\frac{2\gamma\cos\theta}{r},\quad h_{max}=\frac{2\gamma\cos\theta}{\rho g r},\quad Bo=\frac{\rho g L^2}{\gamma}$$</div>
+        <div class="input-row"><div class="input-label" title="Liquid–air surface tension γ. Whole saliva: 0.053–0.060 N/m; water: 0.072 N/m. Drives both capillary pressure and rise.">Surface tension γ</div><div class="input-wrap"><input class="field" id="cap-gamma" type="number" value="0.058" step="0.001"><select class="unit-sel"><option value="1">N/m</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Contact angle on the channel wall. Hydrophilic: 10–60°. θ ≥ 90° gives capillary depression (liquid repelled).">Contact angle θ</div><div class="input-wrap"><input class="field" id="cap-theta" type="number" value="40" min="0" max="180"><select class="unit-sel"><option value="1">deg</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Effective channel/pore radius. Smaller r → larger capillary pressure and higher rise. Hydrophilic microchannels: 20–500 μm.">Channel radius r</div><div class="input-wrap"><input class="field" id="cap-r" type="number" value="100"><select class="unit-sel" id="cap-r-u"><option value="1e-6">μm</option><option value="1e-3">mm</option><option value="1">m</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Liquid density. Saliva/water ≈ 1000 kg/m³. Used for capillary rise, hydrostatic head and the Bond number.">Density ρ</div><div class="input-wrap"><input class="field" id="cap-rho" type="number" value="1000"><select class="unit-sel"><option value="1">kg/m³</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Gravitational acceleration. 9.81 m/s² at Earth's surface.">Gravity g</div><div class="input-wrap"><input class="field" id="cap-g" type="number" value="9.81" step="0.01"><select class="unit-sel"><option value="1">m/s²</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Vertical height the liquid must be drawn up against gravity (hydrostatic head to overcome). For a small collector this is a few mm to a few cm.">Lift height H</div><div class="input-wrap"><input class="field" id="cap-H" type="number" value="20" step="1"><select class="unit-sel" id="cap-H-u"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+        <div class="input-row"><div class="input-label" title="Characteristic length L used in the Bond number Bo = ρgL²/γ — typically the channel/droplet size or device fluid dimension. Bo ≪ 1 means surface tension dominates.">Characteristic length L (for Bo)</div><div class="input-wrap"><input class="field" id="cap-Lc" type="number" value="1" step="0.1"><select class="unit-sel" id="cap-Lc-u"><option value="0.001">mm</option><option value="0.01">cm</option><option value="1">m</option></select></div></div>
+        <button class="btn-calc" onclick="capCalc()">Calculate Capillary Pressure</button>
+        <div class="output" id="cap-out"><div class="output-header">Results</div><div class="output-body" id="cap-out-body"></div></div>
       </div>
     </div>
 

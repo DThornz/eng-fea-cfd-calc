@@ -63,7 +63,7 @@ function scrollToSection(id) {
 }
 
 window.addEventListener('scroll', () => {
-  const sections = ['yplus','reynolds','turbulence','boundary-layer','pipe-flow',
+  const sections = ['yplus','reynolds','turbulence','boundary-layer','pipe-flow','capillary',
                     'non-newt','pulsatile','porous','elastic','stress','beam',
                     'heat-transfer','hvac','units'];
   let current = sections[0];

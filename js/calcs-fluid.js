@@ -582,6 +582,108 @@ function ypaCalc() {
   ], 'SST k-ω (Menter 1994): y⁺ < 1 resolves the viscous sublayer without wall functions. Avoid y⁺ = 5–30 (buffer layer). Wall functions require y⁺ = 30–300.');
 }
 
+/* ── Washburn–Lucas capillary wicking ──────────────────────── */
+/* Penetration of a wetting liquid into a channel by capillary action:
+   cylinder L² = (r·γ·cosθ)/(2μ)·t ; slit gap b: L² = (b·γ·cosθ)/(3μ)·t */
+function washCalc() {
+  const gamma = v('wash-gamma');
+  const theta = v('wash-theta') * Math.PI / 180;
+  const mu    = v('wash-mu') * su('wash-mu-u');
+  const t     = v('wash-t')  * su('wash-t-u');
+  const Lt    = v('wash-Lt') * su('wash-Lt-u');
+  if (!gamma || gamma <= 0 || !mu || mu <= 0)
+    return errOut('wash-out', 'Surface tension and viscosity must be positive.');
+  const cosT = Math.cos(theta);
+  if (cosT <= 0)
+    return errOut('wash-out', 'Contact angle ≥ 90° → non-wetting surface; no spontaneous capillary uptake.');
+  if (!t || t <= 0 || !Lt || Lt <= 0)
+    return errOut('wash-out', 'Evaluation time and pathway length must be positive.');
+
+  const geomTab = document.querySelector('#wash-tabs .tab.active')?.textContent?.trim() || 'Cylindrical';
+  let a, C, dP, geomLabel;
+  if (geomTab.includes('Slit')) {
+    a = v('wash-b') * su('wash-b-u');                 // plate gap b
+    if (!a || a <= 0) return errOut('wash-out', 'Plate gap must be positive.');
+    C  = a * gamma * cosT / (3 * mu);                 // washburn coefficient
+    dP = 2 * gamma * cosT / a;
+    geomLabel = 'Parallel-plate slit (gap b = ' + fmtN(a * 1e6, 4) + ' μm)';
+  } else {
+    a = v('wash-r') * su('wash-r-u');                 // capillary radius r
+    if (!a || a <= 0) return errOut('wash-out', 'Channel radius must be positive.');
+    C  = a * gamma * cosT / (2 * mu);
+    dP = 2 * gamma * cosT / a;
+    geomLabel = 'Cylindrical channel (radius r = ' + fmtN(a * 1e6, 4) + ' μm)';
+  }
+
+  const L      = Math.sqrt(C * t);          // penetration at time t
+  const vFront = 0.5 * Math.sqrt(C / t);    // dL/dt at time t
+  const tFill  = Lt * Lt / C;               // time to reach pathway length Lt
+
+  const reached = L >= Lt;
+  let fillNote, cls;
+  if (tFill <= 5)        { fillNote = '✓ Fast — fills the pathway in ≤ 5 s';               cls = 'good'; }
+  else if (tFill <= 30)  { fillNote = '⚠ Moderate — 5–30 s to fill; usable but slow';      cls = 'warn'; }
+  else                   { fillNote = '✗ Slow — > 30 s to fill; widen channel or raise θ wetting'; cls = 'bad'; }
+
+  showOut('wash-out', [
+    { label: 'Geometry',                     val: geomLabel,                 unit: '' },
+    { label: 'cos θ (wetting factor)',       val: fmtN(cosT, 4),             unit: '' },
+    { label: 'Capillary driving pressure',   val: fmtN(dP, 4),               unit: 'Pa' },
+    { label: 'Wicking coefficient C',        val: fmtN(C, 4),                unit: 'm²/s' },
+    { label: 'Penetration L at t = ' + fmtN(t, 3) + ' s', val: fmtN(L * 1000, 4), unit: 'mm', cls: reached ? 'good' : '' },
+    { label: 'Front velocity dL/dt at t',    val: fmtN(vFront * 1000, 4),    unit: 'mm/s' },
+    { label: 'Time to fill pathway (' + fmtN(Lt * 1000, 3) + ' mm)', val: fmtN(tFill, 4), unit: 's', cls },
+    { label: 'Assessment',                   val: fillNote,                  unit: '', cls },
+  ], 'Washburn–Lucas: L = √(C·t), C = r·γ·cosθ/2μ (tube) or b·γ·cosθ/3μ (slit). Assumes laminar, fully wetting front, negligible gravity & inertia (valid for Bo ≪ 1, t beyond the inertial regime). Whole saliva γ ≈ 0.053–0.060 N/m, μ ≈ 1–5 mPa·s.');
+}
+
+/* ── Young–Laplace capillary pressure, rise & Bond number ──── */
+function capCalc() {
+  const gamma = v('cap-gamma');
+  const theta = v('cap-theta') * Math.PI / 180;
+  const r     = v('cap-r')  * su('cap-r-u');
+  const rho   = v('cap-rho');
+  const grav  = v('cap-g');
+  const H     = v('cap-H')  * su('cap-H-u');
+  const Lc    = v('cap-Lc') * su('cap-Lc-u');
+  if (!gamma || gamma <= 0 || !r || r <= 0 || !rho || rho <= 0 || !grav || grav <= 0)
+    return errOut('cap-out', 'Surface tension, radius, density, and gravity must be positive.');
+  const cosT = Math.cos(theta);
+
+  const dPcap = 2 * gamma * cosT / r;            // Young–Laplace capillary pressure
+  const hMax  = 2 * gamma * cosT / (rho * grav * r);  // max capillary rise
+  const Ph    = rho * grav * H;                  // hydrostatic head over height H
+  const net   = dPcap - Ph;
+  const lamC  = Math.sqrt(gamma / (rho * grav)); // capillary length
+  const Bo    = rho * grav * Lc * Lc / gamma;    // Bond number
+
+  let capCls, capMsg;
+  if (cosT <= 0) {
+    capCls = 'bad'; capMsg = '✗ Non-wetting (θ ≥ 90°) — liquid is repelled, capillary depression';
+  } else if (net > 0) {
+    capCls = 'good'; capMsg = '✓ Capillary pressure overcomes ' + fmtN(H * 1000, 3) + ' mm head — fills against gravity';
+  } else {
+    capCls = 'warn'; capMsg = '⚠ Capillary pressure below the ' + fmtN(H * 1000, 3) + ' mm hydrostatic head — gravity wins at this height';
+  }
+
+  let boCls, boMsg;
+  if (Bo < 0.1)      { boCls = 'good'; boMsg = '✓ Bo ≪ 1 — capillary forces dominate (passive wicking reliable)'; }
+  else if (Bo < 10)  { boCls = 'warn'; boMsg = '⚠ Bo ~ 1 — capillary and gravity comparable'; }
+  else               { boCls = 'bad';  boMsg = '✗ Bo ≫ 1 — gravity dominates at this length scale'; }
+
+  showOut('cap-out', [
+    { label: 'cos θ (wetting factor)',          val: fmtN(cosT, 4),         unit: '' },
+    { label: 'Capillary pressure ΔP_cap',       val: fmtN(dPcap, 4),        unit: 'Pa', cls: capCls },
+    { label: 'Max capillary rise h_max',        val: fmtN(hMax * 1000, 4),  unit: 'mm' },
+    { label: 'Hydrostatic head ρgH (H = ' + fmtN(H * 1000, 3) + ' mm)', val: fmtN(Ph, 4), unit: 'Pa' },
+    { label: 'Net available pressure',          val: fmtN(net, 4),          unit: 'Pa', cls: capCls },
+    { label: 'Gravity check',                   val: capMsg,                unit: '', cls: capCls },
+    { label: 'Capillary length √(γ/ρg)',        val: fmtN(lamC * 1000, 4),  unit: 'mm' },
+    { label: 'Bond number Bo = ρgL²/γ',         val: fmtN(Bo, 4),           unit: '', cls: boCls },
+    { label: 'Regime',                          val: boMsg,                 unit: '', cls: boCls },
+  ], 'Young–Laplace ΔP = 2γcosθ/r drives spontaneous filling; max rise h = 2γcosθ/(ρgr). Bo = ρgL²/γ compares gravity to surface tension over length L. For a hydrophilic mm-scale saliva collector Bo ≪ 1, so capillary forces govern filling and gravity governs dispensing.');
+}
+
 /* ── y* (viscous/pressure-based wall unit) ─────────────────── */
 function ysCalc() {
   const y    = v('ys-y')   * su('ys-y-u');

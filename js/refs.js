@@ -51,6 +51,10 @@ const _R = {
   launder_spalding: 'Launder, B.E. & Spalding, D.B. (1974). The numerical computation of turbulent flows. Computer Methods in Applied Mechanics and Engineering, 3(2), 269–289.',
   russo_basse:   'Russo, G. & Basse, N.T. (2016). Scaling of turbulence intensity for low-speed flow in smooth pipes. Flow Measurement and Instrumentation, 52, 101–114.',
   ostwald:       'Ostwald, W. (1925). Ueber die Geschwindigkeitsfunktion der Viskosität disperser Systeme. Kolloid-Zeitschrift, 36(3), 157–167. / de Waele, A. (1923). Viscometry and plastometry. Oil and Colour Chemists\' Association Journal, 6, 33–69.',
+  washburn_1921: 'Washburn, E.W. (1921). The dynamics of capillary flow. Physical Review, 17(3), 273–283.',
+  lucas_1918:    'Lucas, R. (1918). Ueber das Zeitgesetz des kapillaren Aufstiegs von Flüssigkeiten. Kolloid-Zeitschrift, 23(1), 15–22.',
+  young_1805:    'Young, T. (1805). An essay on the cohesion of fluids. Philosophical Transactions of the Royal Society of London, 95, 65–87. / Laplace, P.S. (1806). Traité de Mécanique Céleste, Suppl. au Livre X.',
+  de_gennes_2004:'de Gennes, P.-G., Brochard-Wyart, F. & Quéré, D. (2004). Capillarity and Wetting Phenomena: Drops, Bubbles, Pearls, Waves. Springer.',
 
   /* ── Solid mechanics / structural ──────────────────────── */
   timoshenko_elast:   'Timoshenko, S.P. & Goodier, J.N. (1951). Theory of Elasticity (2nd ed.). McGraw-Hill.',
@@ -200,6 +204,10 @@ const CALC_REFS = {
   'ysCalc':      [_R.launder_spalding, _R.wilcox, _R.pope_turb],
   'ypaCalc':     [_R.menter_sst, _R.launder_spalding, _R.ferziger_peric],
   'yplus':       [_R.schlichting, _R.white_fm],     // section fallback
+
+  'washCalc':    [_R.washburn_1921, _R.lucas_1918, _R.de_gennes_2004],
+  'capCalc':     [_R.young_1805, _R.de_gennes_2004, _R.white_fm],
+  'capillary':   [_R.de_gennes_2004, _R.washburn_1921],   // section fallback
 
   'reCalc':      [_R.reynolds_1883, _R.white_fm],
   'maCalc':      [_R.anderson_comp, _R.shapiro],
